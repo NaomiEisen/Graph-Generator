@@ -1,10 +1,10 @@
 import argparse
 
 from globals import TestPrimitives
-from plotting.bw_all_gpus import bandwidth_all_gpu_test
-from plotting.bw_avg import bandwidth_avg_gpu
-from plotting.generic import plot_data_from_files
-from plotting.nccl import nccl_test_graph
+from graph_generators.bw_all_gpus import bandwidth_all_gpu_test
+from graph_generators.bw_avg import bandwidth_avg_gpu
+from graph_generators.generic import plot_data_from_files
+from graph_generators.nccl import nccl_test_graph
 
 
 def main():
