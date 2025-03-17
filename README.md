@@ -25,8 +25,8 @@ Run the generator by executing the following command in the terminal:
 ```bash
 python <generator-name> <file-paths>
 ```
-- Replace <generator-name> with the name of the generator script you'd like to run.
-- The <file-paths> can either be individual file paths or a directory path containing the files.
+- Replace 'generator-name' with the name of the generator script you'd like to run.
+- The 'file-paths' can either be individual file paths or a directory path containing the files.
 
 ### 4. Customize the Graph (Optional)
 
