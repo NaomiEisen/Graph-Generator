@@ -70,30 +70,41 @@ If the provided graph generators do not meet your needs, you can easily add your
 ### Themed Color Sets
 
 - **Basic Theme**:  
-  - ![#4394E5](https://www.colorhexa.com/4394e5.png) Vivid Blue  
-  - ![#F5921B](https://www.colorhexa.com/f5921b.png) Bright Orange  
-  - ![#5E40BE](https://www.colorhexa.com/5e40be.png) Strong Purple  
-  - ![#87BB62](https://www.colorhexa.com/87bb62.png) Fresh Green  
-  - ![#D46FAD](https://www.colorhexa.com/d46fad.png) Soft Pink  
+  <div style="display: flex; flex-wrap: wrap;">
+    <img src="https://www.colorhexa.com/4394e5.png" width="30" height="30" alt="Vivid Blue"> 
+    <img src="https://www.colorhexa.com/f5921b.png" width="30" height="30" alt="Bright Orange">
+    <img src="https://www.colorhexa.com/5e40be.png" width="30" height="30" alt="Strong Purple">
+    <img src="https://www.colorhexa.com/87bb62.png" width="30" height="30" alt="Fresh Green">
+    <img src="https://www.colorhexa.com/d46fad.png" width="30" height="30" alt="Soft Pink">
+  </div>
 
 - **Sunset Theme**:  
-  - ![#003F5C](https://www.colorhexa.com/003f5c.png) Deep Twilight Blue  
-  - ![#58508D](https://www.colorhexa.com/58508d.png) Dusk Purple  
-  - ![#BC5090](https://www.colorhexa.com/bc5090.png) Vibrant Sunset Magenta  
-  - ![#FF6361](https://www.colorhexa.com/ff6361.png) Fiery Red-Orange Sunset  
-  - ![#FFA600](https://www.colorhexa.com/ffa600.png) Warm Golden Glow  
+  <div style="display: flex; flex-wrap: wrap;">
+    <img src="https://www.colorhexa.com/003f5c.png" width="30" height="30" alt="Deep Twilight Blue">
+    <img src="https://www.colorhexa.com/58508d.png" width="30" height="30" alt="Dusk Purple">
+    <img src="https://www.colorhexa.com/bc5090.png" width="30" height="30" alt="Vibrant Sunset Magenta">
+    <img src="https://www.colorhexa.com/ff6361.png" width="30" height="30" alt="Fiery Red-Orange Sunset">
+    <img src="https://www.colorhexa.com/ffa600.png" width="30" height="30" alt="Warm Golden Glow">
+  </div>
 
 - **Retro Theme**:  
-  - ![#780C28](https://www.colorhexa.com/780c28.png) Deep Vintage Red  
-  - ![#6E8E59](https://www.colorhexa.com/6e8e59.png) Muted Olive Green  
-  - ![#DF6D14](https://www.colorhexa.com/df6d14.png) Warm Burnt Orange  
+  <div style="display: flex; flex-wrap: wrap;">
+    <img src="https://www.colorhexa.com/780c28.png" width="30" height="30" alt="Deep Vintage Red">
+    <img src="https://www.colorhexa.com/6e8e59.png" width="30" height="30" alt="Muted Olive Green">
+    <img src="https://www.colorhexa.com/df6d14.png" width="30" height="30" alt="Warm Burnt Orange">
+  </div>
 
 - **Earth Theme**:  
-  - ![#27445D](https://www.colorhexa.com/27445d.png) Deep Ocean Blue  
-  - ![#497D74](https://www.colorhexa.com/497d74.png) Forest Teal  
-  - ![#A0C878](https://www.colorhexa.com/a0c878.png) Fresh Nature Green  
+  <div style="display: flex; flex-wrap: wrap;">
+    <img src="https://www.colorhexa.com/27445d.png" width="30" height="30" alt="Deep Ocean Blue">
+    <img src="https://www.colorhexa.com/497d74.png" width="30" height="30" alt="Forest Teal">
+    <img src="https://www.colorhexa.com/a0c878.png" width="30" height="30" alt="Fresh Nature Green">
+  </div>
 
 - **Girly Theme**:  
-  - ![#69247C](https://www.colorhexa.com/69247c.png) Bold Feminine Purple  
-  - ![#DA498D](https://www.colorhexa.com/da498d.png) Bright Pink  
-  - ![#FAC67A](https://www.colorhexa.com/fac67a.png) Soft Golden Peach  
+  <div style="display: flex; flex-wrap: wrap;">
+    <img src="https://www.colorhexa.com/69247c.png" width="30" height="30" alt="Bold Feminine Purple">
+    <img src="https://www.colorhexa.com/da498d.png" width="30" height="30" alt="Bright Pink">
+    <img src="https://www.colorhexa.com/fac67a.png" width="30" height="30" alt="Soft Golden Peach">
+  </div>
+
