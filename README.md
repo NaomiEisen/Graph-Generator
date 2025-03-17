@@ -64,7 +64,7 @@ If the provided graph generators do not meet your needs, you can easily add your
 2. Update the Globals File: Add the name of your custom graph generator to the globals.py file to make it available for use in the project.
 3. Link the Generator: In the create_graph.py file, locate the marked section and add the function for your custom generator. This will allow the program to navigate to the initial function of your custom graph generator.
 
-### Themed Color Sets
+## Themed Color Sets
 
 - **Basic Theme-Recommended**:  
   <div style="display: flex; flex-wrap: wrap;">
