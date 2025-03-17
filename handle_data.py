@@ -4,7 +4,7 @@ import os
 
 def load_data_matrix_format(file_name):
     """
-    Loads data from a .txt file into a Pandas DataFrame.
+    Loads data from a .txt or Excel file into a Pandas DataFrame.
     """
     try:
         if file_name.endswith((".xls", ".xlsx")):
