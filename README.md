@@ -1,12 +1,10 @@
 # Graph-Generator
-A tool for generating graphs from matrix-formatted data (e.g., Excel or TXT files), featuring customizable templates for graph creation (and personal generators for specific tests).
+A tool for generating graphs from matrix-formatted data (e.g., Excel or txt files).
 
 ## How to Run the Program
-
 To run the Graph Generator, follow these steps:
 
 ### 1. Clone the Repository
-
 Clone the repository to your local machine using Git:
 
 ```bash
@@ -24,12 +22,11 @@ pip install matplotlib pandas openpyxl
 ### 3. Run the Program
 Run the generator by executing the following command in the terminal:
 
-Run the generator by executing the following command in the terminal:
 ```bash
 python <generator-name> <file-paths>
 ```
 - Replace <generator-name> with the name of the generator script you'd like to run.
-- <file-paths> can either be individual file paths or a directory path containing the files.
+- The <file-paths> can either be individual file paths or a directory path containing the files.
 
 ### 4. Customize the Graph (Optional)
 
