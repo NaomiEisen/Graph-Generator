@@ -25,8 +25,8 @@ Run the generator by executing the following command in the terminal:
 ```bash
 python <generator-name> <file-paths>
 ```
-- Replace 'generator-name' with the name of the generator script you'd like to run.
-- The 'file-paths' can either be individual file paths or a directory path containing the files.
+- Replace ***generator-name*** with the name of the generator script you'd like to run.
+- The ***file-paths*** can either be individual file paths or a directory path containing the files.
 
 ### 4. Customize the Graph (Optional)
 
@@ -66,7 +66,7 @@ If the provided graph generators do not meet your needs, you can easily add your
 
 ### Themed Color Sets
 
-- **Basic Theme**:  
+- **Basic Theme-Recommended**:  
   <div style="display: flex; flex-wrap: wrap;">
     <img src="https://www.colorhexa.com/4394e5.png" width="30" height="30" alt="Vivid Blue"> 
     <img src="https://www.colorhexa.com/f5921b.png" width="30" height="30" alt="Bright Orange">
@@ -75,7 +75,7 @@ If the provided graph generators do not meet your needs, you can easily add your
     <img src="https://www.colorhexa.com/d46fad.png" width="30" height="30" alt="Soft Pink">
   </div>
 
-- **Sunset Theme**:  
+- **Sunset Theme-Recommended**:  
   <div style="display: flex; flex-wrap: wrap;">
     <img src="https://www.colorhexa.com/003f5c.png" width="30" height="30" alt="Deep Twilight Blue">
     <img src="https://www.colorhexa.com/58508d.png" width="30" height="30" alt="Dusk Purple">
