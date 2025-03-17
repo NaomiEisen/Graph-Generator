@@ -70,16 +70,30 @@ If the provided graph generators do not meet your needs, you can easily add your
 ### Themed Color Sets
 
 - **Basic Theme**:  
-  ![#4394E5](https://via.placeholder.com/20/4394E5/000000?text=+) ![#F5921B](https://via.placeholder.com/20/F5921B/000000?text=+) ![#5E40BE](https://via.placeholder.com/20/5E40BE/000000?text=+) ![#87BB62](https://via.placeholder.com/20/87BB62/000000?text=+) ![#D46FAD](https://via.placeholder.com/20/D46FAD/000000?text=+)
+  - ![#4394E5](https://www.colorhexa.com/4394e5.png) Vivid Blue  
+  - ![#F5921B](https://www.colorhexa.com/f5921b.png) Bright Orange  
+  - ![#5E40BE](https://www.colorhexa.com/5e40be.png) Strong Purple  
+  - ![#87BB62](https://www.colorhexa.com/87bb62.png) Fresh Green  
+  - ![#D46FAD](https://www.colorhexa.com/d46fad.png) Soft Pink  
 
 - **Sunset Theme**:  
-  ![#003F5C](https://via.placeholder.com/20/003F5C/000000?text=+) ![#58508D](https://via.placeholder.com/20/58508D/000000?text=+) ![#BC5090](https://via.placeholder.com/20/BC5090/000000?text=+) ![#FF6361](https://via.placeholder.com/20/FF6361/000000?text=+) ![#FFA600](https://via.placeholder.com/20/FFA600/000000?text=+)
+  - ![#003F5C](https://www.colorhexa.com/003f5c.png) Deep Twilight Blue  
+  - ![#58508D](https://www.colorhexa.com/58508d.png) Dusk Purple  
+  - ![#BC5090](https://www.colorhexa.com/bc5090.png) Vibrant Sunset Magenta  
+  - ![#FF6361](https://www.colorhexa.com/ff6361.png) Fiery Red-Orange Sunset  
+  - ![#FFA600](https://www.colorhexa.com/ffa600.png) Warm Golden Glow  
 
 - **Retro Theme**:  
-  ![#780C28](https://via.placeholder.com/20/780C28/000000?text=+) ![#6E8E59](https://via.placeholder.com/20/6E8E59/000000?text=+) ![#DF6D14](https://via.placeholder.com/20/DF6D14/000000?text=+)
+  - ![#780C28](https://www.colorhexa.com/780c28.png) Deep Vintage Red  
+  - ![#6E8E59](https://www.colorhexa.com/6e8e59.png) Muted Olive Green  
+  - ![#DF6D14](https://www.colorhexa.com/df6d14.png) Warm Burnt Orange  
 
 - **Earth Theme**:  
-  ![#27445D](https://via.placeholder.com/20/27445D/000000?text=+) ![#497D74](https://via.placeholder.com/20/497D74/000000?text=+) ![#A0C878](https://via.placeholder.com/20/A0C878/000000?text=+)
+  - ![#27445D](https://www.colorhexa.com/27445d.png) Deep Ocean Blue  
+  - ![#497D74](https://www.colorhexa.com/497d74.png) Forest Teal  
+  - ![#A0C878](https://www.colorhexa.com/a0c878.png) Fresh Nature Green  
 
 - **Girly Theme**:  
-  ![#69247C](https://via.placeholder.com/20/69247C/000000?text=+) ![#DA498D](https://via.placeholder.com/20/DA498D/000000?text=+) ![#FAC67A](https://via.placeholder.com/20/FAC67A/000000?text=+)
+  - ![#69247C](https://www.colorhexa.com/69247c.png) Bold Feminine Purple  
+  - ![#DA498D](https://www.colorhexa.com/da498d.png) Bright Pink  
+  - ![#FAC67A](https://www.colorhexa.com/fac67a.png) Soft Golden Peach  
