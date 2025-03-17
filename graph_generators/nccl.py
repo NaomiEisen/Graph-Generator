@@ -1,7 +1,4 @@
-import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
-import argparse
 
 from globals import ColorPalette, Const
 from handle_data import load_data_matrix_format
