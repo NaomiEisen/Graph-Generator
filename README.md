@@ -70,16 +70,16 @@ If the provided graph generators do not meet your needs, you can easily add your
 ### Themed Color Sets
 
 - **Basic Theme**:  
-  <span style="background-color:#4394E5;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#F5921B;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#5E40BE;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#87BB62;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#D46FAD;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  ![#4394E5](https://via.placeholder.com/20/4394E5/000000?text=+) ![#F5921B](https://via.placeholder.com/20/F5921B/000000?text=+) ![#5E40BE](https://via.placeholder.com/20/5E40BE/000000?text=+) ![#87BB62](https://via.placeholder.com/20/87BB62/000000?text=+) ![#D46FAD](https://via.placeholder.com/20/D46FAD/000000?text=+)
 
 - **Sunset Theme**:  
-  <span style="background-color:#003F5C;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#58508D;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#BC5090;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#FF6361;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#FFA600;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  ![#003F5C](https://via.placeholder.com/20/003F5C/000000?text=+) ![#58508D](https://via.placeholder.com/20/58508D/000000?text=+) ![#BC5090](https://via.placeholder.com/20/BC5090/000000?text=+) ![#FF6361](https://via.placeholder.com/20/FF6361/000000?text=+) ![#FFA600](https://via.placeholder.com/20/FFA600/000000?text=+)
 
 - **Retro Theme**:  
-  <span style="background-color:#780C28;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#6E8E59;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#DF6D14;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  ![#780C28](https://via.placeholder.com/20/780C28/000000?text=+) ![#6E8E59](https://via.placeholder.com/20/6E8E59/000000?text=+) ![#DF6D14](https://via.placeholder.com/20/DF6D14/000000?text=+)
 
 - **Earth Theme**:  
-  <span style="background-color:#27445D;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#497D74;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#A0C878;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  ![#27445D](https://via.placeholder.com/20/27445D/000000?text=+) ![#497D74](https://via.placeholder.com/20/497D74/000000?text=+) ![#A0C878](https://via.placeholder.com/20/A0C878/000000?text=+)
 
 - **Girly Theme**:  
-  <span style="background-color:#69247C;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#DA498D;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="background-color:#FAC67A;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  ![#69247C](https://via.placeholder.com/20/69247C/000000?text=+) ![#DA498D](https://via.placeholder.com/20/DA498D/000000?text=+) ![#FAC67A](https://via.placeholder.com/20/FAC67A/000000?text=+)
