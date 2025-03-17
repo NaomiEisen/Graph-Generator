@@ -1,6 +1,6 @@
 import argparse
 
-from globals import TestPrimitives
+from globals import GeneratorScripts
 from graph_generators.bw_all_gpus import bandwidth_all_gpu_test
 from graph_generators.bw_avg import bandwidth_avg_gpu
 from graph_generators.generic import plot_data_from_files
@@ -15,10 +15,10 @@ def main():
     args = parser.parse_args()
 
     test_function_map = {
-    TestPrimitives.NCCL: nccl_test_graph,
-    TestPrimitives.BANDWIDTH_GPU_AVG: bandwidth_avg_gpu,
-    TestPrimitives.BANDWIDTH_GPU_ALL: bandwidth_all_gpu_test,
-    TestPrimitives.GENERIC: plot_data_from_files
+    GeneratorScripts.NCCL: nccl_test_graph,
+    GeneratorScripts.BANDWIDTH_GPU_AVG: bandwidth_avg_gpu,
+    GeneratorScripts.BANDWIDTH_GPU_ALL: bandwidth_all_gpu_test,
+    GeneratorScripts.GENERIC: plot_data_from_files
     }   
 
     func = test_function_map.get(args.test_primitive)

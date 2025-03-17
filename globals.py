@@ -42,7 +42,7 @@ class ColorPalette:
     GIRLY_THEME = [GIRLY_PURPLE, GIRLY_PINK, GIRLY_GOLD]
     
 
-class TestPrimitives:
+class GeneratorScripts:
     NCCL = 'nccl'
     BANDWIDTH_GPU_AVG = 'bwavg'
     BANDWIDTH_GPU_ALL = 'bwall'
