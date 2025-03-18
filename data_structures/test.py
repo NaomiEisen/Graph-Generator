@@ -1,10 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from helpers.handle_data import load_data_matrix_format
+from utils.handle_data import load_data_matrix_format
 
 class Test:
-    def __init__(self, name: str, activate: bool, start_indicator: str, end_indicator: str, offset: int, data_pandas=None):
+    def __init__(self, name, activate, start_indicator =  None, end_indicator = None, offset = 0, data_pandas=None):
         """
         Initializes the Test object with the given attributes.
         
@@ -45,9 +45,9 @@ class Test:
         # Check if both start and end indices were found
         if start_index is not None and end_index is not None:
             # Call the load_data function with the file and indexes
-            print(start_index)
-            print(end_index)
-            load_data_matrix_format(file, start_index, end_index, 1)
+            # print(start_index)
+            # print(end_index)
+            self.data_pandas = load_data_matrix_format(file, start_index, end_index, 1)
         else:
             raise ValueError("Could not find both start and end indicators in the file.")
 

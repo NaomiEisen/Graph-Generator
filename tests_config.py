@@ -1,5 +1,5 @@
 class NvBandwidthConfig:
-    # Define the configuration for the tests, including missing attributes
+    # single gpu eith host memcpy_ce
     H2D_MEMCPY_CE = {
         "name": "host_to_device_memcpy_ce", 
         "activate": True,
@@ -10,42 +10,59 @@ class NvBandwidthConfig:
 
     D2H_MEMCPY_CE = {
         "name": "device_to_host_memcpy_ce", 
-        "activate": False,
-        "offset": 0,
-        "start": "start_indicator",  
-        "end": "end_indicator"       
+        "activate": True,
+        "offset": 2,
+        "start": "Running device_to_host_memcpy_ce",  
+        "end": "SUM device_to_host_memcpy_ce"       
     }
 
     H2DB_MEMCPY_CE = {
         "name": "host_to_device_bidirectional_memcpy_ce", 
         "activate": True,
-        "offset": 0,
-        "start": "start_indicator",  
-        "end": "end_indicator"       
+        "offset": 2,
+        "start": "Running host_to_device_bidirectional_memcpy_ce",  
+        "end": "SUM host_to_device_bidirectional_memcpy_ce"       
     }
 
     D2HB_MEMCPY_CE = {
         "name": "device_to_host_bidirectional_memcpy_ce", 
-        "activate": False,
-        "offset": 0,
-        "start": "start_indicator",  # Replace with actual start indicator if needed
-        "end": "end_indicator"       # Replace with actual end indicator if needed
-    }
-
-    # device to device memcpy.ce
-    D2D_READ_MEMCPY_CE = {
-        "name": "device_to_device_memcpy_read_ce", 
         "activate": True,
-        "offset": 0,
-        "start": "start_indicator",  # Replace with actual start indicator if needed
-        "end": "end_indicator"       # Replace with actual end indicator if needed
+        "offset": 2,
+        "start": "Running device_to_host_bidirectional_memcpy_ce",  
+        "end": "SUM device_to_host_bidirectional_memcpy_ce "       
     }
 
-# Example usage:
-# print(NvBandwidthConfig.H2D_MEMCPY_CE)
-# print(NvBandwidthConfig.D2H_MEMCPY_CE)
+    # device to device memcpy_ce
+    # device to device memcpy_read_ce
+    D2D_READ_MEMCPY_CE = {
+        "name": "d2d_memcpy_read_ce", 
+        "activate": True,
+        "offset": 2,
+        "start": "Running device_to_device_memcpy_read_ce",  
+        "end": "SUM device_to_device_memcpy_read_ce"       
+    }
 
-# test_name = NvBandwidthConfig.H2D_MEMCPY_CE["name"]
-# test_activate = NvBandwidthConfig.H2D_MEMCPY_CE["activate"]
-# test_offset = NvBandwidthConfig.H2D_MEMCPY_CE["offset"]
+    # device to device memcpy_write_ce
+    D2D_WRITE_MEMCPY_CE = {
+        "name": "d2d_memcpy_write_ce", 
+        "activate": True,
+        "offset": 2,
+        "start": "Running device_to_device_memcpy_write_ce",  
+        "end": "SUM device_to_device_memcpy_write_ce"       
+    }
 
+    D2D_READ_BIDIRECT_TOTAL_MEMCPY_CE = {
+        "name": "d2d_bidirectional_memcpy_read_ce_total", 
+        "activate": True,
+        "offset": 3,
+        "start": "SUM device_to_device_bidirectional_memcpy_read_ce_read2",  
+        "end": "SUM device_to_device_bidirectional_memcpy_read_ce_total"       
+    }
+
+    D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_CE = {
+        "name": "d2d_bidirectional_memcpy_write_ce_total", 
+        "activate": True,
+        "offset": 3,
+        "start": "SUM device_to_device_bidirectional_memcpy_write_ce_write2",  
+        "end": "SUM device_to_device_bidirectional_memcpy_write_ce_total"       
+    }
