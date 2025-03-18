@@ -2,7 +2,7 @@ import os
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
-from colors import ColorPalette, Const
+from utils.colors import ColorPalette, Const
 from utils.handle_data import load_data_matrix_format
 
 

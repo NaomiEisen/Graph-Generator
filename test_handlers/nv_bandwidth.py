@@ -22,6 +22,9 @@ def device_and_host_memcpy_ce(nv_bandwith_struct):
         d2hb_test.data_pandas
     ], axis=0)
 
+    # Append 'gpu' to each column name
+    combined_data.columns = ['gpu ' + col for col in combined_data.columns]
+
     # TODO: delete 
     print(combined_data)
 
