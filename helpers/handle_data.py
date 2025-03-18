@@ -25,27 +25,22 @@ def load_data_matrix_format(file_name, start_index=0, end_index=None, offset_rig
                 end_index = len(lines) - 1
 
             selected_lines = lines[start_index:end_index]
-            print(selected_lines)
 
             # Extract header from the first selected line
             header = selected_lines[0].strip().split()
 
             # Extract data (excluding header)
             data_lines = [line.strip().split() for line in selected_lines[1:] if line.strip()]
-            print(data_lines)
 
             # Apply offset_right: Remove the first `offset_right` elements from each row
             if offset_right > 0:
                 data_lines = [row[offset_right:] for row in data_lines]
-                print(data_lines)
 
             # Convert processed data back to a pandas DataFrame
             data = pd.DataFrame(data_lines, columns=header)
 
-            print(data)
-
             # Convert data to numeric format
-            data = data.apply(pd.to_numeric, errors='ignore')
+            #data = data.apply(pd.to_numeric, errors='ignore')
 
         return data
 
@@ -108,21 +103,6 @@ def get_files_list(args):
 
     return files
     
-# def get_files_list(args):
-#     # If any input in the list is a directory, get all files inside
-#     files = []
-#     for file in args:
-#         if isinstance(file, str) and os.path.isdir(file):
-#             # Append only valid file paths from the directory
-#             files.extend(
-#                 os.path.join(file, f) for f in os.listdir(file) if os.path.isfile(os.path.join(file, f))
-#             )
-#         else:
-#             # If it's already a file, keep it
-#             files.append(file)
-
-#     return files
-
 def save_graphs(plt, file_name_without_extension):
     output_dir = "output-graphs"
     os.makedirs(output_dir, exist_ok=True)

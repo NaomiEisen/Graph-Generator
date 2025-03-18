@@ -10,26 +10,26 @@ class NvBandwidthConfig:
 
     D2H_MEMCPY_CE = {
         "name": "device_to_host_memcpy_ce", 
-        "activate": False,
-        "offset": 0,
-        "start": "start_indicator",  
-        "end": "end_indicator"       
+        "activate": True,
+        "offset": 2,
+        "start": "Running device_to_host_memcpy_ce",  
+        "end": "SUM device_to_host_memcpy_ce"       
     }
 
     H2DB_MEMCPY_CE = {
         "name": "host_to_device_bidirectional_memcpy_ce", 
         "activate": True,
-        "offset": 0,
-        "start": "start_indicator",  
-        "end": "end_indicator"       
+        "offset": 2,
+        "start": "Running host_to_device_bidirectional_memcpy_ce",  
+        "end": "SUM host_to_device_bidirectional_memcpy_ce"       
     }
 
     D2HB_MEMCPY_CE = {
         "name": "device_to_host_bidirectional_memcpy_ce", 
-        "activate": False,
-        "offset": 0,
-        "start": "start_indicator",  # Replace with actual start indicator if needed
-        "end": "end_indicator"       # Replace with actual end indicator if needed
+        "activate": True,
+        "offset": 2,
+        "start": "Running device_to_host_bidirectional_memcpy_ce",  
+        "end": "SUM device_to_host_bidirectional_memcpy_ce "       
     }
 
     # device to device memcpy.ce
@@ -37,8 +37,8 @@ class NvBandwidthConfig:
         "name": "device_to_device_memcpy_read_ce", 
         "activate": True,
         "offset": 0,
-        "start": "start_indicator",  # Replace with actual start indicator if needed
-        "end": "end_indicator"       # Replace with actual end indicator if needed
+        "start": "start_indicator",  
+        "end": "end_indicator"       
     }
 
 # Example usage:

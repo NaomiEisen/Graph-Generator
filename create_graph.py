@@ -1,11 +1,11 @@
 import argparse
 
 from globals import GeneratorScripts
-from graph_generators.bw_all_gpus import bandwidth_all_gpu_test
-from graph_generators.bw_avg import bandwidth_avg_gpu
-from graph_generators.generic import plot_data_from_files
-from graph_generators.nccl import nccl_test_graph
-from graph_generators.nv_bandwidth.nv_bandwidth import start_nvbandwith
+# from graph_generators.old.bw_all_gpus import bandwidth_all_gpu_test
+# from graph_generators.old.bw_avg import bandwidth_avg_gpu
+# from graph_generators.generic import plot_data_from_files
+# from graph_generators.old.nccl import nccl_test_graph
+from test_handles.nv_bandwidth import start_nvbandwith
 from helpers.handle_data import get_files_list
 from helpers.parse_file import TestsType, determine_test_type
 
@@ -13,10 +13,10 @@ from helpers.parse_file import TestsType, determine_test_type
 def main():
     # mapping for different tests graph generators
     test_function_map = {
-    GeneratorScripts.NCCL: nccl_test_graph,
-    GeneratorScripts.BANDWIDTH_GPU_AVG: bandwidth_avg_gpu,
-    GeneratorScripts.BANDWIDTH_GPU_ALL: bandwidth_all_gpu_test,
-    GeneratorScripts.GENERIC: plot_data_from_files,
+    # GeneratorScripts.NCCL: nccl_test_graph,
+    # GeneratorScripts.BANDWIDTH_GPU_AVG: bandwidth_avg_gpu,
+    # GeneratorScripts.BANDWIDTH_GPU_ALL: bandwidth_all_gpu_test,
+    # GeneratorScripts.GENERIC: plot_data_from_files,
 
     TestsType.NV_BANDWIDTH_TYPE :start_nvbandwith
     }  
