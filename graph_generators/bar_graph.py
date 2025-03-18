@@ -1,9 +1,8 @@
 from matplotlib import pyplot as plt
 import numpy as np
-from globals import ColorPalette
 import pandas as pd
 
-from helpers.handle_data import save_graphs
+from utils.handle_data import save_graphs
 
 
 def plot_bar_graph(data, config, file_name):

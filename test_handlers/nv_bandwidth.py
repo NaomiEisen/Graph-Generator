@@ -1,36 +1,11 @@
 import pandas as pd
 
-from globals import ColorPalette
+from test_handlers.graphs_config import D2DMemcpyCeGraphConfig, DeviceAndHostGraphConfig
 from data_structues.nv_bandwidth_struct import NvBandwidth
 from data_structues.test import Test
 from tests_config import NvBandwidthConfig
 from graph_generators.bar_graph import plot_bar_graph
-from helpers.utils import get_filename_without_extension
-
-class DeviceAndHostGraphConfig:
-    TITLE = 'memcpy between host and devices'
-    X_AXIS = 'tests name'
-    Y_AXIS = 'bandwidth (GB/s)'
-    AXIS_LABEL_FONT_SIZE = 18
-    TITLE_SIZE = 20
-
-    COLOR_THEME = ColorPalette.COLOR_BAR_THEME
-    BAR_WIDTH = 0.1
-    WIDTH = 30
-    HEIGHT = 12
-
-class D2DMemcpyCeGraphConfig:
-    TITLE = 'memcpy between host and devices'
-    X_AXIS = 'tests name'
-    Y_AXIS = 'bandwidth (GB/s)'
-    FONT_SIZE = 12
-    TITLE_SIZE = 14
-    COLOR_THEME = ColorPalette.BASIC_THEME
-    BAR_WIDTH = 0.25
-    WIDTH = 16
-    HEIGHT = 10
-
-
+from utils.general import get_filename_without_extension
 
 def device_and_host_memcpy_ce(nv_bandwith_struct):
     # Load test's data from file
@@ -136,7 +111,6 @@ def start_nvbandwith(file):
     # Process the device to device mamcpy.ce
     d2d_memcpy_ce(nv_bandwith_struct)
     
-
     # device and host ce
     
 

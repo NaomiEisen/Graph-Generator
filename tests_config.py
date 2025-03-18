@@ -1,6 +1,6 @@
 class NvBandwidthConfig:
     # Define the configuration for the tests
-    # -- single gpu eith host memcpy_ce
+    # single gpu eith host memcpy_ce
     H2D_MEMCPY_CE = {
         "name": "host_to_device_memcpy_ce", 
         "activate": True,
@@ -33,7 +33,7 @@ class NvBandwidthConfig:
         "end": "SUM device_to_host_bidirectional_memcpy_ce "       
     }
 
-    # -- device to device memcpy_ce
+    # device to device memcpy_ce
     # device to device memcpy_read_ce
     D2D_READ_MEMCPY_CE = {
         "name": "d2d_memcpy_read_ce", 
@@ -67,14 +67,3 @@ class NvBandwidthConfig:
         "start": "SUM device_to_device_bidirectional_memcpy_write_ce_write2",  
         "end": "SUM device_to_device_bidirectional_memcpy_write_ce_total"       
     }
-
-
-
-# Example usage:
-# print(NvBandwidthConfig.H2D_MEMCPY_CE)
-# print(NvBandwidthConfig.D2H_MEMCPY_CE)
-
-# test_name = NvBandwidthConfig.H2D_MEMCPY_CE["name"]
-# test_activate = NvBandwidthConfig.H2D_MEMCPY_CE["activate"]
-# test_offset = NvBandwidthConfig.H2D_MEMCPY_CE["offset"]
-

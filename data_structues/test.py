@@ -1,10 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from helpers.handle_data import load_data_matrix_format
+from utils.handle_data import load_data_matrix_format
 
 class Test:
-    def __init__(self, name: str, activate: bool, start_indicator: str, end_indicator: str, offset: int, data_pandas=None):
+    def __init__(self, name, activate, start_indicator =  None, end_indicator = None, offset = 0, data_pandas=None):
         """
         Initializes the Test object with the given attributes.
         

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 from globals import ColorPalette, Const
-from helpers.handle_data import load_data_matrix_format, get_files_list, save_graphs
+from utils.handle_data import load_data_matrix_format, get_files_list, save_graphs
 
 
 class PlotConsts:
@@ -11,7 +11,6 @@ class PlotConsts:
 
     # List of colors for multiple lines
     COLORS = ColorPalette.BASIC_THEME
-
 
 
 def customize():
