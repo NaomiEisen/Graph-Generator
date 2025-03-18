@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from helpers.handle_data import load_data_matrix_format, load_data_with_row_indices
+from helpers.handle_data import load_data_matrix_format
 
 class Test:
     def __init__(self, name: str, activate: bool, start_indicator: str, end_indicator: str, offset: int, data_pandas=None):
