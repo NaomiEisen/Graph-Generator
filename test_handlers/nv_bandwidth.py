@@ -1,8 +1,8 @@
 import pandas as pd
 
 from test_handlers.graphs_config import D2DMemcpyCeGraphConfig, DeviceAndHostGraphConfig
-from data_structues.nv_bandwidth_struct import NvBandwidth
-from data_structues.test import Test
+from data_structures.nv_bandwidth_struct import NvBandwidth
+from data_structures.test import Test
 from tests_config import NvBandwidthConfig
 from graph_generators.bar_graph import plot_bar_graph
 from utils.general import get_filename_without_extension

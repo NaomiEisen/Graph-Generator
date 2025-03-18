@@ -1,4 +1,4 @@
-from data_structues.test import Test
+from data_structures.test import Test
 
 class NvBandwidth:
     def __init__(self, org_file: str, tests=None):
