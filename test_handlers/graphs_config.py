@@ -1,4 +1,4 @@
-from globals import ColorPalette
+from colors import ColorPalette
 
 class DeviceAndHostGraphConfig:
     TITLE = 'memcpy between host and devices'

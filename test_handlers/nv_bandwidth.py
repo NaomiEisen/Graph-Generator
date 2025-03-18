@@ -22,14 +22,14 @@ def device_and_host_memcpy_ce(nv_bandwith_struct):
         d2hb_test.data_pandas
     ], axis=0)
 
-    # Now combined_data will have all the rows stacked with their respective indices
+    # TODO: delete 
     print(combined_data)
 
     # Create diagram
     plot_bar_graph(combined_data, DeviceAndHostGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + "d2h-and-h2d")
 
     # append to nv_bandwith_struct
-    # nv_bandwith_struct.add_test(Test(name= "device and host memcpy.ce", activate="true", data_pandas=combined_data))
+    nv_bandwith_struct.add_test(Test(name= "device and host memcpy.ce", activate="true", data_pandas=combined_data))
 
 
 def device_and_host_memcpy_ce_load_data(test_config, nv_bandwith_struct):
@@ -110,11 +110,6 @@ def start_nvbandwith(file):
 
     # Process the device to device mamcpy.ce
     d2d_memcpy_ce(nv_bandwith_struct)
-    
-    # device and host ce
-    
-
-    # device to device ce
 
     # all and host ce
 

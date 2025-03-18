@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
-from globals import ColorPalette, Const
-from helpers.handle_data import load_data_matrix_format
+from colors import ColorPalette, Const
+from utils.handle_data import load_data_matrix_format
 
 class NcclTest:
     # test columns

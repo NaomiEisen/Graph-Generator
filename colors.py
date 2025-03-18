@@ -45,11 +45,4 @@ class ColorPalette:
     '#F5C684',  # Brighter Light Orange
     '#F0A95A',  # Brighter Medium Orange
     ]
-
-
-class GeneratorScripts:
-    NCCL = 'nccl'
-    BANDWIDTH_GPU_AVG = 'bwavg'
-    BANDWIDTH_GPU_ALL = 'bwall'
-    GENERIC = 'generic'
     

@@ -1,5 +1,4 @@
 class NvBandwidthConfig:
-    # Define the configuration for the tests
     # single gpu eith host memcpy_ce
     H2D_MEMCPY_CE = {
         "name": "host_to_device_memcpy_ce", 
