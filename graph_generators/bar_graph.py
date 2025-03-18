@@ -1,43 +1,47 @@
 from matplotlib import pyplot as plt
-from globals import ColorPalette, Const
+import numpy as np
+from globals import ColorPalette
 import pandas as pd
 
+from helpers.handle_data import save_graphs
 
-BAR_WIDTH = 0.8
 
-def plot_bar_graph(data):
+def plot_bar_graph(data, config, file_name):
     """
-    Plots a bar graph for the combined data with 4 sections, each representing a row.
-    Each section will have 8 bars, one for each column.
+    Plots a bar graph for the combined data with sections representing rows.
+    Each section will have multiple bars, one for each column.
     
-    :param combined_data: The Pandas DataFrame containing the combined data.
+    :param data: The Pandas DataFrame containing the data.
+    :param colors: List of colors to use for different columns.
+    :param file_name: The name of the file to save the plot as.
     """
-    # Ensure all data is numeric (convert non-numeric values to NaN and handle them)
-    #data = data.apply(pd.to_numeric, errors='coerce')
+    num_rows, num_columns = data.shape
+    x = np.arange(num_rows)  # Label positions
+    width = config.BAR_WIDTH
 
-    # Drop rows or columns with NaN values if needed
-    data = data.dropna(axis=1, how='all')  # Drop columns with all NaN values
-    data = data.dropna(axis=0, how='all')  # Drop rows with all NaN values
+    # Dynamically adjust figure size
+    fig_width = max(config.WIDTH, num_columns * 1.2)  # Scale width based on columns
+    fig_height = max(config.HEIGHT, num_rows * 0.5)  # Scale height based on rows
+    fig, ax = plt.subplots(figsize=(fig_width, fig_height), layout='constrained')
 
-    # Set the figure size using constants from Const class
-    plt.figure(figsize=(Const.WIDTH, Const.HEIGHT))
+   # Plot bars
+    for i, column in enumerate(data.columns):
+        offset = (i - (num_columns - 1) / 2) * width  # Center bars
+        rects = ax.bar(x + offset, data[column], width, label=column, color=config.COLOR_THEME[i % len(config.COLOR_THEME)])
+        ax.bar_label(rects, padding=3)
 
-    # Define the color palette for each section (row)
-    colors = ColorPalette.GIRLY_THEME * 2  # Repeat the palette to cover all 4 rows
+    # Set labels and title with font size
+    ax.set_ylabel(config.Y_AXIS, fontsize=config.AXIS_LABEL_FONT_SIZE)
+    ax.set_title(config.TITLE, fontsize=config.TITLE_SIZE)
+    ax.set_xticks(x)
+    ax.set_xticklabels(data.index, fontsize=config.AXIS_LABEL_FONT_SIZE)
+    ax.legend(loc="upper left", ncol=min(num_columns, 3))
 
-    # Create the bar plot with colors from the GIRLY_THEME
-    ax = data.plot(kind='bar', width=0.8, color=colors)
+    # Adjust y-axis dynamically
+    ax.set_ylim(0, data.max().max() * 1.1)
 
-    # Set plot title and labels
-    plt.title("Memory Copy Test Results", fontsize=14)
-    plt.xlabel("Test Types", fontsize=12)
-    plt.ylabel("Values", fontsize=12)
+    # Grid for readability
+    ax.grid(True, axis='y', linestyle='--', alpha=0.4)
 
-    # Rotate x-axis labels for better readability
-    plt.xticks(rotation=45, ha='right')
-
-    # Adjust layout to make sure everything fits well
-    plt.tight_layout()
-
-    # Display the graph
-    plt.show()
+    # Save the graph
+    save_graphs(plt, file_name)

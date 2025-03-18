@@ -1,9 +1,3 @@
-
-class Const:
-    # graph size
-    HEIGHT = 6
-    WIDTH = 20
-
 class ColorPalette:
     # Basic graph colors
     GRAPH_BLUE = '#4394E5'   # Vivid blue
@@ -40,7 +34,18 @@ class ColorPalette:
     RETRO_THEME = [RETRO_RED, RETRO_GREEN, RETRO_ORANGE]
     EARTH_THEME = [EARTH_DARK_BLUE, EARTH_TEAL, EARTH_GREEN]
     GIRLY_THEME = [GIRLY_PURPLE, GIRLY_PINK, GIRLY_GOLD]
-    
+
+    COLOR_BAR_THEME = [
+    '#7FCBCC',  # Brighter Light Blue
+    '#00A5B5',  # Brighter Medium Blue
+    '#EB859A',  # Brighter Light Pink
+    '#E0516D',  # Brighter Medium Pink
+    '#B7CD67',  # Brighter Light Green
+    '#8DC72B',  # Brighter Medium Green
+    '#F5C684',  # Brighter Light Orange
+    '#F0A95A',  # Brighter Medium Orange
+    ]
+
 
 class GeneratorScripts:
     NCCL = 'nccl'
