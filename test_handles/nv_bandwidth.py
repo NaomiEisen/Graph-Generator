@@ -1,8 +1,18 @@
+import pandas as pd
+from matplotlib import pyplot as plt
+
+from globals import ColorPalette, Const
 from data_structues.nv_bandwidth_struct import NvBandwidth
 from data_structues.test import Test
 from tests_config import NvBandwidthConfig
-import pandas as pd
+from graph_generators.bar_graph import plot_bar_graph
 
+class DeviceAndHostGraphConfig:
+    TITLE = 'memcpy between host and devices'
+    X_AXIS = 'test name'
+    Y_AXIS = 'bandwidth (GB/s)'
+    COLOR_THEME = ColorPalette.SUNSET_THEME
+    BAR_WIDTH = 0.8
 
 def device_and_host_memcpy_ce(nv_bandwith_struct: NvBandwidth):
     # Load test's data from file
@@ -25,9 +35,7 @@ def device_and_host_memcpy_ce(nv_bandwith_struct: NvBandwidth):
     # append to  nv_bandwith_struct
 
     # Create diagram
-
-
-    
+    plot_bar_graph(combined_data)
 
 
 def device_and_host_memcpy_ce_load_data(test_config, nv_bandwith_struct):
@@ -50,10 +58,41 @@ def device_and_host_memcpy_ce_load_data(test_config, nv_bandwith_struct):
     else:
         return None
 
+def plot_bar_graph(data):
+    """
+    Plots a bar graph for the combined data with 4 sections, each representing a row.
+    Each section will have 8 bars, one for each column.
     
+    :param combined_data: The Pandas DataFrame containing the combined data.
+    """
+    # Ensure all data is numeric (convert non-numeric values to NaN and handle them)
+    #data = data.apply(pd.to_numeric, errors='coerce')
+
+    # Drop rows or columns with NaN values if needed
+    data = data.dropna(axis=1, how='all')  # Drop columns with all NaN values
+    data = data.dropna(axis=0, how='all')  # Drop rows with all NaN values
+
+    # Set the figure size using constants from Const class
+    plt.figure(figsize=(Const.WIDTH, Const.HEIGHT))
+
+    # Create the bar plot with colors from the GIRLY_THEME
+    ax = data.plot(kind='bar', width=DeviceAndHostGraphConfig.BAR_WIDTH, color=DeviceAndHostGraphConfig.COLOR_THEME)
+
+    # Set plot title and labels
+    plt.title(DeviceAndHostGraphConfig.TITLE, fontsize=14)
+    plt.xlabel(DeviceAndHostGraphConfig.X_AXIS, fontsize=12)
+    plt.ylabel(DeviceAndHostGraphConfig.Y_AXIS, fontsize=12)
+
+    # Rotate x-axis labels for better readability
+    plt.xticks(rotation=45, ha='right')
+
+    # Adjust layout to make sure everything fits well
+    plt.tight_layout()
+
+    # Display the graph
+    plt.show()
 
 
-    # append to tests
 
 def start_nvbandwith(file):
     nv_bandwith_struct = NvBandwidth(org_file=file)

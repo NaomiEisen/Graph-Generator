@@ -39,8 +39,8 @@ def load_data_matrix_format(file_name, start_index=0, end_index=None, offset_rig
             # Convert processed data back to a pandas DataFrame
             data = pd.DataFrame(data_lines, columns=header)
 
-            # Convert data to numeric format
-            #data = data.apply(pd.to_numeric, errors='ignore')
+            # Convert data to numeric format, coercing errors to NaN
+            data = data.apply(pd.to_numeric, errors='coerce')
 
         return data
 
