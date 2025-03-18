@@ -17,11 +17,8 @@ def plot_bar_graph(data, graph_config, file_name):
     num_rows, num_columns = data.shape
     x = np.arange(num_rows)  # Label positions
     width = graph_config.BAR_WIDTH
-
-    # Dynamically adjust figure size
-    fig_width = max(graph_config.WIDTH, num_columns * 1.2)  # Scale width based on columns
-    fig_height = max(graph_config.HEIGHT, num_rows * 0.5)  # Scale height based on rows
-    fig, ax = plt.subplots(figsize=(fig_width, fig_height), layout='constrained')
+    
+    fig, ax = plt.subplots(figsize=(graph_config.WIDTH, graph_config.HEIGHT), layout='constrained')
 
    # Plot bars
     for i, column in enumerate(data.columns):
