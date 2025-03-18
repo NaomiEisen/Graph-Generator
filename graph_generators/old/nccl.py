@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from colors import ColorPalette, Const
+from utils.colors import ColorPalette, Const
 from utils.handle_data import load_data_matrix_format
 
 class NcclTest:
