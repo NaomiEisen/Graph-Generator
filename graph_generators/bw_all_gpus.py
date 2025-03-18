@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 from globals import ColorPalette, Const
-from handle_data import load_data_matrix_format
+from helpers.handle_data import load_data_matrix_format
 
 
 class BwAll:

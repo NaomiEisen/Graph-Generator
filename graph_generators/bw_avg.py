@@ -4,7 +4,7 @@ import pandas as pd
 from matplotlib.ticker import MaxNLocator
 
 from globals import ColorPalette, Const
-from handle_data import get_files_list, load_data_matrix_format, save_graphs
+from helpers.handle_data import get_files_list, load_data_matrix_format, save_graphs
 
 class BwAvg:
     # Define constants for plot customization

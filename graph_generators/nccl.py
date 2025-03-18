@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 from globals import ColorPalette, Const
-from handle_data import load_data_matrix_format
+from helpers.handle_data import load_data_matrix_format
 
 class NcclTest:
     # test columns
@@ -31,6 +31,8 @@ def nccl_test_graph(files):
     Plots the data from the DataFrame with dots and connecting lines.
     """
     plt.figure(figsize=(Const.WIDTH, Const.HEIGHT))
+
+    # Skip the first row
     data = load_data_matrix_format(files[0])
     
     # usec representation

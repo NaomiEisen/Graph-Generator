@@ -5,25 +5,37 @@ from graph_generators.bw_all_gpus import bandwidth_all_gpu_test
 from graph_generators.bw_avg import bandwidth_avg_gpu
 from graph_generators.generic import plot_data_from_files
 from graph_generators.nccl import nccl_test_graph
+from graph_generators.nv_bandwidth.nv_bandwidth import start_nvbandwith
+from helpers.handle_data import get_files_list
+from helpers.parse_file import TestsType, determine_test_type
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Plot data from a file.")
-    parser.add_argument("test_primitive", help="Test primitive type (e.g. nccl_test, bandwidth_test, bandwidth_avg_test)")
-    parser.add_argument("file_names", nargs='+', help="File names for the input data")
-
-    args = parser.parse_args()
-
+    # mapping for different tests graph generators
     test_function_map = {
     GeneratorScripts.NCCL: nccl_test_graph,
     GeneratorScripts.BANDWIDTH_GPU_AVG: bandwidth_avg_gpu,
     GeneratorScripts.BANDWIDTH_GPU_ALL: bandwidth_all_gpu_test,
-    GeneratorScripts.GENERIC: plot_data_from_files
-    }   
+    GeneratorScripts.GENERIC: plot_data_from_files,
 
-    func = test_function_map.get(args.test_primitive)
-    if func:
-        func(args.file_names)
+    TestsType.NV_BANDWIDTH_TYPE :start_nvbandwith
+    }  
+        
+    parser = argparse.ArgumentParser(description="Plot data from a file.")
+    parser.add_argument("files", nargs='+', help="File names or directories for the input data")
+
+    args = parser.parse_args()
+
+    # collect the files
+    files = get_files_list(args.files)
+
+    for file in files:
+        test_type= determine_test_type(file)
+        print(test_type) # TODO: delete later!
+
+        func = test_function_map.get(test_type)
+        if func:
+            func(file)
 
 
 if __name__ == "__main__":
