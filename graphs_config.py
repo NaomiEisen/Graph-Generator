@@ -1,7 +1,7 @@
 from utils.colors import ColorPalette
 
 class DeviceAndHostGraphConfig:
-    TITLE = 'memcpy between host and devices'
+    TITLE = 'memcpy (ce) between host and devices'
     TITLE_SIZE = 30
 
     X_AXIS = 'tests name'
@@ -19,7 +19,7 @@ class DeviceAndHostGraphConfig:
     
 
 class D2DMemcpyCeGraphConfig:
-    TITLE = 'memcpy device to device'
+    TITLE = 'memcpy (ce) device to device'
     TITLE_SIZE = 20
 
     X_AXIS = 'tests name'

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from test_handlers.graphs_config import D2DMemcpyCeGraphConfig, DeviceAndHostGraphConfig
+from graphs_config import D2DMemcpyCeGraphConfig, DeviceAndHostGraphConfig
 from data_structures.nv_bandwidth_struct import NvBandwidth
 from data_structures.test import Test
 from tests_config import NvBandwidthConfig
