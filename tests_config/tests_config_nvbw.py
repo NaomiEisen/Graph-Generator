@@ -1,20 +1,18 @@
 class NvBandwidthConfig:
-    GROUP_FROM_MAT = 0
-    GROUP_FROM_ROWS = 1
 
     # Group tests - groupid : info
     GROUPS_INFO = {
-    0: {"group_type": GROUP_FROM_ROWS, "file_name": "d2h_and_h2d_ce", "test_name": "device <-> host memcpy_ce"},
-    1: {"group_type": GROUP_FROM_MAT, "file_name": "d2d_ce", "test_name": "device <-> device memcpy_ce"},
-    2: {"group_type": GROUP_FROM_ROWS, "file_name": "h2all_and_all2h_ce", "test_name": "all <-> host memcpy_ce"},
-    3: {"group_type": GROUP_FROM_ROWS, "file_name": "all2one_one2all_ce", "test_name": "all <-> one memcpy_ce"},
+    0: {"file_name": "d2h_and_h2d_ce", "test_name": "device <-> host memcpy_ce"},
+    1: {"file_name": "d2d_ce", "test_name": "device <-> device memcpy_ce"},
+    2: {"file_name": "h2all_and_all2h_ce", "test_name": "all <-> host memcpy_ce"},
+    3: {"file_name": "all2one_one2all_ce", "test_name": "all <-> one memcpy_ce"},
 
-    4: {"group_type": GROUP_FROM_ROWS, "file_name": "d2h_and_h2d_sm", "test_name": "device <-> host memcpy_sm" },
-    5: {"group_type": GROUP_FROM_MAT, "file_name": "d2d_sm", "test_name": "device <-> device memcpy_sm"},
-    6: {"group_type": GROUP_FROM_ROWS, "file_name": "h2all_and_all2h_sm", "test_name": "all <-> host memcpy_sm"},
-    7: {"group_type": GROUP_FROM_ROWS, "file_name": "all2one_one2all_sm", "test_name": "all <-> one memcpy_sm"},
-    8: {"group_type": GROUP_FROM_MAT, "file_name": "latency_sm", "test_name": "latency_sm - host and device | device to device"},
-    9: {"group_type": GROUP_FROM_ROWS, "file_name": "device_local_copy", "test_name": "device local copy"}
+    4: { "file_name": "d2h_and_h2d_sm", "test_name": "device <-> host memcpy_sm" },
+    5: {"file_name": "d2d_sm", "test_name": "device <-> device memcpy_sm"},
+    6: { "file_name": "h2all_and_all2h_sm", "test_name": "all <-> host memcpy_sm"},
+    7: { "file_name": "all2one_one2all_sm", "test_name": "all <-> one memcpy_sm"},
+    8: {"file_name": "latency_sm", "test_name": "latency_sm - host and device | device to device"},
+    9: { "file_name": "device_local_copy", "test_name": "device local copy"}
     }
 
     # Tests configs

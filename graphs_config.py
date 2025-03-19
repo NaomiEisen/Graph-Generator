@@ -1,7 +1,6 @@
 from utils.colors import ColorPalette
 
-class AllGpusBarGraphConfig:
-    TITLE = 'memcpy (ce) host <-> devices'
+class NvBandwidthGraphConfig:
     TITLE_SIZE = 30
 
     X_AXIS = 'tests name'
@@ -17,19 +16,19 @@ class AllGpusBarGraphConfig:
 
     COLOR_THEME = ColorPalette.DARK_COLOR_BAR_THEME1
     
-class AvgValueBarGraphConfig:
-    TITLE = 'memcpy (ce) device to device'
-    TITLE_SIZE = 20
+# class AvgValueBarGraphConfig:
+#     TITLE = 'memcpy (ce) device to device'
+#     TITLE_SIZE = 20
 
-    X_AXIS = 'tests name'
-    Y_AXIS = 'bandwidth (GB/s)'
-    AXIS_LABEL_FONT_SIZE = 12
+#     X_AXIS = 'tests name'
+#     Y_AXIS = 'bandwidth (GB/s)'
+#     AXIS_LABEL_FONT_SIZE = 12
 
-    LEGEND_FONT_SIZE = 12
-    BAR_LABEL_FONT_SIZE = 12
+#     LEGEND_FONT_SIZE = 12
+#     BAR_LABEL_FONT_SIZE = 12
     
-    BAR_WIDTH = 0.25
-    WIDTH = 16
-    HEIGHT = 10
+#     BAR_WIDTH = 0.25
+#     WIDTH = 16
+#     HEIGHT = 10
 
-    COLOR_THEME = ColorPalette.BASIC_THEME
+#     COLOR_THEME = ColorPalette.BASIC_THEME

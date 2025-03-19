@@ -2,15 +2,15 @@ from collections import defaultdict
 import inspect
 import pandas as pd
 
-from graphs_config import AvgValueBarGraphConfig, AllGpusBarGraphConfig
+from graphs_config import NvBandwidthGraphConfig
 from data_structures.nv_bandwidth_struct import NvBandwidth
 from data_structures.test import Test
-from tests_config import NvBandwidthConfig
+from tests_config.tests_config_nvbw import NvBandwidthConfig
 from graph_generators.bar_graph import plot_bar_graph
 from utils.general import get_filename_without_extension
 
 
-def combined_test_from_separated_rows(nv_bandwith_struct, configs, final_name, test_name):
+def create_test_instance_and_plot(nv_bandwith_struct, configs, final_name, test_name):
     """
     Loads test data for multiple configurations, combines them into a single DataFrame,
     modifies column names, and generates a bar graph.
@@ -26,43 +26,50 @@ def combined_test_from_separated_rows(nv_bandwith_struct, configs, final_name, t
     if combined_data.empty:
         return  # Return if there is no data to process
 
-    # Append 'gpu' to each column name
-    combined_data.columns = ['GPU ' + col for col in combined_data.columns]
+    # Append 'gpu' to each column name where needed
+    add_prefix(combined_data, 'GPU')
 
     # Debugging print (remove later if not needed)
     print(combined_data)
 
     # Create bar graph
-    plot_bar_graph(combined_data, AllGpusBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name, test_name)
+    plot_bar_graph(combined_data, NvBandwidthGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name, test_name)
 
     # Append results to nv_bandwith_struct
     nv_bandwith_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
 
 
-def combined_test_from_separated_mat(nv_bandwith_struct, configs, final_name, test_name):
-    """
-    Loads test data for multiple configurations, combines them into a single DataFrame,
-    and generates a bar graph.
+def add_prefix(combined_data, prefix):
+    for col in combined_data.columns:
+        if pd.to_numeric(combined_data[col], errors='coerce').notna().all():
+            combined_data.rename(columns={col: prefix + col}, inplace=True)
 
-    :param nv_bandwith_struct: The structure containing bandwidth test information.
-    :param configs: A list of configurations to load and combine.
-    :param final_name: The name to use for the output graph and test entry.
-    """
-    # Load and combine test data
-    tests_to_combine = [parse_data_from_test_config(config, nv_bandwith_struct) for config in configs]
-    combined_data = combine_data_frame(tests_to_combine)
 
-    if combined_data.empty:
-        return  # Return if there is no data to process
 
-    # Debugging print (remove later if not needed)
-    print(combined_data)
+# def combined_test_from_separated_mat(nv_bandwith_struct, configs, final_name, test_name):
+#     """
+#     Loads test data for multiple configurations, combines them into a single DataFrame,
+#     and generates a bar graph.
 
-    # Create bar graph
-    plot_bar_graph(combined_data, AvgValueBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name, test_name)
+#     :param nv_bandwith_struct: The structure containing bandwidth test information.
+#     :param configs: A list of configurations to load and combine.
+#     :param final_name: The name to use for the output graph and test entry.
+#     """
+#     # Load and combine test data
+#     tests_to_combine = [parse_data_from_test_config(config, nv_bandwith_struct) for config in configs]
+#     combined_data = combine_data_frame(tests_to_combine)
+
+#     if combined_data.empty:
+#         return  # Return if there is no data to process
+
+#     # Debugging print (remove later if not needed)
+#     print(combined_data)
+
+#     # Create bar graph
+#     plot_bar_graph(combined_data, AvgValueBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name, test_name)
     
-    # Append results to nv_bandwith_struct
-    nv_bandwith_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
+#     # Append results to nv_bandwith_struct
+#     nv_bandwith_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
 
 
 def parse_data_from_test_config(test_config, nv_bandwith_struct):
@@ -103,6 +110,7 @@ def combine_data_frame(tests):
     # Combine the DataFrames if there are any valid ones, else return an empty DataFrame
     return pd.concat(valid_dfs, axis=0) if valid_dfs else pd.DataFrame()
 
+
 def group_nv_bandwidth_configs():
     grouped_configs = defaultdict(list)
 
@@ -123,12 +131,9 @@ def start_nvbandwith(file):
     for config_group in grouped_test_configs:
         group_id = config_group[0]['group_id']  # Get group_id from the first config in the group
         group_info = NvBandwidthConfig.GROUPS_INFO[group_id]  # Lookup group info
-
-        if group_info['group_type'] == NvBandwidthConfig.GROUP_FROM_ROWS:
-            combined_test_from_separated_rows(nv_bandwith_struct, config_group, group_info["file_name"], group_info["test_name"])
-        elif group_info['group_type'] == NvBandwidthConfig.GROUP_FROM_MAT:
-            combined_test_from_separated_mat(nv_bandwith_struct, config_group, group_info["file_name"], group_info["test_name"])
-
+        create_test_instance_and_plot(nv_bandwith_struct, config_group, group_info["file_name"], group_info["test_name"])
+    
+    return nv_bandwith_struct
 
 
 
@@ -292,3 +297,29 @@ def start_nvbandwith(file):
     
 #     else:
 #         return None
+
+
+# def combined_test_from_separated_mat(nv_bandwith_struct, configs, final_name, test_name):
+#     """
+#     Loads test data for multiple configurations, combines them into a single DataFrame,
+#     and generates a bar graph.
+
+#     :param nv_bandwith_struct: The structure containing bandwidth test information.
+#     :param configs: A list of configurations to load and combine.
+#     :param final_name: The name to use for the output graph and test entry.
+#     """
+#     # Load and combine test data
+#     tests_to_combine = [parse_data_from_test_config(config, nv_bandwith_struct) for config in configs]
+#     combined_data = combine_data_frame(tests_to_combine)
+
+#     if combined_data.empty:
+#         return  # Return if there is no data to process
+
+#     # Debugging print (remove later if not needed)
+#     print(combined_data)
+
+#     # Create bar graph
+#     plot_bar_graph(combined_data, AvgValueBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name, test_name)
+    
+#     # Append results to nv_bandwith_struct
+#     nv_bandwith_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
