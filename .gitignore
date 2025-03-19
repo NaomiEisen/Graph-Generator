@@ -1,6 +1,5 @@
 # Personal
-vm-output/
-output-graphs/
+vm-output-old/
 .DS_Store
 
 # Byte-compiled / optimized / DLL files
