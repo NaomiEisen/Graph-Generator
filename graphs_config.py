@@ -1,7 +1,7 @@
 from utils.colors import ColorPalette
 
-class DeviceAndHostGraphConfig:
-    TITLE = 'memcpy (ce) between host and devices'
+class AllGpusBarGraphConfig:
+    TITLE = 'memcpy (ce) host <-> devices'
     TITLE_SIZE = 30
 
     X_AXIS = 'tests name'
@@ -17,8 +17,7 @@ class DeviceAndHostGraphConfig:
 
     COLOR_THEME = ColorPalette.DARK_COLOR_BAR_THEME1
     
-
-class D2DMemcpyCeGraphConfig:
+class AvgValueBarGraphConfig:
     TITLE = 'memcpy (ce) device to device'
     TITLE_SIZE = 20
 

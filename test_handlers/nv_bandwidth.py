@@ -1,39 +1,93 @@
 import pandas as pd
 
-from graphs_config import D2DMemcpyCeGraphConfig, DeviceAndHostGraphConfig
+from graphs_config import AvgValueBarGraphConfig, AllGpusBarGraphConfig
 from data_structures.nv_bandwidth_struct import NvBandwidth
 from data_structures.test import Test
 from tests_config import NvBandwidthConfig
 from graph_generators.bar_graph import plot_bar_graph
 from utils.general import get_filename_without_extension
 
-def device_and_host_memcpy_ce(nv_bandwith_struct):
-    # Load test's data from file
-    h2d_test = device_and_host_memcpy_ce_load_data(NvBandwidthConfig.H2D_MEMCPY_CE, nv_bandwith_struct)
-    d2h_test = device_and_host_memcpy_ce_load_data(NvBandwidthConfig.D2H_MEMCPY_CE, nv_bandwith_struct)
-    h2db_test = device_and_host_memcpy_ce_load_data(NvBandwidthConfig.H2DB_MEMCPY_CE, nv_bandwith_struct)
-    d2hb_test = device_and_host_memcpy_ce_load_data(NvBandwidthConfig.D2HB_MEMCPY_CE, nv_bandwith_struct)
 
-    tests_to_combine = [h2d_test, d2h_test, h2db_test, d2hb_test]
+
+def combined_test_from_separated_rows(nv_bandwith_struct, configs, final_name):
+    """
+    Loads test data for multiple configurations, combines them into a single DataFrame,
+    modifies column names, and generates a bar graph.
+
+    :param nv_bandwith_struct: The structure containing bandwidth test information.
+    :param configs: A list of configurations to load and combine.
+    :param final_name: The name to use for the output graph and test entry.
+    """
+    # Load and combine test data
+    tests_to_combine = [load_data_and_append_name_index(config, nv_bandwith_struct) for config in configs]
+    combined_data = combine_data_frame(tests_to_combine)
+
+    if combined_data.empty:
+        return  # Return if there is no data to process
+
+    # Append 'gpu' to each column name
+    combined_data.columns = ['gpu ' + col for col in combined_data.columns]
+
+    # Debugging print (remove later if not needed)
+    print(combined_data)
+
+    # Create bar graph
+    plot_bar_graph(combined_data, AllGpusBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name)
+
+    # Append results to nv_bandwith_struct
+    nv_bandwith_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
+
+
+def combined_test_from_separated_mat(nv_bandwith_struct, configs, final_name):
+    """
+    Loads test data for multiple configurations, combines them into a single DataFrame,
+    and generates a bar graph.
+
+    :param nv_bandwith_struct: The structure containing bandwidth test information.
+    :param configs: A list of configurations to load and combine.
+    :param final_name: The name to use for the output graph and test entry.
+    """
+    # Load and combine test data
+    tests_to_combine = [load_mat_data_to_avg(config, nv_bandwith_struct) for config in configs]
+    combined_data = combine_data_frame(tests_to_combine)
+
+    if combined_data.empty:
+        return  # Return if there is no data to process
+
+    # Debugging print (remove later if not needed)
+    print(combined_data)
+
+    # Create bar graph
+    plot_bar_graph(combined_data, AvgValueBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name)
+    
+    # Append results to nv_bandwith_struct
+    nv_bandwith_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
+
+
+def device_to_device_memcpy_ce(nv_bandwith_struct):
+    # Load test's data from file
+    d2d_read = load_mat_data_to_avg(NvBandwidthConfig.D2D_READ_MEMCPY_CE, nv_bandwith_struct)
+    d2d_write = load_mat_data_to_avg(NvBandwidthConfig.D2D_WRITE_MEMCPY_CE, nv_bandwith_struct)
+    d2d_read_bidirect = load_mat_data_to_avg(NvBandwidthConfig.D2D_READ_BIDIRECT_TOTAL_MEMCPY_CE, nv_bandwith_struct)
+    d2d_write_bidirect = load_mat_data_to_avg(NvBandwidthConfig.D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_CE, nv_bandwith_struct)
+
+    tests_to_combine = [d2d_read, d2d_write, d2d_read_bidirect, d2d_write_bidirect]
     combined_data = combine_data_frame(tests_to_combine)
 
     if combined_data.empty:
         return # Return if there is no data to plot
-    
-    # Append 'gpu' to each column name
-    combined_data.columns = ['gpu ' + col for col in combined_data.columns]
 
-    # TODO: delete 
+    # Now combined_data will have all the rows stacked with their respective indices
     print(combined_data)
 
     # Create diagram
-    plot_bar_graph(combined_data, DeviceAndHostGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + "d2h-and-h2d")
+    plot_bar_graph(combined_data, AvgValueBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file))
 
     # append to nv_bandwith_struct
-    nv_bandwith_struct.add_test(Test(name= "device and host memcpy.ce", activate="true", data_pandas=combined_data))
+    nv_bandwith_struct.add_test(Test(name= "device to device memcpy.ce", activate="true", data_pandas=combined_data))
+    
 
-
-def device_and_host_memcpy_ce_load_data(test_config, nv_bandwith_struct):
+def load_data_and_append_name_index(test_config, nv_bandwith_struct):
     # Check if the test is activated
     if test_config["activate"]:
         # Create the test from the configuration
@@ -52,31 +106,9 @@ def device_and_host_memcpy_ce_load_data(test_config, nv_bandwith_struct):
     
     else:
         return None
+    
 
-def d2d_memcpy_ce(nv_bandwith_struct):
-    # Load test's data from file
-    d2d_read = d2d_load_data(NvBandwidthConfig.D2D_READ_MEMCPY_CE, nv_bandwith_struct)
-    d2d_write = d2d_load_data(NvBandwidthConfig.D2D_WRITE_MEMCPY_CE, nv_bandwith_struct)
-    d2d_read_bidirect = d2d_load_data(NvBandwidthConfig.D2D_READ_BIDIRECT_TOTAL_MEMCPY_CE, nv_bandwith_struct)
-    d2d_write_bidirect = d2d_load_data(NvBandwidthConfig.D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_CE, nv_bandwith_struct)
-
-    tests_to_combine = [d2d_read, d2d_write, d2d_read_bidirect, d2d_write_bidirect]
-    combined_data = combine_data_frame(tests_to_combine)
-
-    if combined_data.empty:
-        return # Return if there is no data to plot
-
-    # Now combined_data will have all the rows stacked with their respective indices
-    print(combined_data)
-
-    # Create diagram
-    plot_bar_graph(combined_data, D2DMemcpyCeGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file))
-
-    # append to nv_bandwith_struct
-    nv_bandwith_struct.add_test(Test(name= "device to device memcpy.ce", activate="true", data_pandas=combined_data))
-
-
-def d2d_load_data(test_config, nv_bandwith_struct):
+def load_mat_data_to_avg(test_config, nv_bandwith_struct):
     # Check if the test is activated
     if test_config["activate"]:
         # Create the test from the configuration
@@ -107,16 +139,55 @@ def combine_data_frame(tests):
     # Combine the DataFrames if there are any valid ones, else return an empty DataFrame
     return pd.concat(valid_dfs, axis=0) if valid_dfs else pd.DataFrame()
 
+
 def start_nvbandwith(file):
     nv_bandwith_struct = NvBandwidth(org_file=file)
 
-    # Process the device and host memcpy.ce tests
-    device_and_host_memcpy_ce(nv_bandwith_struct)
+    #  -- Process ce tests --
+    # device <-> host memcpy.ce tests
+    
+    #device_and_host_memcpy_ce(nv_bandwith_struct)
+    configs_d_and_h = [
+    NvBandwidthConfig.H2D_MEMCPY_CE,
+    NvBandwidthConfig.D2H_MEMCPY_CE,
+    NvBandwidthConfig.H2DB_MEMCPY_CE,
+    NvBandwidthConfig.D2HB_MEMCPY_CE
+    ]
+    combined_test_from_separated_rows(nv_bandwith_struct, configs_d_and_h, "d2h_and_h2d_ce")
 
-    # Process the device to device mamcpy.ce
-    d2d_memcpy_ce(nv_bandwith_struct)
+    # device to device mamcpy.ce
+    configs_d2d = [
+    NvBandwidthConfig.D2D_READ_MEMCPY_CE,
+    NvBandwidthConfig.D2D_WRITE_MEMCPY_CE,
+    NvBandwidthConfig.D2D_READ_BIDIRECT_TOTAL_MEMCPY_CE,
+    NvBandwidthConfig.D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_CE
+    ]
+    #device_to_device_memcpy_ce(nv_bandwith_struct)
+    combined_test_from_separated_mat(nv_bandwith_struct, configs_d2d, "d2d_ce")
 
-    # all and host ce
+    # all <-> host ce
+    configs_all_and_host = [
+    NvBandwidthConfig.H2ALL_MAMCPY_CE,
+    NvBandwidthConfig.H2ALL_BIDIRECT_MAMCPY_CE,
+    NvBandwidthConfig.ALL2H_MEMCPY_CE,
+    NvBandwidthConfig.ALL2H_BIDIRECT_MEMCPY_CE
+    ]
+    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_host, "all2h_and_h2all_ce")
+    #all_and_host_memcpy_ce(nv_bandwith_struct)
+
+    # all <-> one ce
+    configs_all_and_one = [
+    NvBandwidthConfig.ALL2ONE_READ_CE,
+    NvBandwidthConfig.ALL2ONE_WRITE_CE,
+    NvBandwidthConfig.ONE2ALL_READ_CE,
+    NvBandwidthConfig.ONE2ALL_WRITE_CE
+    ]
+    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_one, "all2one_and_one2all_ce")
+
+
+
+    #  -- Process sm tests --
+
 
     # same but sm
 
