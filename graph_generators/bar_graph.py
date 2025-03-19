@@ -7,7 +7,7 @@ from utils.handle_data import save_graphs
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_bar_graph(data, graph_config, file_name):
+def plot_bar_graph(data, graph_config, file_name, test_name):
     """
     Plots a Grafana-style bar graph from a Pandas DataFrame.
     Dark mode.
@@ -36,7 +36,7 @@ def plot_bar_graph(data, graph_config, file_name):
 
     # Set labels and title with font size
     ax.set_ylabel(graph_config.Y_AXIS, fontsize=graph_config.AXIS_LABEL_FONT_SIZE, color="white")
-    ax.set_title(graph_config.TITLE, fontsize=graph_config.TITLE_SIZE, color="white")
+    ax.set_title(file_name, fontsize=graph_config.TITLE_SIZE, color="white")
     ax.set_xticks(x)
     ax.set_xticklabels(data.index, fontsize=graph_config.AXIS_LABEL_FONT_SIZE, color="white")
     ax.legend(loc="upper left", ncol=min(num_columns, 3), facecolor="#1E1E1E", framealpha=1, fontsize=graph_config.LEGEND_FONT_SIZE, labelcolor="white")

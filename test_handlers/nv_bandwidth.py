@@ -1,3 +1,5 @@
+from collections import defaultdict
+import inspect
 import pandas as pd
 
 from graphs_config import AvgValueBarGraphConfig, AllGpusBarGraphConfig
@@ -9,7 +11,7 @@ from utils.general import get_filename_without_extension
 
 
 
-def combined_test_from_separated_rows(nv_bandwith_struct, configs, final_name):
+def combined_test_from_separated_rows(nv_bandwith_struct, configs, final_name, test_name):
     """
     Loads test data for multiple configurations, combines them into a single DataFrame,
     modifies column names, and generates a bar graph.
@@ -26,19 +28,19 @@ def combined_test_from_separated_rows(nv_bandwith_struct, configs, final_name):
         return  # Return if there is no data to process
 
     # Append 'gpu' to each column name
-    combined_data.columns = ['gpu ' + col for col in combined_data.columns]
+    combined_data.columns = ['GPU ' + col for col in combined_data.columns]
 
     # Debugging print (remove later if not needed)
     print(combined_data)
 
     # Create bar graph
-    plot_bar_graph(combined_data, AllGpusBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name)
+    plot_bar_graph(combined_data, AllGpusBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name, test_name)
 
     # Append results to nv_bandwith_struct
     nv_bandwith_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
 
 
-def combined_test_from_separated_mat(nv_bandwith_struct, configs, final_name):
+def combined_test_from_separated_mat(nv_bandwith_struct, configs, final_name, test_name):
     """
     Loads test data for multiple configurations, combines them into a single DataFrame,
     and generates a bar graph.
@@ -58,7 +60,7 @@ def combined_test_from_separated_mat(nv_bandwith_struct, configs, final_name):
     print(combined_data)
 
     # Create bar graph
-    plot_bar_graph(combined_data, AvgValueBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name)
+    plot_bar_graph(combined_data, AvgValueBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name, test_name)
     
     # Append results to nv_bandwith_struct
     nv_bandwith_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
@@ -139,87 +141,108 @@ def combine_data_frame(tests):
     # Combine the DataFrames if there are any valid ones, else return an empty DataFrame
     return pd.concat(valid_dfs, axis=0) if valid_dfs else pd.DataFrame()
 
+def group_nv_bandwidth_configs():
+    grouped_configs = defaultdict(list)
+
+    # Get all class attributes
+    for name, value in inspect.getmembers(NvBandwidthConfig):
+        # Ensure it's a dictionary and has 'group_id'
+        if isinstance(value, dict) and 'group_id' in value:
+            grouped_configs[value['group_id']].append(value)
+
+    # Convert to list of lists
+    return list(grouped_configs.values())
+
 
 def start_nvbandwith(file):
     nv_bandwith_struct = NvBandwidth(org_file=file)
 
-    #  -- Process ce tests --
-    # device <-> host memcpy.ce tests
-    configs_d_and_h_ce = [
-    NvBandwidthConfig.H2D_MEMCPY_CE,
-    NvBandwidthConfig.D2H_MEMCPY_CE,
-    NvBandwidthConfig.H2DB_MEMCPY_CE,
-    NvBandwidthConfig.D2HB_MEMCPY_CE
-    ]
-    combined_test_from_separated_rows(nv_bandwith_struct, configs_d_and_h_ce, "d2h_and_h2d_ce")
+    grouped_test_configs = group_nv_bandwidth_configs()
+    for config_group in grouped_test_configs:
+        group_id = config_group[0]['group_id']  # Get group_id from the first config in the group
+        group_info = NvBandwidthConfig.GROUPS_INFO[group_id]  # Lookup group info
 
-    # device to device mamcpy.ce
-    configs_d2d_ce = [
-    NvBandwidthConfig.D2D_READ_MEMCPY_CE,
-    NvBandwidthConfig.D2D_WRITE_MEMCPY_CE,
-    NvBandwidthConfig.D2D_READ_BIDIRECT_TOTAL_MEMCPY_CE,
-    NvBandwidthConfig.D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_CE
-    ]
-    #device_to_device_memcpy_ce(nv_bandwith_struct)
-    combined_test_from_separated_mat(nv_bandwith_struct, configs_d2d_ce, "d2d_ce")
+        if group_info['group_type'] == NvBandwidthConfig.GROUP_FROM_ROWS:
+            combined_test_from_separated_rows(nv_bandwith_struct, config_group, group_info["file_name"], group_info["test_name"])
+        elif group_info['group_type'] == NvBandwidthConfig.GROUP_FROM_MAT:
+            combined_test_from_separated_mat(nv_bandwith_struct, config_group, group_info["file_name"], group_info["test_name"])
 
-    # all <-> host ce
-    configs_all_and_host_ce = [
-    NvBandwidthConfig.H2ALL_MAMCPY_CE,
-    NvBandwidthConfig.H2ALL_BIDIRECT_MAMCPY_CE,
-    NvBandwidthConfig.ALL2H_MEMCPY_CE,
-    NvBandwidthConfig.ALL2H_BIDIRECT_MEMCPY_CE
-    ]
-    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_host_ce, "all2h_and_h2all_ce")
-    #all_and_host_memcpy_ce(nv_bandwith_struct)
+    # #  -- Process ce tests --
+    # # device <-> host memcpy.ce tests
+    # configs_d_and_h_ce = [
+    # NvBandwidthConfig.H2D_MEMCPY_CE,
+    # NvBandwidthConfig.D2H_MEMCPY_CE,
+    # NvBandwidthConfig.H2DB_MEMCPY_CE,
+    # NvBandwidthConfig.D2HB_MEMCPY_CE
+    # ]
+    # combined_test_from_separated_rows(nv_bandwith_struct, configs_d_and_h_ce, "d2h_and_h2d_ce_old")
 
-    # all <-> one ce
-    configs_all_and_one_ce = [
-    NvBandwidthConfig.ALL2ONE_READ_CE,
-    NvBandwidthConfig.ALL2ONE_WRITE_CE,
-    NvBandwidthConfig.ONE2ALL_READ_CE,
-    NvBandwidthConfig.ONE2ALL_WRITE_CE
-    ]
-    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_one_ce, "all2one_and_one2all_ce")
+    # # device to device mamcpy.ce
+    # configs_d2d_ce = [
+    # NvBandwidthConfig.D2D_READ_MEMCPY_CE,
+    # NvBandwidthConfig.D2D_WRITE_MEMCPY_CE,
+    # NvBandwidthConfig.D2D_READ_BIDIRECT_TOTAL_MEMCPY_CE,
+    # NvBandwidthConfig.D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_CE
+    # ]
+    # combined_test_from_separated_mat(nv_bandwith_struct, configs_d2d_ce, "d2d_ce_old")
 
-    #  -- Process sm tests --
-    # device <-> host memcpy.sm tests
-    configs_d_and_h_sm = [
-    NvBandwidthConfig.H2D_MEMCPY_SM,
-    NvBandwidthConfig.D2H_MEMCPY_SM,
-    NvBandwidthConfig.H2DB_MEMCPY_SM,
-    NvBandwidthConfig.D2HB_MEMCPY_SM
-    ]
-    combined_test_from_separated_rows(nv_bandwith_struct, configs_d_and_h_sm, "d2h_and_h2d_sm")
+    # # all <-> host ce
+    # configs_all_and_host_ce = [
+    # NvBandwidthConfig.H2ALL_MAMCPY_CE,
+    # NvBandwidthConfig.H2ALL_BIDIRECT_MAMCPY_CE,
+    # NvBandwidthConfig.ALL2H_MEMCPY_CE,
+    # NvBandwidthConfig.ALL2H_BIDIRECT_MEMCPY_CE
+    # ]
+    # combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_host_ce, "all2h_and_h2all_ce_old")
+    # #all_and_host_memcpy_ce(nv_bandwith_struct)
 
-    # device to device mamcpy.ce
-    configs_d2d_sm = [
-    NvBandwidthConfig.D2D_READ_MEMCPY_SM,
-    NvBandwidthConfig.D2D_WRITE_MEMCPY_SM,
-    NvBandwidthConfig.D2D_READ_BIDIRECT_TOTAL_MEMCPY_SM,
-    NvBandwidthConfig.D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_SM
-    ]
-    #device_to_device_memcpy_ce(nv_bandwith_struct)
-    combined_test_from_separated_mat(nv_bandwith_struct, configs_d2d_sm, "d2d_sm")
+    # # all <-> one ce
+    # configs_all_and_one_ce = [
+    # NvBandwidthConfig.ALL2ONE_READ_CE,
+    # NvBandwidthConfig.ALL2ONE_WRITE_CE,
+    # NvBandwidthConfig.ONE2ALL_READ_CE,
+    # NvBandwidthConfig.ONE2ALL_WRITE_CE
+    # ]
+    # combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_one_ce, "all2one_and_one2all_ce_old")
 
-    # all <-> host ce
-    configs_all_and_host_sm = [
-    NvBandwidthConfig.H2ALL_MAMCPY_SM,
-    NvBandwidthConfig.H2ALL_BIDIRECT_MAMCPY_SM,
-    NvBandwidthConfig.ALL2H_MEMCPY_SM,
-    NvBandwidthConfig.ALL2H_BIDIRECT_MEMCPY_SM
-    ]
-    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_host_sm, "all2h_and_h2all_sm")
-    #all_and_host_memcpy_ce(nv_bandwith_struct)
+    # #  -- Process sm tests --
+    # # device <-> host memcpy.sm tests
+    # configs_d_and_h_sm = [
+    # NvBandwidthConfig.H2D_MEMCPY_SM,
+    # NvBandwidthConfig.D2H_MEMCPY_SM,
+    # NvBandwidthConfig.H2DB_MEMCPY_SM,
+    # NvBandwidthConfig.D2HB_MEMCPY_SM
+    # ]
+    # combined_test_from_separated_rows(nv_bandwith_struct, configs_d_and_h_sm, "d2h_and_h2d_sm_old")
 
-    # all <-> one ce
-    configs_all_and_one_sm = [
-    NvBandwidthConfig.ALL2ONE_READ_SM,
-    NvBandwidthConfig.ALL2ONE_WRITE_SM,
-    NvBandwidthConfig.ONE2ALL_READ_SM,
-    NvBandwidthConfig.ONE2ALL_WRITE_SM
-    ]
-    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_one_sm, "all2one_and_one2all_sm")
+    # # device to device mamcpy.ce
+    # configs_d2d_sm = [
+    # NvBandwidthConfig.D2D_READ_MEMCPY_SM,
+    # NvBandwidthConfig.D2D_WRITE_MEMCPY_SM,
+    # NvBandwidthConfig.D2D_READ_BIDIRECT_TOTAL_MEMCPY_SM,
+    # NvBandwidthConfig.D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_SM
+    # ]
+    # #device_to_device_memcpy_ce(nv_bandwith_struct)
+    # combined_test_from_separated_mat(nv_bandwith_struct, configs_d2d_sm, "d2d_sm_old")
+
+    # # all <-> host ce
+    # configs_all_and_host_sm = [
+    # NvBandwidthConfig.H2ALL_MAMCPY_SM,
+    # NvBandwidthConfig.H2ALL_BIDIRECT_MAMCPY_SM,
+    # NvBandwidthConfig.ALL2H_MEMCPY_SM,
+    # NvBandwidthConfig.ALL2H_BIDIRECT_MEMCPY_SM
+    # ]
+    # combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_host_sm, "all2h_and_h2all_sm_old")
+    # #all_and_host_memcpy_ce(nv_bandwith_struct)
+
+    # # all <-> one ce
+    # configs_all_and_one_sm = [
+    # NvBandwidthConfig.ALL2ONE_READ_SM,
+    # NvBandwidthConfig.ALL2ONE_WRITE_SM,
+    # NvBandwidthConfig.ONE2ALL_READ_SM,
+    # NvBandwidthConfig.ONE2ALL_WRITE_SM
+    # ]
+    # combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_one_sm, "all2one_and_one2all_sm_old")
 
 
     # return the nvbandwith struct
