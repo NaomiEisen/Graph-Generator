@@ -13,6 +13,8 @@ class NvBandwidthConfig:
     5: {"group_type": GROUP_FROM_MAT, "file_name": "d2d_sm", "test_name": "device <-> device memcpy_sm"},
     6: {"group_type": GROUP_FROM_ROWS, "file_name": "h2all_and_all2h_sm", "test_name": "all <-> host memcpy_sm"},
     7: {"group_type": GROUP_FROM_ROWS, "file_name": "all2one_one2all_sm", "test_name": "all <-> one memcpy_sm"},
+    8: {"group_type": GROUP_FROM_MAT, "file_name": "latency_sm", "test_name": "latency_sm - host and device | device to device"},
+    9: {"group_type": GROUP_FROM_ROWS, "file_name": "device_local_copy", "test_name": "device local copy"}
     }
 
     # Tests configs
@@ -307,3 +309,31 @@ class NvBandwidthConfig:
         "end": "SUM one_to_all_read_sm" ,
         "group_id" : 7 
     }
+
+    H_D_LATENCY = {
+        "name": "host_device_latency_sm", 
+        "activate": True,
+        "offset": 2,
+        "start": "Running host_device_latency_sm",  
+        "end": "SUM host_device_latency_sm" ,
+        "group_id" : 8
+    }
+
+    D_D_LATENCY = {
+        "name": "device_to_device_latency_sm", 
+        "activate": True,
+        "offset": 2,
+        "start": "Running device_to_device_latency_sm",  
+        "end": "SUM device_to_device_latency_sm" ,
+        "group_id" : 8
+    }
+
+    D_LOCAL_COPY = {
+        "name": "device_local_copy", 
+        "activate": True,
+        "offset": 2,
+        "start": "Running device_local_copy",  
+        "end": "SUM device_local_copy" ,
+        "group_id" : 9
+    }
+    

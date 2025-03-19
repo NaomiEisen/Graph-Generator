@@ -10,7 +10,6 @@ from graph_generators.bar_graph import plot_bar_graph
 from utils.general import get_filename_without_extension
 
 
-
 def combined_test_from_separated_rows(nv_bandwith_struct, configs, final_name, test_name):
     """
     Loads test data for multiple configurations, combines them into a single DataFrame,
@@ -21,7 +20,7 @@ def combined_test_from_separated_rows(nv_bandwith_struct, configs, final_name, t
     :param final_name: The name to use for the output graph and test entry.
     """
     # Load and combine test data
-    tests_to_combine = [load_data_and_append_name_index(config, nv_bandwith_struct) for config in configs]
+    tests_to_combine = [parse_data_from_test_config(config, nv_bandwith_struct) for config in configs]
     combined_data = combine_data_frame(tests_to_combine)
 
     if combined_data.empty:
@@ -50,7 +49,7 @@ def combined_test_from_separated_mat(nv_bandwith_struct, configs, final_name, te
     :param final_name: The name to use for the output graph and test entry.
     """
     # Load and combine test data
-    tests_to_combine = [load_mat_data_to_avg(config, nv_bandwith_struct) for config in configs]
+    tests_to_combine = [parse_data_from_test_config(config, nv_bandwith_struct) for config in configs]
     combined_data = combine_data_frame(tests_to_combine)
 
     if combined_data.empty:
@@ -66,30 +65,7 @@ def combined_test_from_separated_mat(nv_bandwith_struct, configs, final_name, te
     nv_bandwith_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
 
 
-def device_to_device_memcpy_ce(nv_bandwith_struct):
-    # Load test's data from file
-    d2d_read = load_mat_data_to_avg(NvBandwidthConfig.D2D_READ_MEMCPY_CE, nv_bandwith_struct)
-    d2d_write = load_mat_data_to_avg(NvBandwidthConfig.D2D_WRITE_MEMCPY_CE, nv_bandwith_struct)
-    d2d_read_bidirect = load_mat_data_to_avg(NvBandwidthConfig.D2D_READ_BIDIRECT_TOTAL_MEMCPY_CE, nv_bandwith_struct)
-    d2d_write_bidirect = load_mat_data_to_avg(NvBandwidthConfig.D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_CE, nv_bandwith_struct)
-
-    tests_to_combine = [d2d_read, d2d_write, d2d_read_bidirect, d2d_write_bidirect]
-    combined_data = combine_data_frame(tests_to_combine)
-
-    if combined_data.empty:
-        return # Return if there is no data to plot
-
-    # Now combined_data will have all the rows stacked with their respective indices
-    print(combined_data)
-
-    # Create diagram
-    plot_bar_graph(combined_data, AvgValueBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file))
-
-    # append to nv_bandwith_struct
-    nv_bandwith_struct.add_test(Test(name= "device to device memcpy.ce", activate="true", data_pandas=combined_data))
-    
-
-def load_data_and_append_name_index(test_config, nv_bandwith_struct):
+def parse_data_from_test_config(test_config, nv_bandwith_struct):
     # Check if the test is activated
     if test_config["activate"]:
         # Create the test from the configuration
@@ -97,9 +73,19 @@ def load_data_and_append_name_index(test_config, nv_bandwith_struct):
         
         # Parse the test data from the given file
         test.parse_test_data(nv_bandwith_struct.org_file)
-        
-        # Set the custom index for the data
-        test.data_pandas.index = [test_config["name"]]  # Set custom index from the config
+
+        # Process data by it's format
+        if test.data_pandas.shape[0] > 1:
+            # Calculate the overall average for all values in the DataFrame, ignoring NaN values
+            overall_avg = test.data_pandas.stack().mean()
+
+            # Create a new DataFrame with 'overall_avg' as index and the average value as the column
+            avg_df = pd.DataFrame({'average bandwidth (GB/s)': [overall_avg]}, index=[test.name])
+            test.data_pandas = avg_df
+
+        else:
+             # Set the custom index for the data
+            test.data_pandas.index = [test_config["name"]]  # Set custom index from the config
         
         # Print the result
         print(test.data_pandas)
@@ -108,31 +94,7 @@ def load_data_and_append_name_index(test_config, nv_bandwith_struct):
     
     else:
         return None
-    
-
-def load_mat_data_to_avg(test_config, nv_bandwith_struct):
-    # Check if the test is activated
-    if test_config["activate"]:
-        # Create the test from the configuration
-        test = Test.test_from_config(test_config)
         
-        # Parse the test data from the given file
-        test.parse_test_data(nv_bandwith_struct.org_file)
-        print(test.data_pandas)
-
-         # Calculate the overall average for all values in the DataFrame, ignoring NaN values
-        overall_avg = test.data_pandas.stack().mean()
-
-        # Create a new DataFrame with 'overall_avg' as index and the average value as the column
-        avg_df = pd.DataFrame({'average bandwidth (GB/s)': [overall_avg]}, index=[test.name])
-        print(avg_df)
-
-        test.data_pandas = avg_df
-        # Return the DataFrame with the average value
-        return test
-    
-    else:
-        return None
     
 def combine_data_frame(tests):
     # Filter out None values or empty data_pandas attributes
@@ -166,6 +128,17 @@ def start_nvbandwith(file):
             combined_test_from_separated_rows(nv_bandwith_struct, config_group, group_info["file_name"], group_info["test_name"])
         elif group_info['group_type'] == NvBandwidthConfig.GROUP_FROM_MAT:
             combined_test_from_separated_mat(nv_bandwith_struct, config_group, group_info["file_name"], group_info["test_name"])
+
+
+
+
+
+
+
+
+
+
+            
 
     # #  -- Process ce tests --
     # # device <-> host memcpy.ce tests
@@ -246,3 +219,76 @@ def start_nvbandwith(file):
 
 
     # return the nvbandwith struct
+
+
+
+
+
+# old
+# def device_to_device_memcpy_ce(nv_bandwith_struct):
+#     # Load test's data from file
+#     d2d_read = load_mat_data_to_avg(NvBandwidthConfig.D2D_READ_MEMCPY_CE, nv_bandwith_struct)
+#     d2d_write = load_mat_data_to_avg(NvBandwidthConfig.D2D_WRITE_MEMCPY_CE, nv_bandwith_struct)
+#     d2d_read_bidirect = load_mat_data_to_avg(NvBandwidthConfig.D2D_READ_BIDIRECT_TOTAL_MEMCPY_CE, nv_bandwith_struct)
+#     d2d_write_bidirect = load_mat_data_to_avg(NvBandwidthConfig.D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_CE, nv_bandwith_struct)
+
+#     tests_to_combine = [d2d_read, d2d_write, d2d_read_bidirect, d2d_write_bidirect]
+#     combined_data = combine_data_frame(tests_to_combine)
+
+#     if combined_data.empty:
+#         return # Return if there is no data to plot
+
+#     # Now combined_data will have all the rows stacked with their respective indices
+#     print(combined_data)
+
+#     # Create diagram
+#     plot_bar_graph(combined_data, AvgValueBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file))
+
+#     # append to nv_bandwith_struct
+#     nv_bandwith_struct.add_test(Test(name= "device to device memcpy.ce", activate="true", data_pandas=combined_data))
+
+
+# def load_data_and_append_name_index(test_config, nv_bandwith_struct):
+#     # Check if the test is activated
+#     if test_config["activate"]:
+#         # Create the test from the configuration
+#         test = Test.test_from_config(test_config)
+        
+#         # Parse the test data from the given file
+#         test.parse_test_data(nv_bandwith_struct.org_file)
+        
+#         # Set the custom index for the data
+#         test.data_pandas.index = [test_config["name"]]  # Set custom index from the config
+        
+#         # Print the result
+#         print(test.data_pandas)
+
+#         return test
+    
+#     else:
+#         return None
+    
+
+# def load_mat_data_to_avg(test_config, nv_bandwith_struct):
+#     # Check if the test is activated
+#     if test_config["activate"]:
+#         # Create the test from the configuration
+#         test = Test.test_from_config(test_config)
+        
+#         # Parse the test data from the given file
+#         test.parse_test_data(nv_bandwith_struct.org_file)
+#         print(test.data_pandas)
+
+#          # Calculate the overall average for all values in the DataFrame, ignoring NaN values
+#         overall_avg = test.data_pandas.stack().mean()
+
+#         # Create a new DataFrame with 'overall_avg' as index and the average value as the column
+#         avg_df = pd.DataFrame({'average bandwidth (GB/s)': [overall_avg]}, index=[test.name])
+#         print(avg_df)
+
+#         test.data_pandas = avg_df
+#         # Return the DataFrame with the average value
+#         return test
+    
+#     else:
+#         return None
