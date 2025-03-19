@@ -145,51 +145,81 @@ def start_nvbandwith(file):
 
     #  -- Process ce tests --
     # device <-> host memcpy.ce tests
-    
-    #device_and_host_memcpy_ce(nv_bandwith_struct)
-    configs_d_and_h = [
+    configs_d_and_h_ce = [
     NvBandwidthConfig.H2D_MEMCPY_CE,
     NvBandwidthConfig.D2H_MEMCPY_CE,
     NvBandwidthConfig.H2DB_MEMCPY_CE,
     NvBandwidthConfig.D2HB_MEMCPY_CE
     ]
-    combined_test_from_separated_rows(nv_bandwith_struct, configs_d_and_h, "d2h_and_h2d_ce")
+    combined_test_from_separated_rows(nv_bandwith_struct, configs_d_and_h_ce, "d2h_and_h2d_ce")
 
     # device to device mamcpy.ce
-    configs_d2d = [
+    configs_d2d_ce = [
     NvBandwidthConfig.D2D_READ_MEMCPY_CE,
     NvBandwidthConfig.D2D_WRITE_MEMCPY_CE,
     NvBandwidthConfig.D2D_READ_BIDIRECT_TOTAL_MEMCPY_CE,
     NvBandwidthConfig.D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_CE
     ]
     #device_to_device_memcpy_ce(nv_bandwith_struct)
-    combined_test_from_separated_mat(nv_bandwith_struct, configs_d2d, "d2d_ce")
+    combined_test_from_separated_mat(nv_bandwith_struct, configs_d2d_ce, "d2d_ce")
 
     # all <-> host ce
-    configs_all_and_host = [
+    configs_all_and_host_ce = [
     NvBandwidthConfig.H2ALL_MAMCPY_CE,
     NvBandwidthConfig.H2ALL_BIDIRECT_MAMCPY_CE,
     NvBandwidthConfig.ALL2H_MEMCPY_CE,
     NvBandwidthConfig.ALL2H_BIDIRECT_MEMCPY_CE
     ]
-    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_host, "all2h_and_h2all_ce")
+    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_host_ce, "all2h_and_h2all_ce")
     #all_and_host_memcpy_ce(nv_bandwith_struct)
 
     # all <-> one ce
-    configs_all_and_one = [
+    configs_all_and_one_ce = [
     NvBandwidthConfig.ALL2ONE_READ_CE,
     NvBandwidthConfig.ALL2ONE_WRITE_CE,
     NvBandwidthConfig.ONE2ALL_READ_CE,
     NvBandwidthConfig.ONE2ALL_WRITE_CE
     ]
-    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_one, "all2one_and_one2all_ce")
-
-
+    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_one_ce, "all2one_and_one2all_ce")
 
     #  -- Process sm tests --
+    # device <-> host memcpy.sm tests
+    configs_d_and_h_sm = [
+    NvBandwidthConfig.H2D_MEMCPY_SM,
+    NvBandwidthConfig.D2H_MEMCPY_SM,
+    NvBandwidthConfig.H2DB_MEMCPY_SM,
+    NvBandwidthConfig.D2HB_MEMCPY_SM
+    ]
+    combined_test_from_separated_rows(nv_bandwith_struct, configs_d_and_h_sm, "d2h_and_h2d_sm")
 
+    # device to device mamcpy.ce
+    configs_d2d_sm = [
+    NvBandwidthConfig.D2D_READ_MEMCPY_SM,
+    NvBandwidthConfig.D2D_WRITE_MEMCPY_SM,
+    NvBandwidthConfig.D2D_READ_BIDIRECT_TOTAL_MEMCPY_SM,
+    NvBandwidthConfig.D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_SM
+    ]
+    #device_to_device_memcpy_ce(nv_bandwith_struct)
+    combined_test_from_separated_mat(nv_bandwith_struct, configs_d2d_sm, "d2d_sm")
 
-    # same but sm
+    # all <-> host ce
+    configs_all_and_host_sm = [
+    NvBandwidthConfig.H2ALL_MAMCPY_SM,
+    NvBandwidthConfig.H2ALL_BIDIRECT_MAMCPY_SM,
+    NvBandwidthConfig.ALL2H_MEMCPY_SM,
+    NvBandwidthConfig.ALL2H_BIDIRECT_MEMCPY_SM
+    ]
+    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_host_sm, "all2h_and_h2all_sm")
+    #all_and_host_memcpy_ce(nv_bandwith_struct)
+
+    # all <-> one ce
+    configs_all_and_one_sm = [
+    NvBandwidthConfig.ALL2ONE_READ_SM,
+    NvBandwidthConfig.ALL2ONE_WRITE_SM,
+    NvBandwidthConfig.ONE2ALL_READ_SM,
+    NvBandwidthConfig.ONE2ALL_WRITE_SM
+    ]
+    combined_test_from_separated_rows(nv_bandwith_struct, configs_all_and_one_sm, "all2one_and_one2all_sm")
 
 
     # return the nvbandwith struct

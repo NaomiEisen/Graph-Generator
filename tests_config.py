@@ -196,7 +196,7 @@ class NvBandwidthConfig:
         "end": "SUM device_to_device_bidirectional_memcpy_write_sm_total"       
     }
 
-    ALLD2H_MEMCPY_SM = {
+    ALL2H_MEMCPY_SM = {
         "name": "all_to_host_memcpy_sm", 
         "activate": True,
         "offset": 2,
