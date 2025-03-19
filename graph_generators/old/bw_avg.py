@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.ticker import MaxNLocator
 
-from colors import ColorPalette, Const
+from utils.colors import ColorPalette, Const
 from utils.handle_data import get_files_list, load_data_matrix_format, save_graphs
 
 class BwAvg:
