@@ -45,4 +45,39 @@ class ColorPalette:
     '#F5C684',  # Brighter Light Orange
     '#F0A95A',  # Brighter Medium Orange
     ]
+
+    DARK_COLOR_BAR_THEME1 = [
+    "#00D4B5",  # Soft Neon Aqua
+    "#E69500",  # Warm Amber
+    "#E0003F",  # Deep Vivid Red
+    "#E65C00",  # Muted Electric Orange
+    "#004C5E",  # Dark Teal
+    "#D81B74",  # Rich Hot Pink
+    "#2AAA2A",  # Softer Neon Green (NVIDIA touch)
+    "#7628C8",  # Muted Electric Purple
+]
+
+    DARK_COLOR_BAR_THEME2 = [
+    "#00A6A6",  # Teal Blue
+    "#F77F00",  # Deep Orange
+    "#D62828",  # Crimson Red
+    "#F4A261",  # Warm Sand
+    "#264653",  # Dark Cyan
+    "#E76F51",  # Coral Red
+    "#2A9D8F",  # Turquoise Green
+    "#8AB17D",  # Olive Green
+]
+
+    # Dark mode colors
+    DARK_THEME = [
+        "#7EB26D",  # Green
+        "#EAB839",  # Yellow
+        "#6ED0E0",  # Cyan
+        "#EF843C",  # Orange
+        "#E24D42",  # Red
+        "#1F78C1",  # Blue
+        "#705DA0",  # Purple
+        "#F9934E",  # Light Orange
+    ]
+
     
