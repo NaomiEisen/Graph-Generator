@@ -13,15 +13,11 @@ class DeviceBw:
     def add_test(self, test: Test):
         """
         Adds a Test object to the Tests array.
-
-        :param test: Test object to be added
         """
         self.Tests.append(test)
 
     def get_tests(self):
         """
         Returns the list of Test objects.
-
-        :return: List of Test objects
         """
         return self.Tests

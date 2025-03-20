@@ -10,7 +10,7 @@ from utils.general import get_filename_without_extension
 from utils.handle_data import load_data_two_column
 
 def plot_all_files_together(bw_struct):
-    # get avg for each col of all the diferent tests and create new data fram
+    # get avg for each col of all the different tests and create new data frame
     tests = bw_struct.get_tests()
 
     avg_df = calculate_avg_of_all_tests(tests)
@@ -25,12 +25,12 @@ import pandas as pd
 
 def calculate_avg_of_all_tests(tests):
     # Initialize empty lists to store the values from all tests
-    all_columns_data = {col: [] for col in tests[0].data_pandas.columns}
+    all_columns_data = {col: [] for col in tests[0].data_pandas.columns[1:]}  # Skip the first column
 
     # Loop through each test in the tests list
     for test in tests:
-        # Loop through each column in the test data and append its values
-        for col in test.data_pandas.columns:
+        # Loop through each column in the test data (skip the first column)
+        for col in test.data_pandas.columns[1:]:  # Skip the first column
             all_columns_data[col].append(test.data_pandas[col])
 
     # Create a new DataFrame to store the averages for each column
@@ -39,8 +39,11 @@ def calculate_avg_of_all_tests(tests):
     # Create a new DataFrame with the averages, keeping the same column names as the original data
     avg_df = pd.DataFrame(avg_columns)
 
-    # Assuming you want the first column to be from tests[0], update the first column
-    avg_df.insert(0, 'col0', tests[0].data_pandas[tests[0].data_pandas.columns[0]])
+    # Get the first column from tests[0] and its header
+    first_col = tests[0].data_pandas[tests[0].data_pandas.columns[0]]
+
+    # Concatenate the first column (with its header) to the beginning of avg_df
+    avg_df = pd.concat([first_col, avg_df], axis=1)
 
     return avg_df
 

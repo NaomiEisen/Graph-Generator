@@ -14,7 +14,7 @@ def main():
     TestsType.GPU_BANDWIDTH_TYPE: start_bw_gpu
     }  
         
-    parser = argparse.ArgumentParser(description="Plot data from a file.")
+    parser = argparse.ArgumentParser(description="Plot data from files.")
     parser.add_argument("files", nargs='+', help="File names or directories for the input data")
     args = parser.parse_args()
 
@@ -34,13 +34,6 @@ def main():
 
             if struct_class == DeviceBw:
                 plot_all_files_together(test_struct)
-                # tests = test_struct.get_tests()
-                # print('------------------------------')
-                # print(len(tests))
-                # for test in tests:
-                #     print(test)
-                #     print("\n")
-
 
             # Add the struct to the dictionary under its class
             if struct_class not in struct_dict:
