@@ -22,7 +22,7 @@ class Test:
         self.offset = offset
         self.data_pandas = data_pandas
 
-    def parse_test_data(self, file: str):
+    def parse_test_data(self, file: str, right_offset, func):
         """
         Parses the test data from the given file by finding the start and end indices.
         
@@ -45,9 +45,7 @@ class Test:
         # Check if both start and end indices were found
         if start_index is not None and end_index is not None:
             # Call the load_data function with the file and indexes
-            # print(start_index)
-            # print(end_index)
-            self.data_pandas = load_data_matrix_format(file, start_index, end_index, 1)
+            self.data_pandas = func(file, start_index, end_index, right_offset)
         else:
             raise ValueError("Could not find both start and end indicators in the file.")
 

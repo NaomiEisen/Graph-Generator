@@ -8,6 +8,7 @@ from data_structures.test import Test
 from tests_config.tests_config_nvbw import NvBandwidthConfig
 from graph_generators.bar_graph import plot_bar_graph
 from utils.general import get_filename_without_extension
+from utils.handle_data import load_data_matrix_format
 
 
 def create_test_instance_and_plot(nv_bandwith_struct, configs, final_name, test_name):
@@ -45,43 +46,16 @@ def add_prefix(combined_data, prefix):
             combined_data.rename(columns={col: prefix + col}, inplace=True)
 
 
-
-# def combined_test_from_separated_mat(nv_bandwith_struct, configs, final_name, test_name):
-#     """
-#     Loads test data for multiple configurations, combines them into a single DataFrame,
-#     and generates a bar graph.
-
-#     :param nv_bandwith_struct: The structure containing bandwidth test information.
-#     :param configs: A list of configurations to load and combine.
-#     :param final_name: The name to use for the output graph and test entry.
-#     """
-#     # Load and combine test data
-#     tests_to_combine = [parse_data_from_test_config(config, nv_bandwith_struct) for config in configs]
-#     combined_data = combine_data_frame(tests_to_combine)
-
-#     if combined_data.empty:
-#         return  # Return if there is no data to process
-
-#     # Debugging print (remove later if not needed)
-#     print(combined_data)
-
-#     # Create bar graph
-#     plot_bar_graph(combined_data, AvgValueBarGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name, test_name)
-    
-#     # Append results to nv_bandwith_struct
-#     nv_bandwith_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
-
-
-def parse_data_from_test_config(test_config, nv_bandwith_struct):
+def parse_data_from_test_config(test_config, nv_bandwidth_struct):
     # Check if the test is activated
     if test_config["activate"]:
         # Create the test from the configuration
         test = Test.test_from_config(test_config)
         
         # Parse the test data from the given file
-        test.parse_test_data(nv_bandwith_struct.org_file)
+        test.parse_test_data(nv_bandwidth_struct.org_file, test_config["right_offset"], load_data_matrix_format)
 
-        # Process data by it's format
+        # Process data by its format
         if test.data_pandas.shape[0] > 1:
             # Calculate the overall average for all values in the DataFrame, ignoring NaN values
             overall_avg = test.data_pandas.stack().mean()

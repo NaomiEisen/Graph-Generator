@@ -21,6 +21,7 @@ class NvBandwidthConfig:
         "name": "host_to_device_memcpy_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running host_to_device_memcpy_ce",  
         "end": "SUM host_to_device_memcpy_ce",
         "group_id" : 0
@@ -30,6 +31,7 @@ class NvBandwidthConfig:
         "name": "device_to_host_memcpy_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running device_to_host_memcpy_ce",  
         "end": "SUM device_to_host_memcpy_ce",
         "group_id" : 0  
@@ -39,6 +41,7 @@ class NvBandwidthConfig:
         "name": "host_to_device_bidirectional_memcpy_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running host_to_device_bidirectional_memcpy_ce",  
         "end": "SUM host_to_device_bidirectional_memcpy_ce",
         "group_id" : 0  
@@ -48,6 +51,7 @@ class NvBandwidthConfig:
         "name": "device_to_host_bidirectional_memcpy_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running device_to_host_bidirectional_memcpy_ce",  
         "end": "SUM device_to_host_bidirectional_memcpy_ce ",
         "group_id" : 0     
@@ -57,6 +61,7 @@ class NvBandwidthConfig:
         "name": "d2d_memcpy_read_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running device_to_device_memcpy_read_ce",  
         "end": "SUM device_to_device_memcpy_read_ce",
         "group_id" : 1     
@@ -66,6 +71,7 @@ class NvBandwidthConfig:
         "name": "d2d_memcpy_write_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running device_to_device_memcpy_write_ce",  
         "end": "SUM device_to_device_memcpy_write_ce",
         "group_id" : 1     
@@ -75,6 +81,7 @@ class NvBandwidthConfig:
         "name": "d2d_bidirectional_memcpy_read_ce_total", 
         "activate": True,
         "offset": 3,
+        "right_offset": 1,
         # DO NOT CHANGE - there are no title for the test
         "start": "SUM device_to_device_bidirectional_memcpy_read_ce_read2",  
         "end": "SUM device_to_device_bidirectional_memcpy_read_ce_total",
@@ -85,6 +92,7 @@ class NvBandwidthConfig:
         "name": "d2d_bidirectional_memcpy_write_ce_total", 
         "activate": True,
         "offset": 3,
+        "right_offset": 1,
         # DO NOT CHANGE - there are no title for the test
         "start": "SUM device_to_device_bidirectional_memcpy_write_ce_write2",  
         "end": "SUM device_to_device_bidirectional_memcpy_write_ce_total",
@@ -95,6 +103,7 @@ class NvBandwidthConfig:
         "name": "all_to_host_memcpy_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running all_to_host_memcpy_ce",  
         "end": "SUM all_to_host_memcpy_ce",
         "group_id" : 2 
@@ -104,6 +113,7 @@ class NvBandwidthConfig:
         "name": "all_to_host_bidirectional_memcpy_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running all_to_host_bidirectional_memcpy_ce",  
         "end": "SUM all_to_host_bidirectional_memcpy_ce",
         "group_id" : 2
@@ -113,6 +123,7 @@ class NvBandwidthConfig:
         "name": "host_to_all_memcpy_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running host_to_all_memcpy_ce",  
         "end": "SUM host_to_all_memcpy_ce",
         "group_id" : 2
@@ -122,6 +133,7 @@ class NvBandwidthConfig:
         "name": "host_to_all_bidirectional_memcpy_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running host_to_all_bidirectional_memcpy_ce",  
         "end": "SUM host_to_all_bidirectional_memcpy_ce" ,
         "group_id" : 2 
@@ -131,6 +143,7 @@ class NvBandwidthConfig:
         "name": "all_to_one_write_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running all_to_one_write_ce",  
         "end": "SUM all_to_one_write_ce" ,
         "group_id" : 3 
@@ -140,6 +153,7 @@ class NvBandwidthConfig:
         "name": "all_to_one_read_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running all_to_one_read_ce",  
         "end": "SUM all_to_one_read_ce",
         "group_id" : 3  
@@ -149,6 +163,7 @@ class NvBandwidthConfig:
         "name": "one_to_all_write_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running one_to_all_write_ce",  
         "end": "SUM one_to_all_write_ce" ,
         "group_id" : 3 
@@ -158,6 +173,7 @@ class NvBandwidthConfig:
         "name": "one_to_all_read_ce", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running one_to_all_read_ce",  
         "end": "SUM one_to_all_read_ce"  ,
         "group_id" : 3
@@ -168,6 +184,7 @@ class NvBandwidthConfig:
         "name": "host_to_device_memcpy_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running host_to_device_memcpy_sm",  
         "end": "SUM host_to_device_memcpy_sm",
         "group_id" : 4     
@@ -177,6 +194,7 @@ class NvBandwidthConfig:
         "name": "device_to_host_memcpy_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running device_to_host_memcpy_sm",  
         "end": "SUM device_to_host_memcpy_sm"  ,
         "group_id" : 4     
@@ -186,6 +204,7 @@ class NvBandwidthConfig:
         "name": "host_to_device_bidirectional_memcpy_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running host_to_device_bidirectional_memcpy_sm",  
         "end": "SUM host_to_device_bidirectional_memcpy_sm",
         "group_id" : 4     
@@ -195,6 +214,7 @@ class NvBandwidthConfig:
         "name": "device_to_host_bidirectional_memcpy_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running device_to_host_bidirectional_memcpy_sm",  
         "end": "SUM device_to_host_bidirectional_memcpy_sm "   ,
         "group_id" : 4    
@@ -204,6 +224,7 @@ class NvBandwidthConfig:
         "name": "device_to_device_memcpy_read_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running device_to_device_memcpy_read_sm",  
         "end": "SUM device_to_device_memcpy_read_sm",
         "group_id" : 5       
@@ -213,6 +234,7 @@ class NvBandwidthConfig:
         "name": "device_to_device_memcpy_write_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running device_to_device_memcpy_write_sm",  
         "end": "SUM device_to_device_memcpy_write_sm",
         "group_id" : 5       
@@ -222,6 +244,7 @@ class NvBandwidthConfig:
         "name": "d2d_bidirectional_memcpy_read_sm_total", 
         "activate": True,
         "offset": 3,
+        "right_offset": 1,
         "start": "SUM device_to_device_bidirectional_memcpy_read_sm_read2",  
         "end": "SUM device_to_device_bidirectional_memcpy_read_sm_total",
         "group_id" : 5       
@@ -231,6 +254,7 @@ class NvBandwidthConfig:
         "name": "d2d_bidirectional_memcpy_write_sm_total", 
         "activate": True,
         "offset": 3,
+        "right_offset": 1,
         "start": "SUM device_to_device_bidirectional_memcpy_write_sm_write2",  
         "end": "SUM device_to_device_bidirectional_memcpy_write_sm_total",
         "group_id" : 5       
@@ -240,6 +264,7 @@ class NvBandwidthConfig:
         "name": "all_to_host_memcpy_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running all_to_host_memcpy_sm",  
         "end": "SUM all_to_host_memcpy_sm"  ,
         "group_id" : 6     
@@ -249,6 +274,7 @@ class NvBandwidthConfig:
         "name": "all_to_host_bidirectional_memcpy_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running all_to_host_bidirectional_memcpy_sm",  
         "end": "SUM all_to_host_bidirectional_memcpy_sm" ,
         "group_id" : 6      
@@ -258,6 +284,7 @@ class NvBandwidthConfig:
         "name": "host_to_all_memcpy_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running host_to_all_memcpy_sm",  
         "end": "SUM host_to_all_memcpy_sm" ,
         "group_id" : 6 
@@ -267,6 +294,7 @@ class NvBandwidthConfig:
         "name": "host_to_all_bidirectional_memcpy_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running host_to_all_bidirectional_memcpy_sm",  
         "end": "SUM host_to_all_bidirectional_memcpy_sm" ,
         "group_id" : 6 
@@ -276,6 +304,7 @@ class NvBandwidthConfig:
         "name": "all_to_one_write_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running all_to_one_write_sm",  
         "end": "SUM all_to_one_write_sm"  ,
         "group_id" : 7
@@ -285,6 +314,7 @@ class NvBandwidthConfig:
         "name": "all_to_one_read_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running all_to_one_read_sm",  
         "end": "SUM all_to_one_read_sm",
         "group_id" : 7  
@@ -294,6 +324,7 @@ class NvBandwidthConfig:
         "name": "one_to_all_write_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running one_to_all_write_sm",  
         "end": "SUM one_to_all_write_sm" ,
         "group_id" : 7 
@@ -303,6 +334,7 @@ class NvBandwidthConfig:
         "name": "one_to_all_read_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running one_to_all_read_sm",  
         "end": "SUM one_to_all_read_sm" ,
         "group_id" : 7 
@@ -312,6 +344,7 @@ class NvBandwidthConfig:
         "name": "host_device_latency_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running host_device_latency_sm",  
         "end": "SUM host_device_latency_sm" ,
         "group_id" : 8
@@ -321,6 +354,7 @@ class NvBandwidthConfig:
         "name": "device_to_device_latency_sm", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running device_to_device_latency_sm",  
         "end": "SUM device_to_device_latency_sm" ,
         "group_id" : 8
@@ -330,6 +364,7 @@ class NvBandwidthConfig:
         "name": "device_local_copy", 
         "activate": True,
         "offset": 2,
+        "right_offset": 1,
         "start": "Running device_local_copy",  
         "end": "SUM device_local_copy" ,
         "group_id" : 9

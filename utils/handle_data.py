@@ -3,6 +3,35 @@ import matplotlib.pyplot as plt
 import os
 
 
+def load_data_two_column(file_name, start_index=0, end_index=None, right_offset=0):
+    try:
+        with open(file_name, "r") as file:
+            lines = file.readlines()
+
+        if end_index is None:
+            end_index = len(lines)
+
+        # Extract header from the first line
+        header_line = lines[start_index].strip()
+        header_parts = header_line.rsplit(maxsplit=1)
+        header = [" ".join(header_parts[:-1]), header_parts[-1]]
+
+        # Extract data lines
+        data_lines = [line.strip().split(maxsplit=1) for line in lines[start_index + 1:end_index] if line.strip()]
+
+        # Create DataFrame from data
+        data = pd.DataFrame(data_lines, columns=header)
+
+        return data
+
+    except FileNotFoundError as e:
+        print(f"Error: The file '{file_name}' was not found.")
+        raise e
+    except Exception as e:
+        print(f"Error: An unexpected error occurred while loading the file: {e}")
+        raise e
+
+
 def load_data_matrix_format(file_name, start_index=0, end_index=None, offset_right=0):
     """
     Loads data from a .txt or Excel file into a Pandas DataFrame within the specified range of lines.
