@@ -88,6 +88,6 @@ def start_bw_gpu(file):
     print(grouped_test_configs)
 
     for config_group in grouped_test_configs:
-        create_test_instance_and_plot(bw_struct, config_group, "file", "test")
+        create_test_instance_and_plot(bw_struct, config_group, GpuBwConfig.FILE_NAME, GpuBwConfig.TEST_NAME)
     
     return bw_struct

@@ -18,37 +18,18 @@ class NvBandwidthGraphConfig:
 
 
 class GpuBandwidthGraphConfig:
-    TITLE_SIZE = 30
+    TITLE_SIZE = 50
     TITLE = 'bandwidthTest'
 
     X_AXIS = 'Transfer Size (Bytes)'
     Y_AXIS = 'Bandwidth(GB/s)'
     AXIS_LABEL_FONT_SIZE = 18
 
-    LEGEND_FONT_SIZE = 12
-    BAR_LABEL_FONT_SIZE = 12
+    LEGEND_FONT_SIZE = 20
 
-    BAR_WIDTH = 0.1
-    WIDTH = 50
-    HEIGHT = 15
+    WIDTH = 30
+    HEIGHT = 18
 
     Y_NBINS = 20
 
     COLOR_THEME = ColorPalette.DARK_COLOR_BAR_THEME1
-    
-# class AvgValueBarGraphConfig:
-#     TITLE = 'memcpy (ce) device to device'
-#     TITLE_SIZE = 20
-
-#     X_AXIS = 'tests name'
-#     Y_AXIS = 'bandwidth (GB/s)'
-#     AXIS_LABEL_FONT_SIZE = 12
-
-#     LEGEND_FONT_SIZE = 12
-#     BAR_LABEL_FONT_SIZE = 12
-    
-#     BAR_WIDTH = 0.25
-#     WIDTH = 16
-#     HEIGHT = 10
-
-#     COLOR_THEME = ColorPalette.BASIC_THEME

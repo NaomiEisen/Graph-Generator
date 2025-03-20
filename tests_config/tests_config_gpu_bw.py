@@ -1,4 +1,7 @@
 class GpuBwConfig:
+    TEST_NAME = "GPU Bandwidth"
+    FILE_NAME = "gpu_bw"
+
     # Tests configs
     H2D = {
         "name": "Host to Device Bandwidth",
