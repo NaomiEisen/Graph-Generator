@@ -22,6 +22,8 @@ def load_data_two_column(file_name, start_index=0, end_index=None, right_offset=
         # Create DataFrame from data
         data = pd.DataFrame(data_lines, columns=header)
 
+        data = data.apply(pd.to_numeric, errors='coerce')
+
         return data
 
     except FileNotFoundError as e:

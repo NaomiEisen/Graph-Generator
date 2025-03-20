@@ -1,3 +1,5 @@
+import pandas as pd
+
 from data_structures.device_bw_struct import DeviceBw
 from data_structures.test import Test
 from graph_generators.plot import plot_graph
@@ -6,6 +8,41 @@ from test_handlers.test_handlers_utils import groups_all_configs
 from tests_config.tests_config_gpu_bw import GpuBwConfig
 from utils.general import get_filename_without_extension
 from utils.handle_data import load_data_two_column
+
+def plot_all_files_together(bw_struct):
+    # get avg for each col of all the diferent tests and create new data fram
+    tests = bw_struct.get_tests()
+
+    avg_df = calculate_avg_of_all_tests(tests)
+
+    # Create plot graph
+    plot_graph(avg_df, GpuBandwidthGraphConfig, get_filename_without_extension(bw_struct.org_file) + "avg",
+               "avg")
+
+    print(avg_df)
+
+import pandas as pd
+
+def calculate_avg_of_all_tests(tests):
+    # Initialize empty lists to store the values from all tests
+    all_columns_data = {col: [] for col in tests[0].data_pandas.columns}
+
+    # Loop through each test in the tests list
+    for test in tests:
+        # Loop through each column in the test data and append its values
+        for col in test.data_pandas.columns:
+            all_columns_data[col].append(test.data_pandas[col])
+
+    # Create a new DataFrame to store the averages for each column
+    avg_columns = {col: [sum(x) / len(x) for x in zip(*all_columns_data[col])] for col in all_columns_data}
+
+    # Create a new DataFrame with the averages, keeping the same column names as the original data
+    avg_df = pd.DataFrame(avg_columns)
+
+    # Assuming you want the first column to be from tests[0], update the first column
+    avg_df.insert(0, 'col0', tests[0].data_pandas[tests[0].data_pandas.columns[0]])
+
+    return avg_df
 
 
 def create_test_instance_and_plot(bw_struct, configs, final_name, test_name):
@@ -16,11 +53,7 @@ def create_test_instance_and_plot(bw_struct, configs, final_name, test_name):
     if combined_data.empty:
         return  # Return if there is no data to process
 
-    # Debugging print (remove later if not needed)
-    print("Combined!")
-    print(combined_data)
-
-    # Create bar graph
+    # Create plot graph
     plot_graph(combined_data, GpuBandwidthGraphConfig, get_filename_without_extension(bw_struct.org_file) + final_name, test_name)
 
     # Append results to nv_bandwidth_struct

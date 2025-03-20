@@ -1,4 +1,3 @@
-
 import pandas as pd
 
 from graphs_config import NvBandwidthGraphConfig
@@ -11,13 +10,13 @@ from utils.general import get_filename_without_extension
 from utils.handle_data import load_data_matrix_format
 
 
-def create_test_instance_and_plot(nv_bandwith_struct, configs, final_name, test_name):
+def create_test_instance_and_plot(nv_bandwidth_struct, configs, final_name, test_name):
     """
     Loads test data for multiple configurations, combines them into a single DataFrame,
     modifies column names, and generates a bar graph.
     """
     # Load and combine test data
-    tests_to_combine = [parse_data_from_test_config(config, nv_bandwith_struct) for config in configs]
+    tests_to_combine = [parse_data_from_test_config(config, nv_bandwidth_struct) for config in configs]
     combined_data = combine_data_frame(tests_to_combine)
 
     if combined_data.empty:
@@ -30,10 +29,10 @@ def create_test_instance_and_plot(nv_bandwith_struct, configs, final_name, test_
     print(combined_data)
 
     # Create bar graph
-    plot_bar_graph(combined_data, NvBandwidthGraphConfig, get_filename_without_extension(nv_bandwith_struct.org_file) + final_name, test_name)
+    plot_bar_graph(combined_data, NvBandwidthGraphConfig, get_filename_without_extension(nv_bandwidth_struct.org_file) + final_name, test_name)
 
     # Append results to nv_bandwidth_struct
-    nv_bandwith_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
+    nv_bandwidth_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
 
 
 def add_prefix(combined_data, prefix):
