@@ -1,11 +1,8 @@
-from collections import defaultdict
-import inspect
-import pandas as pd
-
 from data_structures.device_bw_struct import DeviceBw
 from data_structures.test import Test
 from graph_generators.plot import plot_graph
 from graphs_config import GpuBandwidthGraphConfig
+from test_handlers.test_handlers_utils import groups_all_configs
 from tests_config.tests_config_gpu_bw import GpuBwConfig
 from utils.general import get_filename_without_extension
 from utils.handle_data import load_data_two_column
@@ -68,23 +65,10 @@ def combine_data_frame(tests):
     return combined_df
 
 
-def group_configs():
-    grouped_configs = defaultdict(list)
-
-    # Get all class attributes
-    for name, value in inspect.getmembers(GpuBwConfig):
-        # Ensure it's a dictionary and has 'group_id'
-        if isinstance(value, dict) and 'group_id' in value:
-            grouped_configs[value['group_id']].append(value)
-
-    # Convert to list of lists
-    return list(grouped_configs.values())
-
-
 def start_bw_gpu(file):
     bw_struct = DeviceBw(org_file=file)
 
-    grouped_test_configs = group_configs()
+    grouped_test_configs = groups_all_configs(GpuBwConfig)
     print(grouped_test_configs)
 
     for config_group in grouped_test_configs:
