@@ -1,8 +1,6 @@
-import pandas as pd
-
 from data_structures.device_bw_struct import DeviceBw
 from data_structures.test import Test
-from graph_generators.plot import plot_graph
+from graph_generators.plot import plot_lines_graph
 from graphs_config import GpuBandwidthGraphConfig
 from test_handlers.test_handlers_utils import groups_all_configs
 from tests_config.tests_config_gpu_bw import GpuBwConfig
@@ -16,7 +14,7 @@ def plot_all_files_together(bw_struct):
     avg_df = calculate_avg_of_all_tests(tests)
 
     # Create plot graph
-    plot_graph(avg_df, GpuBandwidthGraphConfig, get_filename_without_extension(bw_struct.org_file) + "avg",
+    plot_lines_graph(avg_df, GpuBandwidthGraphConfig, get_filename_without_extension(bw_struct.org_file) + "avg",
                "avg")
 
     print(avg_df)
@@ -57,7 +55,7 @@ def create_test_instance_and_plot(bw_struct, configs, final_name, test_name):
         return  # Return if there is no data to process
 
     # Create plot graph
-    plot_graph(combined_data, GpuBandwidthGraphConfig, get_filename_without_extension(bw_struct.org_file) + final_name, test_name)
+    plot_lines_graph(combined_data, GpuBandwidthGraphConfig, get_filename_without_extension(bw_struct.org_file) + final_name, test_name)
 
     # Append results to nv_bandwidth_struct
     bw_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
@@ -104,9 +102,8 @@ def combine_data_frame(tests):
 def start_bw_gpu(file):
     bw_struct = DeviceBw(org_file=file)
 
+    # groups all configs by group id
     grouped_test_configs = groups_all_configs(GpuBwConfig)
-    print(grouped_test_configs)
-
     for config_group in grouped_test_configs:
         create_test_instance_and_plot(bw_struct, config_group, GpuBwConfig.FILE_NAME, GpuBwConfig.TEST_NAME)
     

@@ -1,25 +1,12 @@
-import os
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.ticker import MaxNLocator
 
-from utils.colors import ColorPalette
 from utils.handle_data import load_data_matrix_format, save_graphs
 
 
-
-import os
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-from matplotlib.ticker import MaxNLocator
-
-from utils.colors import ColorPalette
-from utils.handle_data import load_data_matrix_format, save_graphs
-
-
-def plot_graph(data, graph_config, file_name, test_name):
+def plot_lines_graph(data, graph_config, file_name, test_name):
     """
     Plots the data from the DataFrame with dots and connecting lines.
     """

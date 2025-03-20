@@ -40,8 +40,6 @@ def main():
                 struct_dict[struct_class] = []  # Create a new list for this class
             struct_dict[struct_class].append(test_struct)
 
-    #print(struct_dict)
-
 
 if __name__ == "__main__":
     main()

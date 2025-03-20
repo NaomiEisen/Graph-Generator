@@ -1,11 +1,9 @@
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 
 from utils.handle_data import save_graphs
 
-import matplotlib.pyplot as plt
-import numpy as np
+
 
 def plot_bar_graph(data, graph_config, file_name, test_name):
     """
