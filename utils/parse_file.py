@@ -2,6 +2,7 @@
 class TestsType:
     NCCL_TYPE = "nccl"
     NV_BANDWIDTH_TYPE = "nvbandwidth"
+    GPU_BANDWIDTH_TYPE = "bandwidthtest"
 
 
 def determine_test_type(file_path):
@@ -24,6 +25,8 @@ def determine_test_type(file_path):
                 return TestsType.NCCL_TYPE
             elif TestsType.NV_BANDWIDTH_TYPE in first_line:
                 return TestsType.NV_BANDWIDTH_TYPE 
+            elif TestsType.GPU_BANDWIDTH_TYPE in first_line:
+                return TestsType.GPU_BANDWIDTH_TYPE
             else:
                 return "UNKNOWN"
     except Exception as e:
