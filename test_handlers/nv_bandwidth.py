@@ -83,7 +83,7 @@ def combine_data_frame(tests):
 def start_bandwidth(file):
     nv_bandwidth_struct = NvBandwidth(org_file=file)
 
-    grouped_test_configs = groups_all_configs(NvBandwidthGraphConfig)
+    grouped_test_configs = groups_all_configs(NvBandwidthConfig)
     for config_group in grouped_test_configs:
         group_id = config_group[0]['group_id']  # Get group_id from the first config in the group
         group_info = NvBandwidthConfig.GROUPS_INFO[group_id]  # Lookup group info
