@@ -23,7 +23,7 @@ class GpuBandwidthGraphConfig:
 
     X_AXIS = 'Transfer Size (Bytes)'
     Y_AXIS = 'Bandwidth(GB/s)'
-    AXIS_LABEL_FONT_SIZE = 18
+    AXIS_LABEL_FONT_SIZE = 30
 
     LEGEND_FONT_SIZE = 20
 
@@ -32,4 +32,4 @@ class GpuBandwidthGraphConfig:
 
     Y_NBINS = 20
 
-    COLOR_THEME = ColorPalette.DARK_COLOR_BAR_THEME1
+    COLOR_THEME = ColorPalette.DARK_COLOR_THEME_MINI

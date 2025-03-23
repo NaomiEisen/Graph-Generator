@@ -3,14 +3,37 @@ import numpy as np
 import pandas as pd
 from matplotlib.ticker import MaxNLocator
 
-from utils.handle_data import load_data_matrix_format, save_graphs
+from utils.handle_data import  save_graphs
 
 
 def plot_lines_graph(data, graph_config, file_name, test_name):
     """
     Plots the data from the DataFrame with dots and connecting lines.
     """
-    fig, ax = plt.subplots(figsize=(graph_config.WIDTH, graph_config.HEIGHT))
+
+    plt.rcParams.update({
+        'axes.facecolor': '#1e1e1e',  # Dark gray background for the plot area
+        'axes.edgecolor': 'white',  # White borders for the axes
+        'axes.labelcolor': 'white',  # White color for axis labels
+        'axes.labelsize': graph_config.AXIS_LABEL_FONT_SIZE,  # Font size for x and y axis labels
+        'xtick.color': 'white',  # White ticks along the x-axis
+        'ytick.color': 'white',  # White ticks along the y-axis
+        'xtick.labelsize': 18,  # Font size for x-axis tick labels
+        'ytick.labelsize': 18,  # Font size for y-axis tick labels
+        'grid.color': '#444444',  # Gridline color
+        'grid.alpha': 0.5,  # Make the gridlines slightly transparent
+        'text.color': 'white',  # White text for titles and annotations
+        'figure.facecolor': '#1e1e1e',  # Dark background for the figure
+        'figure.figsize': (graph_config.WIDTH, graph_config.HEIGHT),  #  figure size (in inches)
+        'lines.linewidth': 2,  # Thicker lines for better visibility
+        'lines.color': 'white',  # Default line color (can be overridden)
+        'legend.fontsize': graph_config.LEGEND_FONT_SIZE,
+        'axes.titleweight': 'bold',  # Make titles bold
+        'axes.titlesize': graph_config.TITLE_SIZE  # Title font size
+    })
+
+
+    fig, ax = plt.subplots()
 
     # Define X range (min=0, max from first column)
     x_min, x_max = 0, pd.to_numeric(data.iloc[:, 0]).max()
@@ -31,9 +54,9 @@ def plot_lines_graph(data, graph_config, file_name, test_name):
     ax.yaxis.set_major_locator(MaxNLocator(integer=True, nbins=graph_config.Y_NBINS))
 
     # Titles and labels
-    ax.set_title(test_name, fontsize=graph_config.TITLE_SIZE)
-    ax.set_xlabel(graph_config.X_AXIS if graph_config.X_AXIS else data.columns[0], fontsize=graph_config.AXIS_LABEL_FONT_SIZE)
-    ax.set_ylabel(graph_config.Y_AXIS, fontsize=graph_config.AXIS_LABEL_FONT_SIZE)
+    ax.set_title(test_name)
+    ax.set_xlabel(graph_config.X_AXIS if graph_config.X_AXIS else data.columns[0])
+    ax.set_ylabel(graph_config.Y_AXIS)
     ax.legend()
     ax.grid()
 

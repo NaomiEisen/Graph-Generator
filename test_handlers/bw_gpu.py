@@ -13,17 +13,10 @@ def plot_all_files_together(tests):
 
     # Create plot graph
     plot_lines_graph(avg_df, GpuBandwidthGraphConfig, "gpu_bw_average",
-               "avg")
-
-    print(avg_df)
-
-import pandas as pd
+               "gpu_bw_average")
 
 def calculate_avg_of_all_tests(gpu_bw_struct_list):
     dataframes = [gpu_bw_struct.Test.data_pandas for gpu_bw_struct in gpu_bw_struct_list]
-
-    print("data")
-    print(dataframes)
 
     # Sum all the DataFrames
     sum_df = sum(dataframes)
@@ -31,11 +24,9 @@ def calculate_avg_of_all_tests(gpu_bw_struct_list):
     # Calculate the average by dividing by the number of DataFrames
     avg_df = sum_df / len(dataframes)
 
-    print(avg_df)
-
     return avg_df
 
-def create_test_instance_and_plot(bw_struct, configs, final_name, test_name):
+def create_test_instance_and_plot(bw_struct, configs, final_name):
     # Load and combine test data
     tests_to_combine = [parse_data_from_test_config(config, bw_struct) for config in configs]
     combined_data = combine_data_frame(tests_to_combine)
@@ -46,8 +37,10 @@ def create_test_instance_and_plot(bw_struct, configs, final_name, test_name):
     # Append results to nv_bandwidth_struct
     bw_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
 
+    file_name_without_extension = get_filename_without_extension(bw_struct.org_file)
+
     # Create plot graph
-    plot_lines_graph(combined_data, GpuBandwidthGraphConfig, get_filename_without_extension(bw_struct.org_file) + final_name, test_name)
+    plot_lines_graph(combined_data, GpuBandwidthGraphConfig, file_name_without_extension, file_name_without_extension)
 
 
 def parse_data_from_test_config(test_config, nv_bandwidth_struct):
@@ -94,6 +87,6 @@ def start_bw_gpu(file):
     # groups all configs by group id
     grouped_test_configs = groups_all_configs(GpuBwConfig)
     for config_group in grouped_test_configs:
-        create_test_instance_and_plot(bw_struct, config_group, GpuBwConfig.FILE_NAME, GpuBwConfig.TEST_NAME)
+        create_test_instance_and_plot(bw_struct, config_group, GpuBwConfig.FILE_NAME)
     
     return bw_struct
