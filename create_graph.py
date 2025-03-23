@@ -32,13 +32,16 @@ def main():
             # Get the class of the struct
             struct_class = type(test_struct)
 
-            if struct_class == DeviceBw:
-                plot_all_files_together(test_struct)
-
             # Add the struct to the dictionary under its class
             if struct_class not in struct_dict:
                 struct_dict[struct_class] = []  # Create a new list for this class
             struct_dict[struct_class].append(test_struct)
+
+
+    # Plot avg of all bandwidth tests
+    gpus_bw = struct_dict.get(DeviceBw)
+    if gpus_bw:
+        plot_all_files_together(gpus_bw)
 
 
 if __name__ == "__main__":

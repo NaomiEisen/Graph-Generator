@@ -7,44 +7,33 @@ from tests_config.tests_config_gpu_bw import GpuBwConfig
 from utils.general import get_filename_without_extension
 from utils.handle_data import load_data_two_column
 
-def plot_all_files_together(bw_struct):
+def plot_all_files_together(tests):
     # get avg for each col of all the different tests and create new data frame
-    tests = bw_struct.get_tests()
-
     avg_df = calculate_avg_of_all_tests(tests)
 
     # Create plot graph
-    plot_lines_graph(avg_df, GpuBandwidthGraphConfig, get_filename_without_extension(bw_struct.org_file) + "avg",
+    plot_lines_graph(avg_df, GpuBandwidthGraphConfig, "gpu_bw_average",
                "avg")
 
     print(avg_df)
 
 import pandas as pd
 
-def calculate_avg_of_all_tests(tests):
-    # Initialize empty lists to store the values from all tests
-    all_columns_data = {col: [] for col in tests[0].data_pandas.columns[1:]}  # Skip the first column
+def calculate_avg_of_all_tests(gpu_bw_struct_list):
+    dataframes = [gpu_bw_struct.Test.data_pandas for gpu_bw_struct in gpu_bw_struct_list]
 
-    # Loop through each test in the tests list
-    for test in tests:
-        # Loop through each column in the test data (skip the first column)
-        for col in test.data_pandas.columns[1:]:  # Skip the first column
-            all_columns_data[col].append(test.data_pandas[col])
+    print("data")
+    print(dataframes)
 
-    # Create a new DataFrame to store the averages for each column
-    avg_columns = {col: [sum(x) / len(x) for x in zip(*all_columns_data[col])] for col in all_columns_data}
+    # Sum all the DataFrames
+    sum_df = sum(dataframes)
 
-    # Create a new DataFrame with the averages, keeping the same column names as the original data
-    avg_df = pd.DataFrame(avg_columns)
+    # Calculate the average by dividing by the number of DataFrames
+    avg_df = sum_df / len(dataframes)
 
-    # Get the first column from tests[0] and its header
-    first_col = tests[0].data_pandas[tests[0].data_pandas.columns[0]]
-
-    # Concatenate the first column (with its header) to the beginning of avg_df
-    avg_df = pd.concat([first_col, avg_df], axis=1)
+    print(avg_df)
 
     return avg_df
-
 
 def create_test_instance_and_plot(bw_struct, configs, final_name, test_name):
     # Load and combine test data
@@ -54,11 +43,11 @@ def create_test_instance_and_plot(bw_struct, configs, final_name, test_name):
     if combined_data.empty:
         return  # Return if there is no data to process
 
-    # Create plot graph
-    plot_lines_graph(combined_data, GpuBandwidthGraphConfig, get_filename_without_extension(bw_struct.org_file) + final_name, test_name)
-
     # Append results to nv_bandwidth_struct
     bw_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
+
+    # Create plot graph
+    plot_lines_graph(combined_data, GpuBandwidthGraphConfig, get_filename_without_extension(bw_struct.org_file) + final_name, test_name)
 
 
 def parse_data_from_test_config(test_config, nv_bandwidth_struct):
