@@ -12,10 +12,10 @@ class Test:
         self.activate = activate
         self.start_indicator = start_indicator
         self.end_indicator = end_indicator
-        self.offset = offset
+        self.offset_from_start = offset
         self.data_pandas = data_pandas
 
-    def parse_test_data(self, file, right_offset, func):
+    def parse_test_data(self, file, offset_to_right, func):
         """
         Parses the test data from the given file by finding the start and end indices.
         """
@@ -27,7 +27,7 @@ class Test:
             lines = f.readlines()
             for i, line in enumerate(lines):
                 if self.start_indicator in line and start_index is None:
-                    start_index = i + self.offset # Apply offset
+                    start_index = i + self.offset_from_start # Apply offset
                 if self.end_indicator in line and start_index is not None:
                     end_index = i
                     break
@@ -35,16 +35,16 @@ class Test:
         # Check if both start and end indices were found
         if start_index is not None and end_index is not None:
             # Call the load_data function with the file and indexes
-            self.data_pandas = func(file, start_index, end_index, right_offset)
+            self.data_pandas = func(file, start_index, end_index, offset_to_right)
         else:
             raise ValueError("Could not find both start and end indicators in the file.")
 
     def __str__(self):
         """
-        String representation of the Test object that includes all its attributes.
+        String representation of the Test object that includes all its attributes. For debug purposes
         """
         return f"Test(name={self.name}, activate={self.activate}, start_indicator={self.start_indicator}, " \
-               f"end_indicator={self.end_indicator}, offset={self.offset}, data_pandas={self.data_pandas})"
+               f"end_indicator={self.end_indicator}, offset={self.offset_from_start}, data_pandas={self.data_pandas})"
 
     @classmethod
     def test_from_config(cls, config: dict, data_pandas=None):

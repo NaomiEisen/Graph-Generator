@@ -1,7 +1,7 @@
 import argparse
 
 from data_structures.device_bw_struct import DeviceBw
-from test_handlers.bw_gpu import start_bw_gpu, start_bw_gpu, plot_all_files_together
+from test_handlers.bw_gpu import start_bw_gpu, plot_all_files_together
 from test_handlers.nv_bandwidth import start_bandwidth
 from utils.handle_data import get_files_list
 from utils.parse_file import TestsType, determine_test_type
@@ -34,7 +34,7 @@ def main():
 
             # Add the struct to the dictionary under its class
             if struct_class not in struct_dict:
-                struct_dict[struct_class] = []  # Create a new list for this class
+                struct_dict[struct_class] = []
             struct_dict[struct_class].append(test_struct)
 
 
