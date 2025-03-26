@@ -10,7 +10,7 @@ class NvBandwidthGraphConfig:
     LEGEND_FONT_SIZE = 16
     BAR_LABEL_FONT_SIZE = 12
 
-    BAR_WIDTH = 0.1
+    BAR_WIDTH = 0.01
     WIDTH = 30
     HEIGHT = 15
 

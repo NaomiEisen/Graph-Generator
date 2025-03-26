@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-OUTPUTDIR = "output-graphs-naomi-example"
+OUTPUTDIR = "output-graphs-playground"
 
 def load_data_two_column(file_name, start_index=0, end_index=None, right_offset=0):
     try:

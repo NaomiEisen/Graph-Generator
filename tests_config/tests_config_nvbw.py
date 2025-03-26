@@ -12,7 +12,14 @@ class NvBandwidthConfig:
     6: { "file_name": "h2all_and_all2h_sm", "test_name": "all <-> host memcpy_sm"},
     7: { "file_name": "all2one_one2all_sm", "test_name": "all <-> one memcpy_sm"},
     8: {"file_name": "latency_sm", "test_name": "latency_sm - host and device | device to device"},
-    9: { "file_name": "device_local_copy", "test_name": "device local copy"}
+    9: { "file_name": "device_local_copy", "test_name": "device local copy"},
+
+
+    # new config
+    11: {"file_name": "host_to_device_memcpy_ce", "test_name": "host_to_device_memcpy_ce"},
+    12: {"file_name": "device_to_host_memcpy_ce", "test_name": "device_to_host_memcpy_ce"},
+    13: {"file_name": "host_to_device_bidirectional_memcpy_ce", "test_name": "host_to_device_bidirectional_memcpy_ce"},
+    14: {"file_name": "device_to_host_bidirectional_memcpy_ce", "test_name": "device_to_host_bidirectional_memcpy_ce"},
     }
 
     # Tests configs
@@ -24,7 +31,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running host_to_device_memcpy_ce",  
         "end": "SUM host_to_device_memcpy_ce",
-        "group_id" : 0
+        "group_id" : 11 # old 0
     }
 
     D2H_MEMCPY_CE = {
@@ -34,7 +41,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running device_to_host_memcpy_ce",  
         "end": "SUM device_to_host_memcpy_ce",
-        "group_id" : 0  
+        "group_id" : 12 # old o
     }
 
     H2DB_MEMCPY_CE = {
@@ -44,7 +51,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running host_to_device_bidirectional_memcpy_ce",  
         "end": "SUM host_to_device_bidirectional_memcpy_ce",
-        "group_id" : 0  
+        "group_id" : 13 # old 0
     }
 
     D2HB_MEMCPY_CE = {
@@ -54,12 +61,12 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running device_to_host_bidirectional_memcpy_ce",  
         "end": "SUM device_to_host_bidirectional_memcpy_ce ",
-        "group_id" : 0     
+        "group_id" : 14 # old 0
     }
 
     D2D_READ_MEMCPY_CE = {
         "name": "d2d_memcpy_read_ce", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_to_device_memcpy_read_ce",  
@@ -69,7 +76,7 @@ class NvBandwidthConfig:
 
     D2D_WRITE_MEMCPY_CE = {
         "name": "d2d_memcpy_write_ce", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_to_device_memcpy_write_ce",  
@@ -79,7 +86,7 @@ class NvBandwidthConfig:
 
     D2D_READ_BIDIRECT_TOTAL_MEMCPY_CE = {
         "name": "d2d_bidirectional_memcpy_read_ce_total", 
-        "activate": True,
+        "activate": False,
         "offset": 3,
         "right_offset": 1,
         # DO NOT CHANGE - there are no title for the test
@@ -90,7 +97,7 @@ class NvBandwidthConfig:
 
     D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_CE = {
         "name": "d2d_bidirectional_memcpy_write_ce_total", 
-        "activate": True,
+        "activate": False,
         "offset": 3,
         "right_offset": 1,
         # DO NOT CHANGE - there are no title for the test
@@ -101,7 +108,7 @@ class NvBandwidthConfig:
 
     ALL2H_MEMCPY_CE = {
         "name": "all_to_host_memcpy_ce", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_host_memcpy_ce",  
@@ -111,7 +118,7 @@ class NvBandwidthConfig:
 
     ALL2H_BIDIRECT_MEMCPY_CE = {
         "name": "all_to_host_bidirectional_memcpy_ce", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_host_bidirectional_memcpy_ce",  
@@ -121,7 +128,7 @@ class NvBandwidthConfig:
 
     H2ALL_MAMCPY_CE = {
         "name": "host_to_all_memcpy_ce", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running host_to_all_memcpy_ce",  
@@ -131,7 +138,7 @@ class NvBandwidthConfig:
 
     H2ALL_BIDIRECT_MAMCPY_CE = {
         "name": "host_to_all_bidirectional_memcpy_ce", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running host_to_all_bidirectional_memcpy_ce",  
@@ -141,7 +148,7 @@ class NvBandwidthConfig:
 
     ALL2ONE_WRITE_CE = {
         "name": "all_to_one_write_ce", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_one_write_ce",  
@@ -151,7 +158,7 @@ class NvBandwidthConfig:
 
     ALL2ONE_READ_CE = {
         "name": "all_to_one_read_ce", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_one_read_ce",  
@@ -161,7 +168,7 @@ class NvBandwidthConfig:
 
     ONE2ALL_WRITE_CE = {
         "name": "one_to_all_write_ce", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running one_to_all_write_ce",  
@@ -171,7 +178,7 @@ class NvBandwidthConfig:
 
     ONE2ALL_READ_CE = {
         "name": "one_to_all_read_ce", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running one_to_all_read_ce",  
@@ -182,7 +189,7 @@ class NvBandwidthConfig:
     # -- memcpy_sm
     H2D_MEMCPY_SM = {
         "name": "host_to_device_memcpy_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running host_to_device_memcpy_sm",  
@@ -192,7 +199,7 @@ class NvBandwidthConfig:
 
     D2H_MEMCPY_SM = {
         "name": "device_to_host_memcpy_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_to_host_memcpy_sm",  
@@ -202,7 +209,7 @@ class NvBandwidthConfig:
 
     H2DB_MEMCPY_SM = {
         "name": "host_to_device_bidirectional_memcpy_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running host_to_device_bidirectional_memcpy_sm",  
@@ -212,7 +219,7 @@ class NvBandwidthConfig:
 
     D2HB_MEMCPY_SM = {
         "name": "device_to_host_bidirectional_memcpy_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_to_host_bidirectional_memcpy_sm",  
@@ -222,7 +229,7 @@ class NvBandwidthConfig:
 
     D2D_READ_MEMCPY_SM = {
         "name": "device_to_device_memcpy_read_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_to_device_memcpy_read_sm",  
@@ -232,7 +239,7 @@ class NvBandwidthConfig:
 
     D2D_WRITE_MEMCPY_SM = {
         "name": "device_to_device_memcpy_write_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_to_device_memcpy_write_sm",  
@@ -242,7 +249,7 @@ class NvBandwidthConfig:
 
     D2D_READ_BIDIRECT_TOTAL_MEMCPY_SM = {
         "name": "d2d_bidirectional_memcpy_read_sm_total", 
-        "activate": True,
+        "activate": False,
         "offset": 3,
         "right_offset": 1,
         "start": "SUM device_to_device_bidirectional_memcpy_read_sm_read2",  
@@ -252,7 +259,7 @@ class NvBandwidthConfig:
 
     D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_SM = {
         "name": "d2d_bidirectional_memcpy_write_sm_total", 
-        "activate": True,
+        "activate": False,
         "offset": 3,
         "right_offset": 1,
         "start": "SUM device_to_device_bidirectional_memcpy_write_sm_write2",  
@@ -262,7 +269,7 @@ class NvBandwidthConfig:
 
     ALL2H_MEMCPY_SM = {
         "name": "all_to_host_memcpy_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_host_memcpy_sm",  
@@ -272,7 +279,7 @@ class NvBandwidthConfig:
 
     ALL2H_BIDIRECT_MEMCPY_SM = {
         "name": "all_to_host_bidirectional_memcpy_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_host_bidirectional_memcpy_sm",  
@@ -282,7 +289,7 @@ class NvBandwidthConfig:
 
     H2ALL_MAMCPY_SM = {
         "name": "host_to_all_memcpy_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running host_to_all_memcpy_sm",  
@@ -292,7 +299,7 @@ class NvBandwidthConfig:
 
     H2ALL_BIDIRECT_MAMCPY_SM = {
         "name": "host_to_all_bidirectional_memcpy_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running host_to_all_bidirectional_memcpy_sm",  
@@ -302,7 +309,7 @@ class NvBandwidthConfig:
 
     ALL2ONE_WRITE_SM = {
         "name": "all_to_one_write_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_one_write_sm",  
@@ -312,7 +319,7 @@ class NvBandwidthConfig:
 
     ALL2ONE_READ_SM = {
         "name": "all_to_one_read_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_one_read_sm",  
@@ -322,7 +329,7 @@ class NvBandwidthConfig:
 
     ONE2ALL_WRITE_SM = {
         "name": "one_to_all_write_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running one_to_all_write_sm",  
@@ -332,7 +339,7 @@ class NvBandwidthConfig:
 
     ONE2ALL_READ_SM = {
         "name": "one_to_all_read_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running one_to_all_read_sm",  
@@ -342,7 +349,7 @@ class NvBandwidthConfig:
 
     H_D_LATENCY = {
         "name": "host_device_latency_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running host_device_latency_sm",  
@@ -352,7 +359,7 @@ class NvBandwidthConfig:
 
     D_D_LATENCY = {
         "name": "device_to_device_latency_sm", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_to_device_latency_sm",  
@@ -362,7 +369,7 @@ class NvBandwidthConfig:
 
     D_LOCAL_COPY = {
         "name": "device_local_copy", 
-        "activate": True,
+        "activate": False,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_local_copy",  
