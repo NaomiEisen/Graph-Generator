@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 
+OUTPUTDIR = "output-graphs-naomi-example"
 
 def load_data_two_column(file_name, start_index=0, end_index=None, right_offset=0):
     try:
@@ -102,7 +103,7 @@ def get_files_list(args):
     return files
     
 def save_graphs(plt, file_name_without_extension):
-    output_dir = "output-graphs"
+    output_dir = OUTPUTDIR
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, f"{file_name_without_extension}_output.jpg")
 
