@@ -1,25 +1,24 @@
 class NvBandwidthConfig:
 
-    # Group tests - groupid : info
+    # Group version 1
     GROUPS_INFO = {
     0: {"file_name": "d2h_and_h2d_ce", "test_name": "device <-> host memcpy_ce"},
     1: {"file_name": "d2d_ce", "test_name": "device <-> device memcpy_ce"},
     2: {"file_name": "h2all_and_all2h_ce", "test_name": "all <-> host memcpy_ce"},
     3: {"file_name": "all2one_one2all_ce", "test_name": "all <-> one memcpy_ce"},
-
-    4: { "file_name": "d2h_and_h2d_sm", "test_name": "device <-> host memcpy_sm" },
+    4: {"file_name": "d2h_and_h2d_sm", "test_name": "device <-> host memcpy_sm" },
     5: {"file_name": "d2d_sm", "test_name": "device <-> device memcpy_sm"},
-    6: { "file_name": "h2all_and_all2h_sm", "test_name": "all <-> host memcpy_sm"},
-    7: { "file_name": "all2one_one2all_sm", "test_name": "all <-> one memcpy_sm"},
+    6: {"file_name": "h2all_and_all2h_sm", "test_name": "all <-> host memcpy_sm"},
+    7: {"file_name": "all2one_one2all_sm", "test_name": "all <-> one memcpy_sm"},
     8: {"file_name": "latency_sm", "test_name": "latency_sm - host and device | device to device"},
     9: { "file_name": "device_local_copy", "test_name": "device local copy"},
 
 
-    # new config
-    11: {"file_name": "host_to_device_memcpy_ce", "test_name": "host_to_device_memcpy_ce"},
-    12: {"file_name": "device_to_host_memcpy_ce", "test_name": "device_to_host_memcpy_ce"},
-    13: {"file_name": "host_to_device_bidirectional_memcpy_ce", "test_name": "host_to_device_bidirectional_memcpy_ce"},
-    14: {"file_name": "device_to_host_bidirectional_memcpy_ce", "test_name": "device_to_host_bidirectional_memcpy_ce"},
+    # Group version 2
+    11: {"file_name": "host_to_device_memcpy_ce", "test_name": "Host to device memcpy ce"},
+    12: {"file_name": "device_to_host_memcpy_ce", "test_name": "Device to host memcpy_ce"},
+    13: {"file_name": "host_to_device_bidirectional_memcpy_ce", "test_name": "Host to device bidirectional memcpy_ce"},
+    14: {"file_name": "device_to_host_bidirectional_memcpy_ce", "test_name": "Device to host bidirectional memcpy_ce"},
     }
 
     # Tests configs

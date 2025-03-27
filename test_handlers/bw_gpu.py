@@ -4,7 +4,7 @@ from graph_generators.plot import plot_lines_graph
 from graphs_config import GpuBandwidthGraphConfig
 from test_handlers.test_handlers_utils import groups_all_configs
 from tests_config.tests_config_gpu_bw import GpuBwConfig
-from utils.general import get_filename_without_extension
+from utils.general import get_filename_without_extension, replace_underscores_with_spaces
 from utils.handle_data import load_data_two_column
 
 def plot_all_files_together(tests):
@@ -12,8 +12,8 @@ def plot_all_files_together(tests):
     avg_df = calculate_avg_of_all_tests(tests)
 
     # Create plot graph
-    plot_lines_graph(avg_df, GpuBandwidthGraphConfig, "gpu_bw_average",
-               "gpu_bw_average")
+    plot_lines_graph(avg_df, GpuBandwidthGraphConfig, "bandwidth_gpu_bw_average",
+               "Bandwidth Test Average")
 
 def calculate_avg_of_all_tests(gpu_bw_struct_list):
     dataframes = [gpu_bw_struct.Test.data_pandas for gpu_bw_struct in gpu_bw_struct_list]
@@ -37,10 +37,11 @@ def create_test_instance_and_plot(bw_struct, configs, final_name):
     # Append results to nv_bandwidth_struct
     bw_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
 
-    file_name_without_extension = get_filename_without_extension(bw_struct.org_file)
+    file_name = get_filename_without_extension(bw_struct.org_file)
+    graph_title = replace_underscores_with_spaces(file_name)
 
     # Create plot graph
-    plot_lines_graph(combined_data, GpuBandwidthGraphConfig, file_name_without_extension, file_name_without_extension)
+    plot_lines_graph(combined_data, GpuBandwidthGraphConfig, file_name, graph_title)
 
 
 def parse_data_from_test_config(test_config, nv_bandwidth_struct):

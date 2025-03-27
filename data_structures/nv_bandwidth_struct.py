@@ -1,7 +1,10 @@
 from data_structures.test import Test
 
 class NvBandwidth:
-    def __init__(self, org_file: str, tests=None):
+    TYPE_ORG = 0
+    TYPE_OPT = 1
+
+    def __init__(self, org_file: str, tests=None, type_file=TYPE_ORG):
         """
         Initializes the NvBandwidth object with the given file and list of tests.
         """
@@ -9,6 +12,7 @@ class NvBandwidth:
             tests = []
         self.org_file = org_file
         self.Tests = tests
+        self.type = type_file
 
     def add_test(self, test: Test):
         """

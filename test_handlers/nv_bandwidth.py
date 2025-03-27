@@ -1,13 +1,46 @@
 import pandas as pd
 
-from graphs_config import NvBandwidthGraphConfig
+from graph_generators.opt_vs_org_graph import org_vs_opt_bar_graph
+from graphs_config import NvBandwidthGraphConfig, ComparisonGraphConfig
 from data_structures.nv_bandwidth_struct import NvBandwidth
 from data_structures.test import Test
 from test_handlers.test_handlers_utils import groups_all_configs
 from tests_config.tests_config_nvbw import NvBandwidthConfig
 from graph_generators.bar_graph import plot_bar_graph
-from utils.general import get_filename_without_extension
+from utils.general import get_filename_without_extension, replace_underscores_with_spaces
 from utils.handle_data import load_data_matrix_format
+
+
+def plot_opt_vs_org(bandwidth_struct_list):
+    # For now - we will compare only the first two
+    bandwidth_struct_opt = [bandwidth_struct for bandwidth_struct in bandwidth_struct_list if bandwidth_struct.type == NvBandwidth.TYPE_OPT]
+    bandwidth_struct_org = [bandwidth_struct for bandwidth_struct in bandwidth_struct_list if bandwidth_struct.type == NvBandwidth.TYPE_ORG]
+
+    if len(bandwidth_struct_opt) != 1 or len(bandwidth_struct_org) != 1:
+        print("Error: Expected exactly one opt and one org file")
+        return
+
+    bandwidth_struct_opt = bandwidth_struct_opt[0]
+    bandwidth_struct_org = bandwidth_struct_org[0]
+
+    opt_tests = bandwidth_struct_opt.get_tests()
+    org_tests = bandwidth_struct_org.get_tests()
+
+    for opt_test in opt_tests:  # Iterate through each test in opt_tests
+        # Find a test in org_tests with the same name
+        matching_org_test = next((org_test for org_test in org_tests if org_test.name == opt_test.name), None)
+
+        if matching_org_test is not None:
+            print(f"Comparing opt {opt_test.name} with org {matching_org_test.name}")
+            org_vs_opt_bar_graph(
+                data_org= matching_org_test.data_pandas,
+                data_opt= opt_test.data_pandas,
+                graph_config= ComparisonGraphConfig,
+                test_name= replace_underscores_with_spaces(f"{opt_test.name} comparison"),
+                file_name= f"{opt_test.name}_comparison")
+
+        else:
+            print(f"Test {opt_test.name} not found in org_tests")
 
 
 def create_test_instance_and_plot(nv_bandwidth_struct, configs, final_name, test_name):
@@ -29,7 +62,12 @@ def create_test_instance_and_plot(nv_bandwidth_struct, configs, final_name, test
     print(combined_data)
 
     # Create bar graph
-    plot_bar_graph(combined_data, NvBandwidthGraphConfig, get_filename_without_extension(nv_bandwidth_struct.org_file) + final_name, test_name)
+    file_name =  get_filename_without_extension(nv_bandwidth_struct.org_file) + final_name
+    if nv_bandwidth_struct.type == NvBandwidth.TYPE_OPT:
+        file_name = final_name + '_opt'
+        print(file_name)
+
+    plot_bar_graph(combined_data, NvBandwidthGraphConfig, file_name, test_name)
 
     # Append results to nv_bandwidth_struct
     nv_bandwidth_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
@@ -81,7 +119,11 @@ def combine_data_frame(tests):
 
 
 def start_bandwidth(file):
-    nv_bandwidth_struct = NvBandwidth(org_file=file)
+    if 'opt' in file:
+        nv_bandwidth_struct = NvBandwidth(org_file=file, type_file= NvBandwidth.TYPE_OPT)
+        print("found opt file!")
+    else:
+        nv_bandwidth_struct = NvBandwidth(org_file=file, type_file=NvBandwidth.TYPE_ORG)
 
     grouped_test_configs = groups_all_configs(NvBandwidthConfig)
     for config_group in grouped_test_configs:
