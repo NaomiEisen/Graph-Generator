@@ -86,29 +86,5 @@ def plot_four_graphs_opt_vs_org(data_org, data_opt, graph_config, file_name, tes
     save_graphs(plt, file_name)
     plt.close(fig)
 
-# def plot_one_column_data(data_org, data_opt, graph_config, file_name, test_name):
-#     x = np.arange(6)
-#
-#     # Create the plot
-#     fig, ax = plt.subplots()
-#
-#     # Plot the bars
-#     rect1 = ax.bar(2, data_org.mean(), 0.4, label='Original xml')
-#     rect2 = ax.bar(3,data_opt.mean(), 0.4, label='Optimal xml')
-#
-#     ax.bar_label(rect1, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE)
-#     ax.bar_label(rect2, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE)
-#
-#     ax.set_xticks(x)
-#     ax.tick_params(axis='x', labelbottom=False)
-#     ax.set_xlabel(graph_config.X_AXIS)
-#
-#     ax.set_ylabel(graph_config.Y_AXIS)
-#     ax.set_title(test_name)
-#
-#     # Extend the y-limit to make room for the legend
-#     ax.set_ylim(0, max(data_org.max().max(), data_opt.max().max()) * 1.2)
-#     ax.legend()
-#     save_graphs(plt, file_name)
 
 
