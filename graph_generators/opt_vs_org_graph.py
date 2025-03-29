@@ -45,9 +45,11 @@ def org_vs_opt_bar_graph_nvbandwidth(data_org, data_opt, graph_config, file_name
         ])
 
         save_graphs(plt, file_name)
+
+
 def plot_four_graphs_opt_vs_org(data_org, data_opt, graph_config, file_name, test_name):
     fig, ax = plt.subplots(2, 2, figsize=(30,15))
-    print("HERE")
+    x_range = 6
 
     # Get global min and max for the y-axis range
     y_min = 0  # Minimum of the first columns
@@ -57,17 +59,17 @@ def plot_four_graphs_opt_vs_org(data_org, data_opt, graph_config, file_name, tes
     idx = 0
     for i in range(2):  # Row index
         for j in range(2):  # Column index
-            bar_org = ax[i, j].bar(0.8, data_org.iloc[idx, 0], width=0.15, align = 'center' ,label=data_org.columns[0])
-            bar_opt = ax[i, j].bar(1.2, data_opt.iloc[idx, 0], width=0.15, align = 'center', label=data_opt.columns[0])
+            bar_org = ax[i, j].bar(x_range/2 + graph_config.BAR_WIDTH/2 + 0.01 , data_org.iloc[idx, 0], width=graph_config.BAR_WIDTH,label=data_org.columns[0])
+            bar_opt = ax[i, j].bar(x_range/2 - graph_config.BAR_WIDTH/2 - 0.01, data_opt.iloc[idx, 0], width=graph_config.BAR_WIDTH, label=data_opt.columns[0])
 
-            ax[i, j].bar_label(bar_org, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE)
-            ax[i, j].bar_label(bar_opt, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE)
+            ax[i, j].bar_label(bar_org, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE-4)
+            ax[i, j].bar_label(bar_opt, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE-4)
 
             ax[i, j].set_ylim(y_min, y_max)  # Set the same y-axis range
             ax[i, j].set_title(data_org.index[idx])  # Title as row name
             ax[i, j].set_ylabel(graph_config.Y_AXIS)
 
-            ax[i, j].set_xlim(0, 2)  # Set x range
+            ax[i, j].set_xlim(0, x_range)  # Set x range
             ax[i, j].tick_params(axis='x', bottom=False, labelbottom=False)  # Remove x-ticks
 
             ax[i, j].grid(True)
