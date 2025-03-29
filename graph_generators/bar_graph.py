@@ -25,6 +25,7 @@ def plot_bar_graph(data, graph_config, file_name, test_name, test_type = 0):
     ax.set_xticklabels(data.columns)
 
     # create more space for legend by increasing the y axes range
+    ax.set_ylim(0, max(data.max().max(), data.max().max()) * 1.2)
     ax.set_ylabel(graph_config.Y_AXIS)
     ax.set_title(test_name)
 
@@ -37,9 +38,8 @@ def plot_bar_graph(data, graph_config, file_name, test_name, test_type = 0):
 
 def plot_four_graphs(data, graph_config, file_name, test_name, test_type = 0):
     fig, ax = plt.subplots(2, 2, figsize=(30,15))
-    x = [1]
+    x=[1]
 
-    print(data)
     # Get global min and max for the y-axis range
     y_min = 0 # Minimum of the first columns
     y_max = data.iloc[:, 0].max() + 50  # Maximum of the first column
