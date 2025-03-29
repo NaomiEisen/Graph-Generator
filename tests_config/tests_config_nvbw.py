@@ -15,14 +15,27 @@ class NvBandwidthConfig:
 
 
     # Group version 2
-    11: {"file_name": "host_to_device_memcpy_ce", "test_name": "Host to device memcpy ce"},
-    12: {"file_name": "device_to_host_memcpy_ce", "test_name": "Device to host memcpy_ce"},
-    13: {"file_name": "host_to_device_bidirectional_memcpy_ce", "test_name": "Host to device bidirectional memcpy_ce"},
-    14: {"file_name": "device_to_host_bidirectional_memcpy_ce", "test_name": "Device to host bidirectional memcpy_ce"},
-    15: {"file_name": "all_to_host_memcpy_ce", "test_name": "all_to_host_memcpy_ce"},
-    16: {"file_name": "all_to_host_bidirectional_memcpy_ce", "test_name": "Dall_to_host_bidirectional_memcpy_ce"},
-    17: {"file_name": "host_to_all_memcpy_ce", "test_name": "host_to_all_memcpy_ce"},
-    18: {"file_name": "host_to_all_bidirectional_memcpy_ce", "test_name": "host_to_all_bidirectional_memcpy_ce"},
+    11: {"file_name": "H2D_memcpy_ce", "test_name": "Host to device memcpy ce"},
+    12: {"file_name": "D2H_memcpy_ce", "test_name": "Device to host memcpy_ce"},
+    13: {"file_name": "H2DB_memcpy_ce", "test_name": "Host to device bidirectional memcpy_ce"},
+    14: {"file_name": "D2HB_memcpy_ce", "test_name": "Device to host bidirectional memcpy_ce"},
+    15: {"file_name": "A2H_memcpy_ce", "test_name": "All To Host memcpy_ce"},
+    16: {"file_name": "A2HB_memcpy_ce", "test_name": "All To Host Bidirectional memcpy_ce"},
+    17: {"file_name": "H2A_memcpy_ce", "test_name": "Host To All memcpy_ce"},
+    18: {"file_name": "H2AB_memcpy_ce", "test_name": "Host To All Bidirectional memcpy_ce"},
+    19: {"file_name": "D2D_read_write_ce", "test_name": "Device To Device Read&Write memcpy_ce"},
+    20: {"file_name": "O2A_A2O_read_write_ce", "test_name": "All to One And One To All Read&Write memcpy_sm"},
+
+
+    21: {"file_name": "H2D_memcpy_sm", "test_name": "Host to device memcpy sm"},
+    22: {"file_name": "D2H_memcpy_sm", "test_name": "Device to host memcpy_sm"},
+    23: {"file_name": "H2DB_memcpy_sm", "test_name": "Host to device bidirectional memcpy_sm"},
+    24: {"file_name": "D2HB_memcpy_sm", "test_name": "Device to host bidirectional memcpy_sm"},
+    25: {"file_name": "A2H_memcpy_sm", "test_name": "All To Host memcpy_sm"},
+    26: {"file_name": "A2HB_memcpy_sm", "test_name": "All To Host Bidirectional memcpy_sm"},
+    27: {"file_name": "H2A_memcpy_sm", "test_name": "Host To All memcpy_sm"},
+    28: {"file_name": "H2AB_memcpy_sm", "test_name": "Host To All Bidirectional memcpy_sm"},
+    29: {"file_name": "D2D_read_write_sm", "test_name": "Device To Device Read&Write memcpy_sm"},
     }
 
     # Tests configs
@@ -74,7 +87,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running device_to_device_memcpy_read_ce",
         "end": "SUM device_to_device_memcpy_read_ce",
-        "group_id": 1
+        "group_id": 19
     }
 
     D2D_WRITE_MEMCPY_CE = {
@@ -84,7 +97,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running device_to_device_memcpy_write_ce",
         "end": "SUM device_to_device_memcpy_write_ce",
-        "group_id": 1
+        "group_id": 19
     }
 
     D2D_READ_BIDIRECT_TOTAL_MEMCPY_CE = {
@@ -95,7 +108,7 @@ class NvBandwidthConfig:
         # DO NOT CHANGE - there are no title for the test
         "start": "SUM device_to_device_bidirectional_memcpy_read_ce_read2",
         "end": "SUM device_to_device_bidirectional_memcpy_read_ce_total",
-        "group_id": 1
+        "group_id": 19
     }
 
     D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_CE = {
@@ -106,7 +119,7 @@ class NvBandwidthConfig:
         # DO NOT CHANGE - there are no title for the test
         "start": "SUM device_to_device_bidirectional_memcpy_write_ce_write2",
         "end": "SUM device_to_device_bidirectional_memcpy_write_ce_total",
-        "group_id": 1
+        "group_id": 19
     }
 
     ALL2H_MEMCPY_CE = {
@@ -151,42 +164,42 @@ class NvBandwidthConfig:
 
     ALL2ONE_WRITE_CE = {
         "name": "all_to_one_write_ce",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_one_write_ce",
         "end": "SUM all_to_one_write_ce",
-        "group_id": 3
+        "group_id": 20
     }
 
     ALL2ONE_READ_CE = {
         "name": "all_to_one_read_ce",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_one_read_ce",
         "end": "SUM all_to_one_read_ce",
-        "group_id": 3
+        "group_id": 20
     }
 
     ONE2ALL_WRITE_CE = {
         "name": "one_to_all_write_ce",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running one_to_all_write_ce",
         "end": "SUM one_to_all_write_ce",
-        "group_id": 3
+        "group_id": 20
     }
 
     ONE2ALL_READ_CE = {
         "name": "one_to_all_read_ce",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running one_to_all_read_ce",
         "end": "SUM one_to_all_read_ce",
-        "group_id": 3
+        "group_id": 20
     }
 
     # -- memcpy_sm

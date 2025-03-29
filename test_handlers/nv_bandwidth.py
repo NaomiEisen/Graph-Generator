@@ -1,12 +1,12 @@
 import pandas as pd
 
-from graph_generators.opt_vs_org_graph import org_vs_opt_bar_graph
+from graph_generators.opt_vs_org_graph import org_vs_opt_bar_graph_nvbandwidth
 from graphs_config import NvBandwidthGraphConfig, ComparisonGraphConfig
 from data_structures.nv_bandwidth_struct import NvBandwidth
 from data_structures.test import Test
 from test_handlers.test_handlers_utils import groups_all_configs
 from tests_config.tests_config_nvbw import NvBandwidthConfig
-from graph_generators.bar_graph import plot_bar_graph
+from graph_generators.bar_graph import plot_bar_graph, plot_four_graphs
 from utils.general import get_filename_without_extension, replace_underscores_with_spaces
 from utils.handle_data import load_data_matrix_format
 
@@ -32,7 +32,7 @@ def plot_opt_vs_org(bandwidth_struct_list):
 
         if matching_org_test is not None:
             print(f"Comparing opt {opt_test.name} with org {matching_org_test.name}")
-            org_vs_opt_bar_graph(
+            org_vs_opt_bar_graph_nvbandwidth(
                 data_org= matching_org_test.data_pandas,
                 data_opt= opt_test.data_pandas,
                 graph_config= ComparisonGraphConfig,
@@ -43,7 +43,7 @@ def plot_opt_vs_org(bandwidth_struct_list):
             print(f"Test {opt_test.name} not found in org_tests")
 
 
-def create_test_instance_and_plot(nv_bandwidth_struct, configs, final_name, test_name):
+def create_test_instance_and_plot(nv_bandwidth_struct, configs, graph_file_name, test_name):
     """
     Loads test data for multiple configurations, combines them into a single DataFrame,
     modifies column names, and generates a bar graph.
@@ -58,19 +58,12 @@ def create_test_instance_and_plot(nv_bandwidth_struct, configs, final_name, test
     # Append 'gpu' to each column name where needed
     add_prefix(combined_data, 'GPU')
 
-    # Debugging print (remove later if not needed)
-    print(combined_data)
-
     # Create bar graph
-    file_name =  get_filename_without_extension(nv_bandwidth_struct.org_file) + final_name
-    if nv_bandwidth_struct.type == NvBandwidth.TYPE_OPT:
-        file_name = final_name + '_opt'
-        print(file_name)
-
-    plot_bar_graph(combined_data, NvBandwidthGraphConfig, file_name, test_name)
+    file_name = graph_file_name + '_opt' if nv_bandwidth_struct.type == NvBandwidth.TYPE_OPT else graph_file_name
+    plot_bar_graph(combined_data, NvBandwidthGraphConfig, file_name, test_name, nv_bandwidth_struct.type)
 
     # Append results to nv_bandwidth_struct
-    nv_bandwidth_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
+    nv_bandwidth_struct.add_test(Test(name=graph_file_name, activate="true", data_pandas=combined_data))
 
 
 def add_prefix(combined_data, prefix):
@@ -100,10 +93,6 @@ def parse_data_from_test_config(test_config, nv_bandwidth_struct):
         else:
              # Set the custom index for the data
             test.data_pandas.index = [test_config["name"]]  # Set custom index from the config
-        
-        # Print the result
-        print(test.data_pandas)
-
         return test
     
     else:

@@ -8,7 +8,7 @@ class ComparisonGraphConfig:
     X_AXIS = "GPU's"
     AXIS_LABEL_FONT_SIZE = 18
     BAR_LABEL_FONT_SIZE = 16
-    COLOR_THEME = ColorPalette.DARK_COLOR_BAR_THEME1
+    COLOR_THEME = ColorPalette.COLOR_THEME_OPT_VS_ORG
 
 
 class NvBandwidthGraphConfig:
@@ -18,10 +18,10 @@ class NvBandwidthGraphConfig:
     AXIS_LABEL_FONT_SIZE = 18
     LEGEND_FONT_SIZE = 16
     BAR_LABEL_FONT_SIZE = 18
-    BAR_WIDTH = 0.1
+    BAR_WIDTH = 0.35
     WIDTH = 30
     HEIGHT = 25
-    COLOR_THEME = ColorPalette.DARK_COLOR_BAR_THEME1
+    COLOR_THEME = ColorPalette.COLOR_THEME_OPT_VS_ORG
 
 
 class GpuBandwidthGraphConfig:

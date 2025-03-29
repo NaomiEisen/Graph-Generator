@@ -10,40 +10,6 @@ def plot_lines_graph(data, graph_config, file_name, test_name):
     """
     Plots the data from the DataFrame with dots and connecting lines.
     """
-    #
-    # plt.rcParams.update({
-    #     # ---------- Figure Settings ----------
-    #     'figure.facecolor': '#1e1e1e',  # Dark background for the figure
-    #     'figure.figsize': (graph_config.WIDTH, graph_config.HEIGHT),  # Figure size (in inches)
-    #
-    #     # ---------- Axes Settings ----------
-    #     'axes.facecolor': '#1e1e1e',  # Dark gray background for the plot area
-    #     'axes.edgecolor': 'white',  # White borders for the axes
-    #     'axes.labelcolor': 'white',  # White color for axis labels
-    #     'axes.labelsize': graph_config.AXIS_LABEL_FONT_SIZE,  # Font size for x and y axis labels
-    #     'axes.titleweight': 'bold',  # Make titles bold
-    #     'axes.titlesize': graph_config.TITLE_SIZE,  # Title font size
-    #
-    #     # ---------- Tick Settings ----------
-    #     'xtick.color': 'white',  # White ticks along the x-axis
-    #     'ytick.color': 'white',  # White ticks along the y-axis
-    #     'xtick.labelsize': 18,  # Font size for x-axis tick labels
-    #     'ytick.labelsize': 18,  # Font size for y-axis tick labels
-    #
-    #     # ---------- Grid Settings ----------
-    #     'grid.color': '#444444',  # Gridline color
-    #     'grid.alpha': 0.5,  # Make the gridlines slightly transparent
-    #
-    #     # ---------- Line Settings ----------
-    #     'lines.linewidth': 2,  # Thicker lines for better visibility
-    #     'lines.color': 'white',  # Default line color (can be overridden)
-    #
-    #     # ---------- Legend Settings ----------
-    #     'legend.fontsize': graph_config.LEGEND_FONT_SIZE,  # Font size for legend text
-    #
-    #     # ---------- Text Settings ----------
-    #     'text.color': 'white'  # White text for titles and annotations
-    # })
 
     fig, ax = plt.subplots()
 

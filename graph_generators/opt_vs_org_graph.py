@@ -12,7 +12,7 @@ MEDIUM_GREEN = '#8DC72B'
 LIGHT_ORANGE = "#E69500"
 MEDIUM_ORANGE = '#F0A95A'
 
-def org_vs_opt_bar_graph(data_org, data_opt, graph_config, file_name, test_name):
+def org_vs_opt_bar_graph_nvbandwidth(data_org, data_opt, graph_config, file_name, test_name):
     if list(data_org.columns) != list(data_opt.columns):
         raise ValueError("data_org and data_opt must have the same columns")
 
@@ -42,11 +42,9 @@ def org_vs_opt_bar_graph(data_org, data_opt, graph_config, file_name, test_name)
         # Extend the y-limit to make room for the legend
         ax.set_ylim(0, max(data_org.max().max(), data_opt.max().max()) * 1.2)
         ax.legend()
-
         save_graphs(plt, file_name)
 
 def plot_one_column_data(data_org, data_opt, graph_config, file_name, test_name):
-
     x = np.arange(6)
 
     # Create the plot
@@ -72,13 +70,3 @@ def plot_one_column_data(data_org, data_opt, graph_config, file_name, test_name)
     ax.set_ylim(0, max(data_org.max().max(), data_opt.max().max()) * 1.2)
     ax.legend()
     save_graphs(plt, file_name)
-
-
-# x = np.linspace(0, 10, 100)
-#
-# fig, ax = plt.subplots(2, 2)  # Creates a 2x2 grid of subplots
-#
-# ax[0, 0].plot(x, np.sin(x))  # Top-left subplot
-# ax[0, 1].plot(x, np.cos(x))  # Top-right subplot
-# ax[1, 0].plot(x, np.tan(x))  # Bottom-left subplot
-# ax[1, 1].plot(x, np.exp(-x))  # Bottom-right subplot

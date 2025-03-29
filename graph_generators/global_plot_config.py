@@ -11,7 +11,6 @@ def update_plot_config():
         'axes.facecolor': '#1e1e1e',  # Dark gray background for the plot area
         'axes.edgecolor': 'white',  # White borders for the axes
         'axes.labelcolor': 'white',  # White color for axis labels
-        'axes.titleweight': 'bold',  # Make titles bold
         'axes.titlesize': 30,
         'axes.titlepad': 20,
         'axes.labelsize': 25,  # Set font size of axis labels
