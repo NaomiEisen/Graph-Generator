@@ -15,27 +15,33 @@ class NvBandwidthConfig:
 
 
     # Group version 2
-    11: {"file_name": "H2D_memcpy_ce", "test_name": "Host to device memcpy ce"},
-    12: {"file_name": "D2H_memcpy_ce", "test_name": "Device to host memcpy_ce"},
-    13: {"file_name": "H2DB_memcpy_ce", "test_name": "Host to device bidirectional memcpy_ce"},
-    14: {"file_name": "D2HB_memcpy_ce", "test_name": "Device to host bidirectional memcpy_ce"},
-    15: {"file_name": "A2H_memcpy_ce", "test_name": "All To Host memcpy_ce"},
-    16: {"file_name": "A2HB_memcpy_ce", "test_name": "All To Host Bidirectional memcpy_ce"},
-    17: {"file_name": "H2A_memcpy_ce", "test_name": "Host To All memcpy_ce"},
-    18: {"file_name": "H2AB_memcpy_ce", "test_name": "Host To All Bidirectional memcpy_ce"},
-    19: {"file_name": "D2D_read_write_ce", "test_name": "Device To Device Read&Write memcpy_ce"},
-    20: {"file_name": "O2A_A2O_read_write_ce", "test_name": "All to One And One To All Read&Write memcpy_sm"},
+        11: {"file_name": "H2D_memcpy_ce", "test_name": "Host to device memcpy ce"},
+        12: {"file_name": "D2H_memcpy_ce", "test_name": "Device to host memcpy_ce"},
+        13: {"file_name": "H2DB_memcpy_ce", "test_name": "Host to device bidirectional memcpy_ce"},
+        14: {"file_name": "D2HB_memcpy_ce", "test_name": "Device to host bidirectional memcpy_ce"},
+        15: {"file_name": "A2H_memcpy_ce", "test_name": "All To Host memcpy_ce"},
+        16: {"file_name": "A2HB_memcpy_ce", "test_name": "All To Host Bidirectional memcpy_ce"},
+        17: {"file_name": "H2A_memcpy_ce", "test_name": "Host To All memcpy_ce"},
+        18: {"file_name": "H2AB_memcpy_ce", "test_name": "Host To All Bidirectional memcpy_ce"},
+        19: {"file_name": "D2D_read_write_ce", "test_name": "Device To Device Read&Write memcpy_ce"},
+        20: {"file_name": "O2A_write_memcpy_ce", "test_name": "All to One Read memcpy_ce"},
+        21: {"file_name": "O2A_read_memcpy_ce", "test_name": "All to One Write memcpy_sm"},
+        22: {"file_name": "A2O_write_memcpy_ce", "test_name": "All to One Write memcpy_ce"},
+        23: {"file_name": "A2O_read_memcpy_ce", "test_name": "All to One Read memcpy_ce"},
 
-
-    21: {"file_name": "H2D_memcpy_sm", "test_name": "Host to device memcpy sm"},
-    22: {"file_name": "D2H_memcpy_sm", "test_name": "Device to host memcpy_sm"},
-    23: {"file_name": "H2DB_memcpy_sm", "test_name": "Host to device bidirectional memcpy_sm"},
-    24: {"file_name": "D2HB_memcpy_sm", "test_name": "Device to host bidirectional memcpy_sm"},
-    25: {"file_name": "A2H_memcpy_sm", "test_name": "All To Host memcpy_sm"},
-    26: {"file_name": "A2HB_memcpy_sm", "test_name": "All To Host Bidirectional memcpy_sm"},
-    27: {"file_name": "H2A_memcpy_sm", "test_name": "Host To All memcpy_sm"},
-    28: {"file_name": "H2AB_memcpy_sm", "test_name": "Host To All Bidirectional memcpy_sm"},
-    29: {"file_name": "D2D_read_write_sm", "test_name": "Device To Device Read&Write memcpy_sm"},
+        24: {"file_name": "H2D_memcpy_sm", "test_name": "Host to device memcpy sm"},
+        25: {"file_name": "D2H_memcpy_sm", "test_name": "Device to host memcpy_sm"},
+        26: {"file_name": "H2DB_memcpy_sm", "test_name": "Host to device bidirectional memcpy_sm"},
+        27: {"file_name": "D2HB_memcpy_sm", "test_name": "Device to host bidirectional memcpy_sm"},
+        28: {"file_name": "A2H_memcpy_sm", "test_name": "All To Host memcpy_sm"},
+        29: {"file_name": "A2HB_memcpy_sm", "test_name": "All To Host Bidirectional memcpy_sm"},
+        30: {"file_name": "H2A_memcpy_sm", "test_name": "Host To All memcpy_sm"},
+        31: {"file_name": "H2AB_memcpy_sm", "test_name": "Host To All Bidirectional memcpy_sm"},
+        32: {"file_name": "D2D_read_write_sm", "test_name": "Device To Device Read&Write memcpy_sm"},
+        33: {"file_name": "O2A_write_memcpy_sm", "test_name": "All to One Read memcpy_sm"},
+        34: {"file_name": "O2A_read_memcpy_sm", "test_name": "All to One Write memcpy_sm"},
+        35: {"file_name": "A2O_write_memcpy_sm", "test_name": "All to One Write memcpy_sm"},
+        36: {"file_name": "A2O_read_memcpy_sm", "test_name": "All to One Read memcpy_sm"},
     }
 
     # Tests configs
@@ -169,7 +175,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running all_to_one_write_ce",
         "end": "SUM all_to_one_write_ce",
-        "group_id": 20
+        "group_id": 22
     }
 
     ALL2ONE_READ_CE = {
@@ -179,7 +185,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running all_to_one_read_ce",
         "end": "SUM all_to_one_read_ce",
-        "group_id": 20
+        "group_id": 23
     }
 
     ONE2ALL_WRITE_CE = {
@@ -199,7 +205,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running one_to_all_read_ce",
         "end": "SUM one_to_all_read_ce",
-        "group_id": 20
+        "group_id": 21
     }
 
     # -- memcpy_sm

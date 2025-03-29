@@ -3,7 +3,7 @@ from utils.colors import ColorPalette
 class ComparisonGraphConfig:
     TITLE_SIZE = 50
     TITLE = 'opt xml vs original xml'
-    BAR_WIDTH = 0.4
+    BAR_WIDTH = 0.35
     Y_AXIS = 'bandwidth (GB/s)'
     X_AXIS = "GPU's"
     AXIS_LABEL_FONT_SIZE = 18
