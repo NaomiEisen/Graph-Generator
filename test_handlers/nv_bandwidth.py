@@ -36,8 +36,8 @@ def plot_opt_vs_org(bandwidth_struct_list):
                 data_org= matching_org_test.data_pandas,
                 data_opt= opt_test.data_pandas,
                 graph_config= ComparisonGraphConfig,
-                test_name= replace_underscores_with_spaces(f"{opt_test.name} comparison"),
-                file_name= f"{opt_test.name}_comparison")
+                test_name= replace_underscores_with_spaces(f"{opt_test.name} opt vs org"),
+                file_name= f"org_vs_opt_{opt_test.name}")
 
         else:
             print(f"Test {opt_test.name} not found in org_tests")

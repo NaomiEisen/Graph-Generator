@@ -12,8 +12,9 @@ def plot_bar_graph(data, graph_config, file_name, test_name):
     # Plot bars
     for i, column in enumerate(data.columns):
         offset = (i - 2) * (graph_config.BAR_WIDTH + 0.1)
-        ax.bar(x+ offset, data[column], width=graph_config.BAR_WIDTH, label=column,
+        rects = ax.bar(x+ offset, data[column], width=graph_config.BAR_WIDTH, label=column,
                color=graph_config.COLOR_THEME[i % len(graph_config.COLOR_THEME)])
+        ax.bar_label(rects, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE)
 
     ax.set_xticks(x+0.3)  # Center ticks at group positions
     ax.set_xticklabels(data.index)
