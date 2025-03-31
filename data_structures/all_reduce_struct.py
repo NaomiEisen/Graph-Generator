@@ -4,13 +4,13 @@ class AllReduce:
     TYPE_V1 = 0
     TYPE_V2 = 1
 
-    def __init__(self, org_file: str, test = None, type_file=TYPE_V1):
+    def __init__(self, org_file: str, test = None, file_version=TYPE_V1):
         """
         Initializes the NvBandwidth object with the given file and list of tests.
         """
         self.org_file = org_file
         self.Test = test
-        self.type = type_file
+        self.version = file_version
 
     def add_test(self, test: Test):
         """

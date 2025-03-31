@@ -5,6 +5,7 @@ from matplotlib.ticker import MaxNLocator
 
 from utils.general import  save_graphs
 
+#TODO: make it more generic!!
 
 def plot_single_lines_graph(data, graph_config, file_name, test_name):
     """
@@ -42,6 +43,7 @@ def plot_single_lines_graph(data, graph_config, file_name, test_name):
     # Save the graph
     save_graphs(plt, file_name)
 
+
 def plot_two_subplots(data, graph_config, file_name, test_name):
     fig, ax = plt.subplots(nrows=2)
 
@@ -71,7 +73,9 @@ def plot_two_subplots(data, graph_config, file_name, test_name):
     # Titles and labels
     ax[0].set_title(test_name)
     ax[0].set_xlabel(graph_config.X_AXIS if graph_config.X_AXIS else data.columns[0])
-    ax[0].set_ylabel(graph_config.Y_AXIS)
+    ax[1].set_xlabel(graph_config.X_AXIS if graph_config.X_AXIS else data.columns[0])
+    ax[0].set_ylabel(graph_config.Y1_AXIS)
+    ax[1].set_ylabel(graph_config.Y2_AXIS)
     ax[0].legend()
     ax[1].legend()
     ax[0].grid()

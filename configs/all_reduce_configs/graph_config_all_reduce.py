@@ -5,7 +5,8 @@ class AllReduceGraphConfig:
     TITLE_SIZE = 50
     TITLE = 'All Reduce Test'
     X_AXIS = ''
-    Y_AXIS = 'size(MB)'
+    Y1_AXIS = 'usec'
+    Y2_AXIS = 'GB/sec'
     AXIS_LABEL_FONT_SIZE = 30
     LEGEND_FONT_SIZE = 20
     WIDTH = 30

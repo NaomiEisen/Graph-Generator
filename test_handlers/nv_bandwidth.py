@@ -6,6 +6,7 @@ from graph_generators.comparison_graph import comparison_bar_graph_nvbandwidth
 from configs.nvbandwidth_configs.graph_config_nvbandwidth import NvBandwidthGraphConfig
 from data_structures.nv_bandwidth_struct import NvBandwidth
 from data_structures.test import Test
+from test_handlers.handle_comparison import get_two_versions
 from test_handlers.test_handlers_utils import groups_all_configs
 from configs.nvbandwidth_configs.tests_config_nvbw import NvBandwidthConfig
 from graph_generators.bar_graph import plot_bar_graph
@@ -29,7 +30,7 @@ def create_test_instance_and_plot(nv_bandwidth_struct, configs, graph_file_name,
     add_prefix(combined_data, 'GPU')
 
     # Create bar graph
-    file_name = 'h100_' + graph_file_name if nv_bandwidth_struct.version == TestVersion.V2 else graph_file_name
+    file_name = 'v2_' + graph_file_name if nv_bandwidth_struct.version == TestVersion.V2 else graph_file_name
     plot_bar_graph(combined_data, NvBandwidthGraphConfig, file_name, test_name, nv_bandwidth_struct.version)
 
     # Append results to nv_bandwidth_struct
@@ -50,6 +51,8 @@ def parse_data_from_test_config(test_config, nv_bandwidth_struct):
         
         # Parse the test data from the given file
         test.parse_test_data(nv_bandwidth_struct.org_file, test_config["right_offset"], load_data_matrix_format)
+        if test.data_pandas is None:
+            return None# Didn't find the desired test - just ignore it
 
         # Process data by its format
         if test.data_pandas.shape[0] > 1:
@@ -67,7 +70,6 @@ def parse_data_from_test_config(test_config, nv_bandwidth_struct):
     
     else:
         return None
-        
     
 def combine_data_frame(tests):
     # Filter out None values or empty data_pandas attributes
@@ -94,23 +96,14 @@ def start_bandwidth(file):
 
 
 def plot_nvbandwidth_comparison(bandwidth_struct_list):
-    # For now - we will compare only the first two
-    bandwidth_struct_opt = [bandwidth_struct for bandwidth_struct in bandwidth_struct_list if bandwidth_struct.version == TestVersion.V2]
-    bandwidth_struct_org = [bandwidth_struct for bandwidth_struct in bandwidth_struct_list if bandwidth_struct.version == TestVersion.V1]
+    bandwidth_struct_v1, bandwidth_struct_v2 = get_two_versions(bandwidth_struct_list)
 
-    if len(bandwidth_struct_opt) != 1 or len(bandwidth_struct_org) != 1:
-        print("Error: Expected exactly one opt and one org file")
-        return
+    v2_tests = bandwidth_struct_v2.get_tests()
+    v1_tests = bandwidth_struct_v1.get_tests()
 
-    bandwidth_struct_opt = bandwidth_struct_opt[0]
-    bandwidth_struct_org = bandwidth_struct_org[0]
-
-    opt_tests = bandwidth_struct_opt.get_tests()
-    org_tests = bandwidth_struct_org.get_tests()
-
-    for opt_test in opt_tests:  # Iterate through each test in opt_tests
+    for opt_test in v2_tests:  # Iterate through each test in opt_tests
         # Find a test in org_tests with the same name
-        matching_org_test = next((org_test for org_test in org_tests if org_test.name == opt_test.name), None)
+        matching_org_test = next((org_test for org_test in v1_tests if org_test.name == opt_test.name), None)
 
         if matching_org_test is not None:
             print(f"Comparing opt {opt_test.name} with org {matching_org_test.name}")
@@ -118,8 +111,8 @@ def plot_nvbandwidth_comparison(bandwidth_struct_list):
                 data_v1= matching_org_test.data_pandas,
                 data_v2= opt_test.data_pandas,
                 graph_config= ComparisonGraphConfig,
-                test_name= replace_underscores_with_spaces(f"{opt_test.name} h100 vs a100"),
-                file_name= f"h100_vs_a100_{opt_test.name}")
+                test_name= replace_underscores_with_spaces(f"{opt_test.name} {ComparisonGraphConfig.TITLE}"),
+                file_name= f"{ComparisonGraphConfig.OUTPUT_FILE_PREFIX}{opt_test.name}")
 
         else:
             print(f"Test {opt_test.name} not found in org_tests")

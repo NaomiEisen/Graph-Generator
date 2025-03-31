@@ -1,12 +1,13 @@
 import argparse
 
 from configs.output_dir import set_output_folder
+from data_structures.all_reduce_struct import AllReduce
 from data_structures.device_bw_struct import DeviceBw
 from data_structures.nv_bandwidth_struct import NvBandwidth
 from graph_generators.global_plot_config import set_costume_global_plot_settings
 from test_handlers.bw_gpu import start_bw_gpu, plot_gpu_bandwidth_averege
 from test_handlers.nv_bandwidth import start_bandwidth, plot_nvbandwidth_comparison
-from test_handlers.all_reduce import start_reduce_all
+from test_handlers.all_reduce import start_reduce_all, plot_all_reduce_comparison
 from utils.parse_file import get_files_list
 from utils.parse_file import TestsType, determine_test_type
 
@@ -47,6 +48,12 @@ def plot_comparisons(struct_dict):
     if nvbandwidth:
         # plot opt vs org
         plot_nvbandwidth_comparison(nvbandwidth)
+
+    # Plot comparison for all reduce
+    all_reduce = struct_dict.get(AllReduce)
+    if all_reduce:
+        plot_all_reduce_comparison(all_reduce)
+
 
 
 def main():

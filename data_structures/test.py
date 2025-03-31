@@ -36,7 +36,8 @@ class Test:
             # Call the load_data function with the file and indexes
             self.data_pandas = func(file, start_index, end_index, offset_to_right)
         else:
-            raise Exception("Could not find both start and end indicators in the file.")
+            #raise Exception("Could not find both start and end indicators in the file.")
+            self.data_pandas = None
 
 
     def __str__(self):

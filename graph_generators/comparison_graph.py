@@ -62,8 +62,8 @@ def plot_four_graphs_opt_vs_org(data_org, data_opt, graph_config, file_name, tes
             bar_org = ax[i, j].bar(x_range/2 + graph_config.BAR_WIDTH/2 + 0.01 , data_org.iloc[idx, 0], width=graph_config.BAR_WIDTH,label=data_org.columns[0])
             bar_opt = ax[i, j].bar(x_range/2 - graph_config.BAR_WIDTH/2 - 0.01, data_opt.iloc[idx, 0], width=graph_config.BAR_WIDTH, label=data_opt.columns[0])
 
-            ax[i, j].bar_label(bar_org, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE-4)
-            ax[i, j].bar_label(bar_opt, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE-4)
+            ax[i, j].bar_label(bar_org, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE-2)
+            ax[i, j].bar_label(bar_opt, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE-2)
 
             ax[i, j].set_ylim(y_min, y_max)  # Set the same y-axis range
             ax[i, j].set_title(data_org.index[idx])  # Title as row name
