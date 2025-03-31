@@ -211,162 +211,162 @@ class NvBandwidthConfig:
     # -- memcpy_sm
     H2D_MEMCPY_SM = {
         "name": "host_to_device_memcpy_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running host_to_device_memcpy_sm",
         "end": "SUM host_to_device_memcpy_sm",
-        "group_id": 4
+        "group_id": 24
     }
 
     D2H_MEMCPY_SM = {
         "name": "device_to_host_memcpy_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_to_host_memcpy_sm",
         "end": "SUM device_to_host_memcpy_sm",
-        "group_id": 4
+        "group_id": 25
     }
 
     H2DB_MEMCPY_SM = {
         "name": "host_to_device_bidirectional_memcpy_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running host_to_device_bidirectional_memcpy_sm",
         "end": "SUM host_to_device_bidirectional_memcpy_sm",
-        "group_id": 4
+        "group_id": 26
     }
 
     D2HB_MEMCPY_SM = {
         "name": "device_to_host_bidirectional_memcpy_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_to_host_bidirectional_memcpy_sm",
         "end": "SUM device_to_host_bidirectional_memcpy_sm ",
-        "group_id": 4
+        "group_id": 27
     }
 
     D2D_READ_MEMCPY_SM = {
         "name": "device_to_device_memcpy_read_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_to_device_memcpy_read_sm",
         "end": "SUM device_to_device_memcpy_read_sm",
-        "group_id": 5
+        "group_id": 32
     }
 
     D2D_WRITE_MEMCPY_SM = {
         "name": "device_to_device_memcpy_write_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running device_to_device_memcpy_write_sm",
         "end": "SUM device_to_device_memcpy_write_sm",
-        "group_id": 5
+        "group_id": 32
     }
 
     D2D_READ_BIDIRECT_TOTAL_MEMCPY_SM = {
         "name": "d2d_bidirectional_memcpy_read_sm_total",
-        "activate": False,
+        "activate": True,
         "offset": 3,
         "right_offset": 1,
         "start": "SUM device_to_device_bidirectional_memcpy_read_sm_read2",
         "end": "SUM device_to_device_bidirectional_memcpy_read_sm_total",
-        "group_id": 5
+        "group_id": 32
     }
 
     D2D_WRITE_BIDIRECT_TOTAL_MEMCPY_SM = {
         "name": "d2d_bidirectional_memcpy_write_sm_total",
-        "activate": False,
+        "activate": True,
         "offset": 3,
         "right_offset": 1,
         "start": "SUM device_to_device_bidirectional_memcpy_write_sm_write2",
         "end": "SUM device_to_device_bidirectional_memcpy_write_sm_total",
-        "group_id": 5
+        "group_id": 32
     }
 
     ALL2H_MEMCPY_SM = {
         "name": "all_to_host_memcpy_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_host_memcpy_sm",
         "end": "SUM all_to_host_memcpy_sm",
-        "group_id": 6
+        "group_id": 28
     }
 
     ALL2H_BIDIRECT_MEMCPY_SM = {
         "name": "all_to_host_bidirectional_memcpy_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_host_bidirectional_memcpy_sm",
         "end": "SUM all_to_host_bidirectional_memcpy_sm",
-        "group_id": 6
+        "group_id": 29
     }
 
     H2ALL_MAMCPY_SM = {
         "name": "host_to_all_memcpy_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running host_to_all_memcpy_sm",
         "end": "SUM host_to_all_memcpy_sm",
-        "group_id": 6
+        "group_id": 30
     }
 
     H2ALL_BIDIRECT_MAMCPY_SM = {
         "name": "host_to_all_bidirectional_memcpy_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running host_to_all_bidirectional_memcpy_sm",
         "end": "SUM host_to_all_bidirectional_memcpy_sm",
-        "group_id": 6
+        "group_id": 31
     }
 
     ALL2ONE_WRITE_SM = {
         "name": "all_to_one_write_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_one_write_sm",
         "end": "SUM all_to_one_write_sm",
-        "group_id": 7
+        "group_id": 35
     }
 
     ALL2ONE_READ_SM = {
         "name": "all_to_one_read_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running all_to_one_read_sm",
         "end": "SUM all_to_one_read_sm",
-        "group_id": 7
+        "group_id": 36
     }
 
     ONE2ALL_WRITE_SM = {
         "name": "one_to_all_write_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running one_to_all_write_sm",
         "end": "SUM one_to_all_write_sm",
-        "group_id": 7
+        "group_id": 33
     }
 
     ONE2ALL_READ_SM = {
         "name": "one_to_all_read_sm",
-        "activate": False,
+        "activate": True,
         "offset": 2,
         "right_offset": 1,
         "start": "Running one_to_all_read_sm",
         "end": "SUM one_to_all_read_sm",
-        "group_id": 7
+        "group_id": 34
     }
 
     H_D_LATENCY = {

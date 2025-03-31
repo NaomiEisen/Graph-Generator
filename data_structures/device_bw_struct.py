@@ -5,8 +5,6 @@ class DeviceBw:
         """
         Initializes the NvBandwidth object with the given file and list of tests.
         """
-        # if tests is None:
-        #     tests = []
         self.org_file = org_file
         self.Test = test
 

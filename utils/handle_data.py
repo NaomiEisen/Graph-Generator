@@ -1,7 +1,4 @@
 import pandas as pd
-import os
-
-OUTPUTDIR = "output-graphs-playground"
 
 def load_data_two_column(file_name, start_index=0, end_index=None, right_offset=0):
     try:
@@ -83,30 +80,5 @@ def load_data_matrix_format(file_name, start_index=0, end_index=None, offset_rig
         raise e
     
     
-def get_files_list(args):
-    """
-    Recursively collects all files from directories, including nested ones.
-    If an argument is already a file, it is added as-is.
-    """
-    files = []
-    
-    for file in args:
-        if isinstance(file, str) and os.path.isdir(file):
-            # Walk through all subdirectories and collect files
-            for root, _, filenames in os.walk(file):
-                for f in filenames:
-                    files.append(os.path.join(root, f))
-        else:
-            # If it's already a file, add it directly
-            files.append(file)
 
-    return files
     
-def save_graphs(plt, file_name_without_extension):
-    output_dir = OUTPUTDIR
-    os.makedirs(output_dir, exist_ok=True)
-    output_path = os.path.join(output_dir, f"{file_name_without_extension}_output.jpg")
-
-    #plt.show()
-    plt.savefig(output_path)
-    plt.close()

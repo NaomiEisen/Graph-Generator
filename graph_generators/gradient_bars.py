@@ -6,8 +6,8 @@ from utils.colors import ColorPalette
 def gradient_bars(bars, type = 0):
     grad = np.linspace(0, 1, 256).reshape(-1, 1)
 
-    start_color = ColorPalette.COLOR_THEME_OPT_VS_ORG[type]['start']
-    end_color = ColorPalette.COLOR_THEME_OPT_VS_ORG[type]['end']
+    start_color = ColorPalette.COLOR_THEME_COMPARISON[type]['start']
+    end_color = ColorPalette.COLOR_THEME_COMPARISON[type]['end']
 
     # Convert hex colors to RGB
     start_rgb = np.array([int(start_color[i:i + 2], 16) for i in (1, 3, 5)]) / 255

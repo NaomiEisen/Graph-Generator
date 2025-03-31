@@ -1,7 +1,7 @@
 from matplotlib import pyplot as plt
 
 
-def update_plot_config():
+def set_costume_global_plot_settings():
     plt.rcParams.update({
         # ---------- Figure Settings ----------
         'figure.facecolor': '#1e1e1e',  # Dark background for the figure

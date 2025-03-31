@@ -1,9 +1,9 @@
+import os
 
 class TestsType:
-    NCCL_TYPE = "nccl"
     NV_BANDWIDTH_TYPE = "nvbandwidth"
     GPU_BANDWIDTH_TYPE = "bandwidthtest"
-
+    ALL_REDUCE_TYPE = "nccl"
 
 def determine_test_type(file_path):
     """
@@ -13,8 +13,8 @@ def determine_test_type(file_path):
         with open(file_path, 'r') as file:
             first_line = file.readline().strip().lower()  # Read first line and normalize case
 
-            if TestsType.NCCL_TYPE in first_line:
-                return TestsType.NCCL_TYPE
+            if TestsType.ALL_REDUCE_TYPE in first_line:
+                return TestsType.ALL_REDUCE_TYPE
             elif TestsType.NV_BANDWIDTH_TYPE in first_line:
                 return TestsType.NV_BANDWIDTH_TYPE 
             elif TestsType.GPU_BANDWIDTH_TYPE in first_line:
@@ -48,6 +48,21 @@ def get_test_range(file_path, start_text, end_text, offset=0):
     return None, None  # Return None if range is invalid
 
 
+def get_files_list(args):
+    """
+    Recursively collects all files from directories, including nested ones.
+    If an argument is already a file, it is added as-is.
+    """
+    files = []
 
+    for file in args:
+        if isinstance(file, str) and os.path.isdir(file):
+            # Walk through all subdirectories and collect files
+            for root, _, filenames in os.walk(file):
+                for f in filenames:
+                    files.append(os.path.join(root, f))
+        else:
+            # If it's already a file, add it directly
+            files.append(file)
 
-
+    return files

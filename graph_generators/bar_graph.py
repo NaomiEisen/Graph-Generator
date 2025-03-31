@@ -4,7 +4,7 @@ import numpy as np
 
 from graph_generators.gradient_bars import gradient_bars
 from utils.colors import ColorPalette
-from utils.handle_data import save_graphs
+from utils.general import save_graphs
 
 
 def plot_bar_graph(data, graph_config, file_name, test_name, test_type = 0):
@@ -62,10 +62,8 @@ def plot_four_graphs(data, graph_config, file_name, test_name, test_type = 0):
 
             idx += 1
 
-    # handles, labels = ax[0, 0].get_legend_handles_labels()  # Extract handles and labels
-    # fig.legend(handles, [data.columns[0]], loc="lower left")
     fig.legend(handles=[
-        mpatches.Patch(color=ColorPalette.COLOR_THEME_OPT_VS_ORG[test_type]['start'], label=data.columns[0]),
+        mpatches.Patch(color=ColorPalette.COLOR_THEME_COMPARISON[test_type]['start'], label=data.columns[0]),
     ])
 
     fig.suptitle(test_name, fontsize=graph_config.TITLE_SIZE)

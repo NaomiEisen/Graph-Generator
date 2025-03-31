@@ -1,8 +1,3 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-
-from utils.handle_data import load_data_matrix_format
-
 class Test:
     def __init__(self, name, activate, start_indicator =  None, end_indicator = None, offset = 0, data_pandas=None):
         """
@@ -25,10 +20,14 @@ class Test:
         # Open the file and search for the start and end indicators
         with open(file, 'r') as f:
             lines = f.readlines()
+
+            if self.end_indicator == "":
+                end_index = len(lines)
+
             for i, line in enumerate(lines):
                 if self.start_indicator in line and start_index is None:
                     start_index = i + self.offset_from_start # Apply offset
-                if self.end_indicator in line and start_index is not None:
+                if self.end_indicator in line and start_index is not None and end_index is None:
                     end_index = i
                     break
 

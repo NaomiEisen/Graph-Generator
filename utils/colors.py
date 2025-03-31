@@ -1,5 +1,5 @@
 class ColorPalette:
-    COLOR_THEME_OPT_VS_ORG = {
+    COLOR_THEME_COMPARISON = {
         0: {'start': '#00D4B5', 'end': '#00A8B8'},
         1: {'start': '#ff8633', 'end': '#f6603e'},
 

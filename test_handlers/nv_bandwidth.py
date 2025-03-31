@@ -1,15 +1,16 @@
 import pandas as pd
 
-from graph_generators.opt_vs_org_graph import org_vs_opt_bar_graph_nvbandwidth
-from graphs_config import NvBandwidthGraphConfig, ComparisonGraphConfig
+from configs.comparison_config import ComparisonGraphConfig
+from data_structures.test_verion import TestVersion
+from graph_generators.comparison_graph import comparison_bar_graph_nvbandwidth
+from configs.nvbandwidth_configs.graph_config_nvbandwidth import NvBandwidthGraphConfig
 from data_structures.nv_bandwidth_struct import NvBandwidth
 from data_structures.test import Test
 from test_handlers.test_handlers_utils import groups_all_configs
-from tests_config.tests_config_nvbw import NvBandwidthConfig
+from configs.nvbandwidth_configs.tests_config_nvbw import NvBandwidthConfig
 from graph_generators.bar_graph import plot_bar_graph
 from utils.general import replace_underscores_with_spaces
 from utils.handle_data import load_data_matrix_format
-
 
 
 def create_test_instance_and_plot(nv_bandwidth_struct, configs, graph_file_name, test_name):
@@ -28,8 +29,8 @@ def create_test_instance_and_plot(nv_bandwidth_struct, configs, graph_file_name,
     add_prefix(combined_data, 'GPU')
 
     # Create bar graph
-    file_name = graph_file_name + '_opt' if nv_bandwidth_struct.type == NvBandwidth.TYPE_OPT else graph_file_name
-    plot_bar_graph(combined_data, NvBandwidthGraphConfig, file_name, test_name, nv_bandwidth_struct.type)
+    file_name = 'h100_' + graph_file_name if nv_bandwidth_struct.version == TestVersion.V2 else graph_file_name
+    plot_bar_graph(combined_data, NvBandwidthGraphConfig, file_name, test_name, nv_bandwidth_struct.version)
 
     # Append results to nv_bandwidth_struct
     nv_bandwidth_struct.add_test(Test(name=graph_file_name, activate="true", data_pandas=combined_data))
@@ -77,11 +78,11 @@ def combine_data_frame(tests):
 
 
 def start_bandwidth(file):
-    if 'opt' in file:
-        nv_bandwidth_struct = NvBandwidth(org_file=file, type_file= NvBandwidth.TYPE_OPT)
-        print("found opt file!")
+    # TODO: check only for file name- not the whole path
+    if '2' in file:
+        nv_bandwidth_struct = NvBandwidth(org_file=file, file_version= TestVersion.V2)
     else:
-        nv_bandwidth_struct = NvBandwidth(org_file=file, type_file=NvBandwidth.TYPE_ORG)
+        nv_bandwidth_struct = NvBandwidth(org_file=file, file_version= TestVersion.V1)
 
     grouped_test_configs = groups_all_configs(NvBandwidthConfig)
     for config_group in grouped_test_configs:
@@ -91,10 +92,11 @@ def start_bandwidth(file):
     
     return nv_bandwidth_struct
 
-def plot_opt_vs_org(bandwidth_struct_list):
+
+def plot_nvbandwidth_comparison(bandwidth_struct_list):
     # For now - we will compare only the first two
-    bandwidth_struct_opt = [bandwidth_struct for bandwidth_struct in bandwidth_struct_list if bandwidth_struct.type == NvBandwidth.TYPE_OPT]
-    bandwidth_struct_org = [bandwidth_struct for bandwidth_struct in bandwidth_struct_list if bandwidth_struct.type == NvBandwidth.TYPE_ORG]
+    bandwidth_struct_opt = [bandwidth_struct for bandwidth_struct in bandwidth_struct_list if bandwidth_struct.version == TestVersion.V2]
+    bandwidth_struct_org = [bandwidth_struct for bandwidth_struct in bandwidth_struct_list if bandwidth_struct.version == TestVersion.V1]
 
     if len(bandwidth_struct_opt) != 1 or len(bandwidth_struct_org) != 1:
         print("Error: Expected exactly one opt and one org file")
@@ -112,12 +114,12 @@ def plot_opt_vs_org(bandwidth_struct_list):
 
         if matching_org_test is not None:
             print(f"Comparing opt {opt_test.name} with org {matching_org_test.name}")
-            org_vs_opt_bar_graph_nvbandwidth(
-                data_org= matching_org_test.data_pandas,
-                data_opt= opt_test.data_pandas,
+            comparison_bar_graph_nvbandwidth(
+                data_v1= matching_org_test.data_pandas,
+                data_v2= opt_test.data_pandas,
                 graph_config= ComparisonGraphConfig,
-                test_name= replace_underscores_with_spaces(f"{opt_test.name} opt vs org"),
-                file_name= f"org_vs_opt_{opt_test.name}")
+                test_name= replace_underscores_with_spaces(f"{opt_test.name} h100 vs a100"),
+                file_name= f"h100_vs_a100_{opt_test.name}")
 
         else:
             print(f"Test {opt_test.name} not found in org_tests")
