@@ -7,7 +7,7 @@ from configs.gpu_bandwidth_configs.tests_config_gpu_bw import GpuBwConfig
 from utils.general import get_filename_without_extension, replace_underscores_with_spaces
 from utils.handle_data import load_data_two_column
 
-def plot_gpu_bandwidth_averege(tests):
+def plot_gpu_bandwidth_average(tests):
     # get avg for each col of all the different tests and create new data frame
     avg_df = calculate_avg_of_all_tests(tests)
 
@@ -35,7 +35,7 @@ def create_test_instance_and_plot(bw_struct, configs, final_name):
         return  # Return if there is no data to process
 
     # Append results to nv_bandwidth_struct
-    bw_struct.add_test(Test(name=final_name, activate="true", data_pandas=combined_data))
+    bw_struct.Test = (Test(name=final_name, activate="true", data_pandas=combined_data))
 
     file_name = get_filename_without_extension(bw_struct.org_file)
     graph_title = replace_underscores_with_spaces(file_name)
@@ -55,9 +55,6 @@ def parse_data_from_test_config(test_config, nv_bandwidth_struct):
 
         # Change the name of the second column to 'bandwidth'
         test.data_pandas.columns = [test.data_pandas.columns[0], test_config["name"]] + list(test.data_pandas.columns[2:])
-
-        # Print the result
-        print(test.data_pandas)
 
         return test
     
@@ -87,6 +84,7 @@ def start_bw_gpu(file):
 
     # groups all configs by group id
     grouped_test_configs = groups_all_configs(GpuBwConfig)
+
     for config_group in grouped_test_configs:
         create_test_instance_and_plot(bw_struct, config_group, GpuBwConfig.FILE_NAME)
     

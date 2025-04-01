@@ -1,9 +1,9 @@
-import math
-
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
 
+from utils.set_users_args import get_color_by_version
+from data_structures.test_verion import TestVersion
 from graph_generators.gradient_bars import gradient_bars
 from utils.colors import ColorPalette
 from utils.general import save_graphs
@@ -12,11 +12,11 @@ EXPAND_Y_AXIS = 1.2
 FIG_SIZE_MULTIPLE_SUBGRAPH = (30, 15)
 
 
-def plot_bar_graph(data, graph_config, file_name, test_name, test_type = 0):
+def plot_bar_graph(data, graph_config, file_name, test_name, test_version = TestVersion.V1):
     num_rows, num_columns = data.shape
 
     if num_rows == 4 and num_columns == 1:
-        plot_four_graphs(data, graph_config, file_name, test_name)
+        plot_subgraphs(data, graph_config, file_name, test_name)
         return
 
     fig, ax = plt.subplots()
@@ -26,7 +26,7 @@ def plot_bar_graph(data, graph_config, file_name, test_name, test_type = 0):
     for i, column in enumerate(data.columns):
         bar = ax.bar(i, data[column], width=graph_config.BAR_WIDTH, label=column)
         ax.bar_label(bar, padding=3, fontsize=graph_config.BAR_LABEL_FONT_SIZE)
-        gradient_bars(bar, test_type)
+        gradient_bars(bar, test_version)
 
     ax.set_xticks(x)  # Center ticks at group positions
     plt.xlim(-1, num_columns)
@@ -44,7 +44,7 @@ def plot_bar_graph(data, graph_config, file_name, test_name, test_type = 0):
     save_graphs(plt, file_name)
     plt.close(fig)
 
-def plot_four_graphs(data, graph_config, file_name, test_name, test_type = 0):
+def plot_subgraphs(data, graph_config, file_name, test_name, test_version = TestVersion.V1):
     fig, ax = plt.subplots(2, 2, figsize= FIG_SIZE_MULTIPLE_SUBGRAPH)
     x=[1]
 
@@ -64,16 +64,15 @@ def plot_four_graphs(data, graph_config, file_name, test_name, test_type = 0):
             ax[i, j].set_title(data.index[idx])  # Title as row name
             ax[i,j].set_ylabel(graph_config.Y_AXIS)
             ax[i,j].grid(True)
-            gradient_bars(bar, test_type)
+            gradient_bars(bar, test_version)
 
             idx += 1
 
     fig.legend(handles=[
-        mpatches.Patch(color=ColorPalette.COLOR_THEME_COMPARISON[test_type]['start'], label=data.columns[0]),
+        mpatches.Patch(color=ColorPalette.COLORS_FOR_GRADIENT[get_color_by_version(test_version)]['start'], label=data.columns[0]),
     ])
 
     fig.suptitle(test_name, fontsize=graph_config.TITLE_SIZE)
-
 
     # Save the graph without clipping issues
     save_graphs(plt, file_name)

@@ -7,6 +7,6 @@ def get_two_versions(struct_list):
 
     if len(v1_structs) != 1 or len(v2_structs) != 1:
         print("Error: Expected exactly one opt and one org file")
-        return
+        return None, None
 
     return v1_structs[0], v2_structs[0] # Handling comparison of two tests only
