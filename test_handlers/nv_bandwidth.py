@@ -8,7 +8,7 @@ from data_structures.test import Test
 from test_handlers.handle_comparison import get_two_versions
 from test_handlers.test_handlers_utils import groups_all_configs
 from configs.nvbandwidth_configs.tests_config_nvbw import NvBandwidthConfig
-from graph_generators.bar_graph import plot_bar_graph
+from graph_generators.bar_graph import bar_graph
 from utils.general import replace_underscores_with_spaces
 from utils.handle_data import load_data_matrix_format
 from utils.set_users_args import UserArgs
@@ -52,7 +52,7 @@ def create_test_instance_and_plot(nv_bandwidth_struct, configs, graph_file_name,
 
     # Create bar graph
     file_name = graph_file_name + UserArgs.V2_IDENTIFIER if nv_bandwidth_struct.version == TestVersion.V2 else graph_file_name
-    plot_bar_graph(combined_data, NvBandwidthGraphConfig, file_name, test_name, nv_bandwidth_struct.version)
+    bar_graph(combined_data, NvBandwidthGraphConfig, file_name, test_name, nv_bandwidth_struct.version)
 
     # Append results to nv_bandwidth_struct
     nv_bandwidth_struct.add_test(Test(name=graph_file_name, activate="true", data_pandas=combined_data))

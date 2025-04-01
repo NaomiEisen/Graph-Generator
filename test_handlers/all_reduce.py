@@ -3,7 +3,7 @@ from configs.all_reduce_configs.test_config_all_reduce import AllReduceConfig
 from data_structures.all_reduce_struct import AllReduce
 from data_structures.test import Test
 from data_structures.test_verion import TestVersion
-from graph_generators.comparison_graphs import comparison_line_graph
+from graph_generators.comparison_graphs import comparison_line_subgraphs
 from graph_generators.plot import plot_subplots_line_graph
 from test_handlers.handle_comparison import get_two_versions
 from utils.general import replace_underscores_with_spaces, get_filename_without_extension
@@ -41,7 +41,7 @@ def plot_all_reduce_comparison(all_reduce_struct_list):
     v1_struct, v2_struct = get_two_versions(all_reduce_struct_list)
     print(v1_struct.Test.data_pandas)
     print(v2_struct.Test.data_pandas)
-    comparison_line_graph(
+    comparison_line_subgraphs(
         v1_struct.Test.data_pandas,
         v2_struct.Test.data_pandas,
         AllReduceCompareGraphConfig,
