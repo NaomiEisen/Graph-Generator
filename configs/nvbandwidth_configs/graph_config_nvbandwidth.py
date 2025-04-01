@@ -10,9 +10,9 @@ class NvBandwidthGraphConfig:
     BAR_WIDTH = 0.35
     WIDTH = 30
     HEIGHT = 25
-    COLOR_THEME = ColorPalette.COLOR_THEME_COMPARISON
+    COLOR_THEME = ColorPalette.COLORS_FOR_GRADIENT
 
-    
+
 class NvBandwidthCompareGraphConfig:
     TITLE_SIZE = 50
     TITLE = 'updated xml vs original xml'
@@ -27,4 +27,4 @@ class NvBandwidthCompareGraphConfig:
     BAR_LABEL_FONT_SIZE = 12
 
     OUTPUT_FILE_PREFIX = 'org-xml-vs-upd-xml_'
-    COLOR_THEME = ColorPalette.COLOR_THEME_COMPARISON
+    COLOR_THEME = ColorPalette.COLORS_FOR_GRADIENT

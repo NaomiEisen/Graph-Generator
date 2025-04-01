@@ -1,9 +1,8 @@
 import pandas as pd
 
-from configs.comparison_config import ComparisonGraphConfig
 from data_structures.test_verion import TestVersion
-from graph_generators.comparison_graphs import comparison_bar_graph_nvbandwidth
-from configs.nvbandwidth_configs.graph_config_nvbandwidth import NvBandwidthGraphConfig
+from graph_generators.comparison_graphs import comparison_bar_graph
+from configs.nvbandwidth_configs.graph_config_nvbandwidth import NvBandwidthGraphConfig, NvBandwidthCompareGraphConfig
 from data_structures.nv_bandwidth_struct import NvBandwidth
 from data_structures.test import Test
 from test_handlers.handle_comparison import get_two_versions
@@ -12,7 +11,29 @@ from configs.nvbandwidth_configs.tests_config_nvbw import NvBandwidthConfig
 from graph_generators.bar_graph import plot_bar_graph
 from utils.general import replace_underscores_with_spaces
 from utils.handle_data import load_data_matrix_format
+from utils.set_users_args import UserArgs
 
+
+def plot_nvbandwidth_comparison(bandwidth_struct_list):
+    bandwidth_struct_v1, bandwidth_struct_v2 = get_two_versions(bandwidth_struct_list)
+
+    v2_tests = bandwidth_struct_v2.get_tests()
+    v1_tests = bandwidth_struct_v1.get_tests()
+
+    for v2_test in v2_tests:  # Iterate through each test in opt_tests
+        # Find a test in v1_tests with the same name
+        matching_v1_test = next((v1_test for v1_test in v1_tests if v1_test.name == v2_test.name), None)
+
+        if matching_v1_test is not None:
+            comparison_bar_graph(
+                data_v1= matching_v1_test.data_pandas,
+                data_v2= v2_test.data_pandas,
+                graph_config= NvBandwidthCompareGraphConfig,
+                test_name= replace_underscores_with_spaces(f"{v2_test.name} {NvBandwidthCompareGraphConfig.TITLE}"),
+                file_name= f"{NvBandwidthCompareGraphConfig.OUTPUT_FILE_PREFIX}{v2_test.name}")
+
+        else:
+            print(f"Test {v2_test.name} not found in both of the versions.")
 
 def create_test_instance_and_plot(nv_bandwidth_struct, configs, graph_file_name, test_name):
     """
@@ -30,7 +51,7 @@ def create_test_instance_and_plot(nv_bandwidth_struct, configs, graph_file_name,
     add_prefix(combined_data, 'GPU')
 
     # Create bar graph
-    file_name = 'v2_' + graph_file_name if nv_bandwidth_struct.version == TestVersion.V2 else graph_file_name
+    file_name = graph_file_name + UserArgs.V2_IDENTIFIER if nv_bandwidth_struct.version == TestVersion.V2 else graph_file_name
     plot_bar_graph(combined_data, NvBandwidthGraphConfig, file_name, test_name, nv_bandwidth_struct.version)
 
     # Append results to nv_bandwidth_struct
@@ -80,38 +101,18 @@ def combine_data_frame(tests):
 
 
 def start_bandwidth(file):
-    # TODO: check only for file name- not the whole path
-    if '2' in file:
-        nv_bandwidth_struct = NvBandwidth(org_file=file, file_version= TestVersion.V2)
-    else:
-        nv_bandwidth_struct = NvBandwidth(org_file=file, file_version= TestVersion.V1)
+    nv_bandwidth_struct = NvBandwidth(org_file=file)
 
     grouped_test_configs = groups_all_configs(NvBandwidthConfig)
     for config_group in grouped_test_configs:
-        group_id = config_group[0]['group_id']  # Get group_id from the first config in the group
-        group_info = NvBandwidthConfig.GROUPS_INFO[group_id]  # Lookup group info
-        create_test_instance_and_plot(nv_bandwidth_struct, config_group, group_info["file_name"], group_info["test_name"])
-    
-    return nv_bandwidth_struct
+        config = config_group[0]  # First item in the group
+        group_id = config.get('group_id')  # Returns None if key doesn't exist
 
-
-def plot_nvbandwidth_comparison(bandwidth_struct_list):
-    bandwidth_struct_v1, bandwidth_struct_v2 = get_two_versions(bandwidth_struct_list)
-
-    v2_tests = bandwidth_struct_v2.get_tests()
-    v1_tests = bandwidth_struct_v1.get_tests()
-
-    for v2_test in v2_tests:  # Iterate through each test in opt_tests
-        # Find a test in v1_tests with the same name
-        matching_v1_test = next((v1_test for v1_test in v1_tests if v1_test.name == v2_test.name), None)
-
-        if matching_v1_test is not None:
-            comparison_bar_graph_nvbandwidth(
-                data_v1= matching_v1_test.data_pandas,
-                data_v2= v2_test.data_pandas,
-                graph_config= ComparisonGraphConfig,
-                test_name= replace_underscores_with_spaces(f"{v2_test.name} {ComparisonGraphConfig.TITLE}"),
-                file_name= f"{ComparisonGraphConfig.OUTPUT_FILE_PREFIX}{v2_test.name}")
-
+        if group_id is not None and group_id in NvBandwidthConfig.GROUPS_INFO:
+            group_info = NvBandwidthConfig.GROUPS_INFO[group_id]
+            create_test_instance_and_plot(nv_bandwidth_struct, config_group, group_info["file_name"],
+                                          group_info["test_name"])
         else:
-            print(f"Test {v2_test.name} not found in org_tests")
+            create_test_instance_and_plot(nv_bandwidth_struct, config_group, config["name"], config["name"])
+
+    return nv_bandwidth_struct

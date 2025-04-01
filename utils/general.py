@@ -1,6 +1,6 @@
 import os
 
-from configs.output_dir import get_output_folder
+from utils.set_users_args import get_output_folder
 
 
 def get_filename_without_extension(file_path):

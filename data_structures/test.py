@@ -40,13 +40,6 @@ class Test:
             self.data_pandas = None
 
 
-    def __str__(self):
-        """
-        String representation of the Test object that includes all its attributes. For debug purposes
-        """
-        return f"Test(name={self.name}, activate={self.activate}, start_indicator={self.start_indicator}, " \
-               f"end_indicator={self.end_indicator}, offset={self.offset_from_start}, data_pandas={self.data_pandas})"
-
     @classmethod
     def test_from_config(cls, config: dict, data_pandas=None):
         """
@@ -66,3 +59,12 @@ class Test:
             offset=config["offset"],
             data_pandas=data_pandas
         )
+
+
+    # TODO: maybe delete later
+    def __str__(self):
+        """
+        String representation of the Test object that includes all its attributes. For debug purposes
+        """
+        return f"Test(name={self.name}, activate={self.activate}, start_indicator={self.start_indicator}, " \
+               f"end_indicator={self.end_indicator}, offset={self.offset_from_start}, data_pandas={self.data_pandas})"

@@ -1,9 +1,14 @@
 class ColorPalette:
-    COLOR_THEME_COMPARISON = {
-        0: {'start': '#00D4B5', 'end': '#00A8B8'},
-        1: {'start': '#ff8633', 'end': '#f6603e'},
 
+    COLORS_FOR_GRADIENT = {
+        'turquoise': {'start': '#00D4B5', 'end': '#00A8B8'}, # turquoise
+        'orange': {'start': '#ff8633', 'end': '#f6603e'}, # vibrant orange
+        'purple': {'start': '#A04DFF', 'end': '#7A2EFF'}, # purple
+        'green': {'start': '#33D400', 'end': '#28A800'}, # green
+        'red': {'start': '#FF4D4D', 'end': '#D43030'}, # red
+        'pink': {'start': '#FF86C3', 'end': '#FF5A9E'} # pink
     }
+
     DARK_COLOR_BAR_THEME = [
     "#00D4B5",  # Soft Neon Aqua
     "#E69500",  # Warm Amber

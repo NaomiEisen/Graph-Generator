@@ -1,21 +1,17 @@
-import math
-
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 import numpy as np
 
 from data_structures.test_verion import TestVersion
-from graph_generators.gradient_bars import gradient_bars
-from utils.colors import ColorPalette
+from graph_generators.gradient_bars import gradient_bars, update_legends_colorscheme
 from utils.general import save_graphs
 
 
-def comparison_bar_graph_nvbandwidth(data_v1, data_v2, graph_config, file_name, test_name):
+def comparison_bar_graph(data_v1, data_v2, graph_config, file_name, test_name):
     if list(data_v1.columns) != list(data_v2.columns):
         raise ValueError("data_org and data_opt must have the same columns")
 
     if len(data_v1.columns) == 1:
-        plot_subgraphs(data_v1, data_v2, graph_config, file_name, test_name)
+        comparision_bar_subgraphs(data_v1, data_v2, graph_config, file_name, test_name)
 
     else:
         x = np.arange(len(data_v1.columns))
@@ -43,16 +39,11 @@ def comparison_bar_graph_nvbandwidth(data_v1, data_v2, graph_config, file_name, 
         ax.set_ylim(0, max(data_v1.max().max(), data_v2.max().max()) * 1.2)
         ax.set_xlim(-1, len(data_v1.columns))
 
-        ax.legend(handles = [
-            mpatches.Patch(color=ColorPalette.COLOR_THEME_COMPARISON[TestVersion.V1]['start'], label=graph_config.V1_LEGEND),
-            mpatches.Patch(color=ColorPalette.COLOR_THEME_COMPARISON[TestVersion.V2]['start'], label =graph_config.V2_LEGEND)
-        ])
+        update_legends_colorscheme(fig, graph_config)
 
         save_graphs(plt, file_name)
 
-
-
-def plot_subgraphs(data_org, data_opt, graph_config, file_name, test_name):
+def comparision_bar_subgraphs(data_org, data_opt, graph_config, file_name, test_name):
     fig, ax = plt.subplots(2, 2, figsize=(30,15))
     x_range = 6
 
@@ -83,12 +74,43 @@ def plot_subgraphs(data_org, data_opt, graph_config, file_name, test_name):
 
             idx += 1
 
-    fig.legend(handles=[
-        mpatches.Patch(color=ColorPalette.COLOR_THEME_COMPARISON[TestVersion.V1]['start'], label=graph_config.V1_LEGEND),
-        mpatches.Patch(color=ColorPalette.COLOR_THEME_COMPARISON[TestVersion.V2]['start'], label=graph_config.V2_LEGEND)
-    ])
-    fig.suptitle(test_name, fontsize=graph_config.TITLE_SIZE)
+    update_legends_colorscheme(fig, graph_config)
 
     # Save the graph without clipping issues
     save_graphs(plt, file_name)
     plt.close(fig)
+
+def comparison_line_graph(data_v1, data_v2, graph_config, file_name, number_plots=2):
+    fig, ax = plt.subplots(number_plots, constrained_layout=True)
+
+    # Define X range (min=0, max from first column)
+    x_min, x_max = (0, data_v1.iloc[:, 0].max())
+    x_range = np.linspace(x_min, x_max, num=len(data_v1))  # Generate evenly spaced values
+
+    color_counter = 1
+    for p in range(number_plots):
+        # Loop through Y columns (other than the first one)
+        for i in range(1, data_v1.shape[1]//2+1):
+            y1_axis = data_v1.iloc[:, color_counter]
+            y2_axis = data_v2.iloc[:, color_counter]
+            y1_label = data_v1.columns[i]+graph_config.V1_LEGEND
+            y2_label = data_v2.columns[i]+graph_config.V2_LEGEND
+            color1 = graph_config.COLOR_THEME[color_counter % len(graph_config.COLOR_THEME)]
+            color2 = graph_config.COLOR_THEME[color_counter+1 % len(graph_config.COLOR_THEME)]
+            ax[p].plot(x_range, y1_axis, marker='o', linestyle='-', label=y1_label, color=color1)
+            ax[p].plot(x_range, y2_axis, marker='o', linestyle='-', label=y2_label, color=color2)
+            color_counter += 1
+
+        # Set x-axis limits
+        ax[p].set_xlim(x_min, x_max)
+
+        # Titles and labels
+        ax[p].set_title(graph_config.SUB_PLOT_TITLE[p])
+        ax[p].set_xlabel(graph_config.X_AXIS if graph_config.X_AXIS else data_v1.columns[0])
+        ax[p].set_ylabel(graph_config.Y_AXIS[p])
+        ax[p].legend()
+        ax[p].grid()
+
+    fig.suptitle(graph_config.TITLE, fontsize=graph_config.TITLE_SIZE)
+    # Save the graph
+    save_graphs(plt, file_name)
