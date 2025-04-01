@@ -1,3 +1,5 @@
+import math
+
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
@@ -6,9 +8,13 @@ from graph_generators.gradient_bars import gradient_bars
 from utils.colors import ColorPalette
 from utils.general import save_graphs
 
+EXPAND_Y_AXIS = 1.2
+FIG_SIZE_MULTIPLE_SUBGRAPH = (30, 15)
+
 
 def plot_bar_graph(data, graph_config, file_name, test_name, test_type = 0):
     num_rows, num_columns = data.shape
+
     if num_rows == 4 and num_columns == 1:
         plot_four_graphs(data, graph_config, file_name, test_name)
         return
@@ -27,7 +33,7 @@ def plot_bar_graph(data, graph_config, file_name, test_name, test_type = 0):
     ax.set_xticklabels(data.columns)
 
     # create more space for legend by increasing the y axes range
-    ax.set_ylim(0, max(data.max().max(), data.max().max()) * 1.2)
+    ax.set_ylim(0, max(data.max().max(), data.max().max()) * EXPAND_Y_AXIS)
     ax.set_ylabel(graph_config.Y_AXIS)
     ax.set_title(test_name)
 
@@ -39,7 +45,7 @@ def plot_bar_graph(data, graph_config, file_name, test_name, test_type = 0):
     plt.close(fig)
 
 def plot_four_graphs(data, graph_config, file_name, test_name, test_type = 0):
-    fig, ax = plt.subplots(2, 2, figsize=(30,15))
+    fig, ax = plt.subplots(2, 2, figsize= FIG_SIZE_MULTIPLE_SUBGRAPH)
     x=[1]
 
     # Get global min and max for the y-axis range

@@ -14,8 +14,9 @@ class ColorPalette:
     "#2AAA2A",  # Softer Neon Green (NVIDIA touch)
     "#7628C8",  # Muted Electric Purple
     ]
+
     DARK_COLOR_THEME_MINI = [
         "#E65C00",  # Muted Electric Orange
         "#D81B74",  # Rich Hot Pink
-        "#00D4B5"  # Softer Neon Green
+        "#00D4B5"   # Softer Neon Green
     ]

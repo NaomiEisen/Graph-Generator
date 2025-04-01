@@ -1,7 +1,5 @@
 from utils.colors import ColorPalette
 
-OUTPUT_FOLDER = 'all_reduce_graph'
-
 class ComparisonGraphConfig:
     TITLE_SIZE = 50
     TITLE = 'updated xml vs original xml'

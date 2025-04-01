@@ -3,7 +3,6 @@ from data_structures.test_verion import TestVersion
 
 
 class NvBandwidth:
-
     def __init__(self, org_file: str, tests=None, file_version=TestVersion.V1):
         """
         Initializes the NvBandwidth object with the given file and list of tests.

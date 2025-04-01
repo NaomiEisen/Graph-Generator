@@ -1,12 +1,10 @@
 from data_structures.test import Test
+from data_structures.test_verion import TestVersion
 
 class AllReduce:
-    TYPE_V1 = 0
-    TYPE_V2 = 1
-
-    def __init__(self, org_file: str, test = None, file_version=TYPE_V1):
+    def __init__(self, org_file: str, test = None, file_version=TestVersion.V1):
         """
-        Initializes the NvBandwidth object with the given file and list of tests.
+        Initializes the NvBandwidth object with the given file and optional Test object.
         """
         self.org_file = org_file
         self.Test = test

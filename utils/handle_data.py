@@ -23,6 +23,7 @@ def load_data_two_column(file_name, start_index=0, end_index=None, right_offset=
 
         return data
 
+    # Handle errors
     except FileNotFoundError as e:
         print(f"Error: The file '{file_name}' was not found.")
         raise e
@@ -66,6 +67,7 @@ def load_data_matrix_format(file_name, start_index=0, end_index=None, offset_rig
 
         return data
 
+    # Handle errors
     except FileNotFoundError as e:
         print(f"Error: The file '{file_name}' was not found.")
         raise e

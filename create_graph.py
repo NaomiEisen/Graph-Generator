@@ -19,7 +19,8 @@ def plot_all_files(file_list):
         TestsType.ALL_REDUCE_TYPE: start_reduce_all
     }
 
-    struct_dict = {}  # Organize file test if the corresponding struct when finished
+    # Organize file test if the corresponding struct when finished
+    struct_dict = {}
 
     for file in file_list:
         test_type = determine_test_type(file)
@@ -43,24 +44,23 @@ def plot_all_files(file_list):
     return struct_dict
 
 def plot_comparisons(struct_dict):
-    # Plot comparison for nvbandwidth test
-    nvbandwidth = struct_dict.get(NvBandwidth)
-    if nvbandwidth:
-        # plot opt vs org
-        plot_nvbandwidth_comparison(nvbandwidth)
+    comparison_function_map = {
+        NvBandwidth: plot_nvbandwidth_comparison,
+        AllReduce: plot_all_reduce_comparison
+    }
 
-    # Plot comparison for all reduce
-    all_reduce = struct_dict.get(AllReduce)
-    if all_reduce:
-        plot_all_reduce_comparison(all_reduce)
-
-
+    # Plot comparison graphs for each class in the dict
+    for struct_class, struct_list in struct_dict.items():
+        if struct_class in comparison_function_map:
+            comparison_function_map[struct_class](struct_list)
 
 def main():
     # Parse arguments
     parser = argparse.ArgumentParser(description="Plot data from files.")
-    parser.add_argument("files", nargs='+', help="File names or directories for the input data")
-    parser.add_argument("-o", "--output-dir", default=None, help="Directory to save output plots (optional)")
+    parser.add_argument("files", nargs='+',
+                        help="File names or directories for the input data")
+    parser.add_argument("-o", "--output-dir", default=None,
+                        help="Directory to save output plots (optional)")
 
     args = parser.parse_args()
     files = get_files_list(args.files) # collect the files
@@ -71,8 +71,8 @@ def main():
     if output_dir:
         set_output_folder(output_dir)
 
-    struct_dict = plot_all_files(files)
-    plot_comparisons(struct_dict)
+    tests_structs_dict = plot_all_files(files)
+    plot_comparisons(tests_structs_dict)
 
 if __name__ == "__main__":
     main()

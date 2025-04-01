@@ -2,7 +2,7 @@ import pandas as pd
 
 from configs.comparison_config import ComparisonGraphConfig
 from data_structures.test_verion import TestVersion
-from graph_generators.comparison_graph import comparison_bar_graph_nvbandwidth
+from graph_generators.comparison_graphs import comparison_bar_graph_nvbandwidth
 from configs.nvbandwidth_configs.graph_config_nvbandwidth import NvBandwidthGraphConfig
 from data_structures.nv_bandwidth_struct import NvBandwidth
 from data_structures.test import Test
@@ -101,18 +101,17 @@ def plot_nvbandwidth_comparison(bandwidth_struct_list):
     v2_tests = bandwidth_struct_v2.get_tests()
     v1_tests = bandwidth_struct_v1.get_tests()
 
-    for opt_test in v2_tests:  # Iterate through each test in opt_tests
-        # Find a test in org_tests with the same name
-        matching_org_test = next((org_test for org_test in v1_tests if org_test.name == opt_test.name), None)
+    for v2_test in v2_tests:  # Iterate through each test in opt_tests
+        # Find a test in v1_tests with the same name
+        matching_v1_test = next((v1_test for v1_test in v1_tests if v1_test.name == v2_test.name), None)
 
-        if matching_org_test is not None:
-            print(f"Comparing opt {opt_test.name} with org {matching_org_test.name}")
+        if matching_v1_test is not None:
             comparison_bar_graph_nvbandwidth(
-                data_v1= matching_org_test.data_pandas,
-                data_v2= opt_test.data_pandas,
+                data_v1= matching_v1_test.data_pandas,
+                data_v2= v2_test.data_pandas,
                 graph_config= ComparisonGraphConfig,
-                test_name= replace_underscores_with_spaces(f"{opt_test.name} {ComparisonGraphConfig.TITLE}"),
-                file_name= f"{ComparisonGraphConfig.OUTPUT_FILE_PREFIX}{opt_test.name}")
+                test_name= replace_underscores_with_spaces(f"{v2_test.name} {ComparisonGraphConfig.TITLE}"),
+                file_name= f"{ComparisonGraphConfig.OUTPUT_FILE_PREFIX}{v2_test.name}")
 
         else:
-            print(f"Test {opt_test.name} not found in org_tests")
+            print(f"Test {v2_test.name} not found in org_tests")
