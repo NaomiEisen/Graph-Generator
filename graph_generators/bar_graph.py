@@ -12,11 +12,11 @@ EXPAND_Y_AXIS = 1.2
 FIG_SIZE_MULTIPLE_SUBGRAPH = (30, 15)
 
 
-def plot_bar_graph(data, graph_config, file_name, test_name, test_version = TestVersion.V1):
+def bar_graph(data, graph_config, file_name, test_name, test_version = TestVersion.V1):
     num_rows, num_columns = data.shape
 
     if num_rows == 4 and num_columns == 1:
-        plot_subgraphs(data, graph_config, file_name, test_name)
+        bar_subgraphs(data, graph_config, file_name, test_name)
         return
 
     fig, ax = plt.subplots()
@@ -44,7 +44,7 @@ def plot_bar_graph(data, graph_config, file_name, test_name, test_version = Test
     save_graphs(plt, file_name)
     plt.close(fig)
 
-def plot_subgraphs(data, graph_config, file_name, test_name, test_version = TestVersion.V1):
+def bar_subgraphs(data, graph_config, file_name, test_name, test_version = TestVersion.V1):
     fig, ax = plt.subplots(2, 2, figsize= FIG_SIZE_MULTIPLE_SUBGRAPH)
     x=[1]
 

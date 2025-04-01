@@ -80,7 +80,7 @@ def comparision_bar_subgraphs(data_org, data_opt, graph_config, file_name, test_
     save_graphs(plt, file_name)
     plt.close(fig)
 
-def comparison_line_graph(data_v1, data_v2, graph_config, file_name, number_plots=2):
+def comparison_line_subgraphs(data_v1, data_v2, graph_config, file_name, number_plots=2):
     fig, ax = plt.subplots(number_plots, constrained_layout=True)
 
     # Define X range (min=0, max from first column)
