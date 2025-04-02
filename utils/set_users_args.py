@@ -43,6 +43,7 @@ def get_color_by_version(version):
 
 def determine_version(file_name):
     if UserArgs.V2_IDENTIFIER in file_name:
+        print("Detected v2 file")
         return TestVersion.V2
     else:
         return TestVersion.V1
