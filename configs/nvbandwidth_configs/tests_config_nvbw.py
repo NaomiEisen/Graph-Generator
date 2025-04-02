@@ -15,6 +15,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running host_to_device_memcpy_ce",  
         "end": "SUM host_to_device_memcpy_ce",
+        "group_id": 3
     }
 
     D2H_MEMCPY_CE = {
@@ -24,6 +25,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running device_to_host_memcpy_ce",  
         "end": "SUM device_to_host_memcpy_ce",
+        "group_id": 4
     }
 
     H2DB_MEMCPY_CE = {
@@ -33,6 +35,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running host_to_device_bidirectional_memcpy_ce",  
         "end": "SUM host_to_device_bidirectional_memcpy_ce",
+        "group_id": 5
     }
 
     D2HB_MEMCPY_CE = {
@@ -42,6 +45,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running device_to_host_bidirectional_memcpy_ce",  
         "end": "SUM device_to_host_bidirectional_memcpy_ce ",
+        "group_id": 6
     }
 
     D2D_READ_MEMCPY_CE = {
@@ -93,6 +97,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running all_to_host_memcpy_ce",
         "end": "SUM all_to_host_memcpy_ce",
+        "group_id": 7
     }
 
     ALL2H_BIDIRECT_MEMCPY_CE = {
@@ -102,6 +107,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running all_to_host_bidirectional_memcpy_ce",
         "end": "SUM all_to_host_bidirectional_memcpy_ce",
+        "group_id": 8
     }
 
     H2ALL_MAMCPY_CE = {
@@ -111,6 +117,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running host_to_all_memcpy_ce",
         "end": "SUM host_to_all_memcpy_ce",
+        "group_id": 9
     }
 
     H2ALL_BIDIRECT_MAMCPY_CE = {
@@ -120,6 +127,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running host_to_all_bidirectional_memcpy_ce",
         "end": "SUM host_to_all_bidirectional_memcpy_ce",
+        "group_id": 10
     }
 
     ALL2ONE_WRITE_CE = {
@@ -129,6 +137,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running all_to_one_write_ce",
         "end": "SUM all_to_one_write_ce",
+        "group_id": 11
     }
 
     ALL2ONE_READ_CE = {
@@ -138,6 +147,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running all_to_one_read_ce",
         "end": "SUM all_to_one_read_ce",
+        "group_id": 12
     }
 
     ONE2ALL_WRITE_CE = {
@@ -147,6 +157,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running one_to_all_write_ce",
         "end": "SUM one_to_all_write_ce",
+        "group_id": 13
     }
 
     ONE2ALL_READ_CE = {
@@ -156,6 +167,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running one_to_all_read_ce",
         "end": "SUM one_to_all_read_ce",
+        "group_id": 14
     }
 
     # -- memcpy_sm
@@ -166,6 +178,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running host_to_device_memcpy_sm",
         "end": "SUM host_to_device_memcpy_sm",
+        "group_id": 15
     }
 
     D2H_MEMCPY_SM = {
@@ -175,6 +188,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running device_to_host_memcpy_sm",
         "end": "SUM device_to_host_memcpy_sm",
+        "group_id": 16
     }
 
     H2DB_MEMCPY_SM = {
@@ -184,6 +198,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running host_to_device_bidirectional_memcpy_sm",
         "end": "SUM host_to_device_bidirectional_memcpy_sm",
+        "group_id": 17
     }
 
     D2HB_MEMCPY_SM = {
@@ -193,6 +208,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running device_to_host_bidirectional_memcpy_sm",
         "end": "SUM device_to_host_bidirectional_memcpy_sm ",
+        "group_id": 18
     }
 
     D2D_READ_MEMCPY_SM = {
@@ -242,6 +258,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running all_to_host_memcpy_sm",
         "end": "SUM all_to_host_memcpy_sm",
+        "group_id": 19
     }
 
     ALL2H_BIDIRECT_MEMCPY_SM = {
@@ -251,6 +268,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running all_to_host_bidirectional_memcpy_sm",
         "end": "SUM all_to_host_bidirectional_memcpy_sm",
+        "group_id": 20
     }
 
     H2ALL_MAMCPY_SM = {
@@ -260,6 +278,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running host_to_all_memcpy_sm",
         "end": "SUM host_to_all_memcpy_sm",
+        "group_id": 21
     }
 
     H2ALL_BIDIRECT_MAMCPY_SM = {
@@ -269,6 +288,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running host_to_all_bidirectional_memcpy_sm",
         "end": "SUM host_to_all_bidirectional_memcpy_sm",
+        "group_id": 22
     }
 
     ALL2ONE_WRITE_SM = {
@@ -278,6 +298,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running all_to_one_write_sm",
         "end": "SUM all_to_one_write_sm",
+        "group_id": 23
     }
 
     ALL2ONE_READ_SM = {
@@ -287,6 +308,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running all_to_one_read_sm",
         "end": "SUM all_to_one_read_sm",
+        "group_id": 24
     }
 
     ONE2ALL_WRITE_SM = {
@@ -296,6 +318,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running one_to_all_write_sm",
         "end": "SUM one_to_all_write_sm",
+        "group_id": 25
     }
 
     ONE2ALL_READ_SM = {
@@ -305,6 +328,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running one_to_all_read_sm",
         "end": "SUM one_to_all_read_sm",
+        "group_id": 26
     }
 
     H_D_LATENCY = {
@@ -314,6 +338,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running host_device_latency_sm",
         "end": "SUM host_device_latency_sm",
+        "group_id": 27
     }
 
     D_D_LATENCY = {
@@ -323,6 +348,7 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running device_to_device_latency_sm",
         "end": "SUM device_to_device_latency_sm",
+        "group_id": 28
     }
 
     D_LOCAL_COPY = {
@@ -332,4 +358,5 @@ class NvBandwidthConfig:
         "right_offset": 1,
         "start": "Running device_local_copy",
         "end": "SUM device_local_copy",
+        "group_id": 29
     }

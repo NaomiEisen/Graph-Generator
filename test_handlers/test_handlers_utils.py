@@ -9,6 +9,8 @@ def groups_all_configs(test_config):
         # Ensure it's a dictionary and has 'group_id'
         if isinstance(value, dict) and 'group_id' in value:
             grouped_configs[value['group_id']].append(value)
+        # else:
+        #     grouped_configs[single_counter].append(value)
 
     # Convert to list of lists
     return list(grouped_configs.values())
